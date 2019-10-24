@@ -8,7 +8,13 @@ namespace party
 {
     public class Proceso
     {
-        public DataService DataService { get; set; }
+        protected Configuracion configuracion { get; set; }
+        protected DataService dataService { get; set; }
+        public Proceso(Configuracion configuracion, DataService dataService)
+        {
+            this.configuracion = configuracion;
+            this.dataService = dataService;
+        }
         public (ResultadoCheck, Asistente) GetQR(string qr)
         {
             Asistente asistente = null;
@@ -16,14 +22,14 @@ namespace party
             if (!string.IsNullOrWhiteSpace(qr))
             {
                 result = ResultadoCheck.NoExiste;
-                Invitado invitado = DataService.GetInvitadoByQR(qr);
-                if (invitado != null)
+                Invitado invitado = dataService.GetInvitadoByQR(qr);
+                if (verificarInvitado(invitado))
                 {
-                    asistente = DataService.GetAsistenteByIdInvitado(invitado.Id);
-                    if (asistente == null)
+                    asistente = dataService.GetAsistenteByIdInvitado(invitado.Id);
+                    if (verificarAsistente(asistente))
                     {
                         asistente = new Asistente { InvitadoId = invitado.Id, QRLeido = qr, Entrada = DateTime.Now };
-                        DataService.InsertAsistente(asistente);
+                        dataService.InsertAsistente(asistente);
                         result = ResultadoCheck.Correcto;
                     }
                     else
@@ -36,15 +42,22 @@ namespace party
             return resultComplete;
         }
 
-        internal Configuracion LeerConfiguracion()
+        private bool verificarAsistente(Asistente asistente)
         {
-            Configuracion configuracion = new Configuracion
-            {
-
-                DatabaseName = party.Properties.Settings.Default.DatabaseName,
-                CSVSeparationLetter = party.Properties.Settings.Default.CSVSeparationLetter
-            };
-            return configuracion;
+            return asistente == null;
         }
+        private bool verificarInvitado(Invitado invitado)
+        {
+            bool verificado = false;
+            if (invitado != null)
+            {
+                if (invitado.Evento == configuracion.Evento)
+                {
+                    verificado = true;
+                }
+            }
+            return verificado;
+        }
+      
     }
 }

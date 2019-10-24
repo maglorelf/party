@@ -15,16 +15,42 @@ namespace party
         protected Configuracion configuracion { get; set; }
         protected Proceso proceso { get; set; }
         protected DataService dataService { get; set; }
-        protected  CSVService csvService { get; set; }
+        protected CSVService csvService { get; set; }
         public Asistencia()
         {
             InitializeComponent();
-            proceso = new Proceso();
-            configuracion = proceso.LeerConfiguracion();
+            configuracion = leerConfiguracion();
+            setScreenSettings(configuracion);
             dataService = new DataService(configuracion.DatabaseName);
-            proceso.DataService = dataService;
+            proceso = new Proceso(configuracion,dataService);
             csvService = new CSVService(configuracion.CSVSeparationLetter);
 
+        }
+        private Configuracion leerConfiguracion()
+        {
+            Configuracion configuracion = new Configuracion
+            {
+                DatabaseName = party.Properties.Settings.Default.DatabaseName,
+                CSVSeparationLetter = party.Properties.Settings.Default.CSVSeparationLetter,
+                Evento = party.Properties.Settings.Default.Evento,
+                Titulo = party.Properties.Settings.Default.Titulo,
+                BackgroundImage = party.Properties.Settings.Default.BackgroundImage,
+            };
+            return configuracion;
+        }
+        private void setScreenSettings(Configuracion configuracion)
+        {
+            this.BackgroundImage = loadImage(configuracion.BackgroundImage);
+            this.Text = configuracion.Titulo;
+            this.Evento.Text = configuracion.Evento;
+        }
+
+     
+
+        private Image loadImage(string imagePath)
+        {
+            Image image = Image.FromFile(imagePath);
+            return image;
         }
 
         private void checkQR_Click(object sender, EventArgs e)
@@ -97,7 +123,7 @@ namespace party
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-               
+
                 IList<Invitado> invitadosLeidos = csvService.ReadFileInvitados(openFileDialog.FileName);
                 dataService.LoadInvitados(invitadosLeidos);
 
@@ -112,7 +138,7 @@ namespace party
             saveFileDialog.ShowDialog();
 
             // If the file name is not an empty string open it for saving.
-            if (!string.IsNullOrWhiteSpace (saveFileDialog.FileName))
+            if (!string.IsNullOrWhiteSpace(saveFileDialog.FileName))
             {
                 IList<Asistente> asistentes = dataService.GetAllAsistentes();
                 csvService.WriteCSV(asistentes, saveFileDialog.FileName);

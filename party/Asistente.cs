@@ -16,5 +16,6 @@ namespace party
         public string Apellidos { get; set; }
         public string DNI { get; set; }
         public string Email { get; set; }
+        public string Evento { get; set; }
     }
 }

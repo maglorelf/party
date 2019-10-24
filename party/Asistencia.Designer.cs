@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Asistencia));
             this.QRText = new System.Windows.Forms.TextBox();
             this.CheckQR = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -40,21 +41,24 @@
             this.textosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inicializarTodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelResultado = new System.Windows.Forms.Panel();
+            this.Evento = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // QRText
             // 
-            this.QRText.Location = new System.Drawing.Point(37, 46);
+            this.QRText.Location = new System.Drawing.Point(37, 298);
+            this.QRText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.QRText.Name = "QRText";
             this.QRText.Size = new System.Drawing.Size(304, 20);
             this.QRText.TabIndex = 0;
             // 
             // CheckQR
             // 
-            this.CheckQR.Location = new System.Drawing.Point(347, 46);
+            this.CheckQR.Location = new System.Drawing.Point(347, 298);
+            this.CheckQR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.CheckQR.Name = "CheckQR";
-            this.CheckQR.Size = new System.Drawing.Size(75, 23);
+            this.CheckQR.Size = new System.Drawing.Size(75, 28);
             this.CheckQR.TabIndex = 1;
             this.CheckQR.Text = "Validar";
             this.CheckQR.UseVisualStyleBackColor = true;
@@ -133,23 +137,43 @@
             // 
             // panelResultado
             // 
-            this.panelResultado.Location = new System.Drawing.Point(443, 87);
+            this.panelResultado.Location = new System.Drawing.Point(443, 107);
+            this.panelResultado.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelResultado.Name = "panelResultado";
-            this.panelResultado.Size = new System.Drawing.Size(239, 255);
+            this.panelResultado.Size = new System.Drawing.Size(239, 314);
             this.panelResultado.TabIndex = 3;
+            // 
+            // Evento
+            // 
+            this.Evento.AutoSize = true;
+            this.Evento.BackColor = System.Drawing.Color.Transparent;
+            this.Evento.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Evento.ForeColor = System.Drawing.SystemColors.Window;
+            this.Evento.Location = new System.Drawing.Point(13, 34);
+            this.Evento.Name = "Evento";
+            this.Evento.Size = new System.Drawing.Size(0, 29);
+            this.Evento.TabIndex = 4;
             // 
             // Asistencia
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 554);
+            this.Controls.Add(this.Evento);
             this.Controls.Add(this.panelResultado);
             this.Controls.Add(this.CheckQR);
             this.Controls.Add(this.QRText);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
             this.Name = "Asistencia";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Party";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -171,6 +195,7 @@
         private System.Windows.Forms.ToolStripMenuItem imagenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem textosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inicializarTodoToolStripMenuItem;
+        private System.Windows.Forms.Label Evento;
     }
 }
 

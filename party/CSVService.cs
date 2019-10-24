@@ -33,11 +33,12 @@ namespace party
             var campos = linea.Split(new char[] { Convert.ToChar(CSVSeparationLetter) });
             Invitado invitado = new Invitado
             {
-                Nombre = campos[0],
-                Apellidos = campos[1],
-                Email = campos[2],
-                DNI = campos[3],
-                QR = campos[4]
+                Evento = campos[0],
+                Nombre = campos[1],
+                Apellidos = campos[2],
+                Email = campos[3],
+                DNI = campos[4],
+                QR = campos[5]
             };
             return invitado;
 

@@ -8,5 +8,17 @@
     <Setting Name="CSVSeparationLetter" Type="System.String" Scope="Application">
       <Value Profile="(Default)">|</Value>
     </Setting>
+    <Setting Name="Evento" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">2-City2</Value>
+    </Setting>
+    <Setting Name="Titulo" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Evento Party 25</Value>
+    </Setting>
+    <Setting Name="BackgroundImage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Background.png</Value>
+    </Setting>
+    <Setting Name="IconImage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Icon.png</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

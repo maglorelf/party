@@ -61,11 +61,8 @@ namespace party
                         QRLeido = query.GetString(1),
                         InvitadoId = query.GetInt32(2),
                         Entrada = query.GetDateTime(3)
-
                     };
                 }
-
-
                 db.Close();
             }
 
@@ -86,6 +83,7 @@ namespace party
         {
             String tableCommand = "CREATE TABLE IF NOT " +
                   "EXISTS Invitados (Id INTEGER PRIMARY KEY AUTOINCREMENT , " +
+                  "Evento NVARCHAR(2048) NULL," +
                   "Nombre NVARCHAR(2048) NULL," +
                   "Apellido NVARCHAR(2048) NULL," +
                   "Email NVARCHAR(2048) NULL," +
@@ -129,8 +127,9 @@ namespace party
             insertCommand.Connection = db;
 
             // Use parameterized query to prevent SQL injection attacks
-            insertCommand.CommandText = "INSERT INTO Invitados VALUES (null,@Nombre,@Apellido,@Email,@Dni,@QR);";
+            insertCommand.CommandText = "INSERT INTO Invitados VALUES (null,@Evento,@Nombre,@Apellido,@Email,@Dni,@QR);";
 
+            insertCommand.Parameters.AddWithValue("@Evento", invitado.Evento);
             insertCommand.Parameters.AddWithValue("@Nombre", invitado.Nombre);
             insertCommand.Parameters.AddWithValue("@Apellido", invitado.Apellidos);
             insertCommand.Parameters.AddWithValue("@Email", invitado.Email);
@@ -146,7 +145,7 @@ namespace party
             {
                 db.Open();
 
-                SqliteCommand selectCommand = new SqliteCommand("SELECT Id, Nombre, Apellido, Email, Dni, QR from Invitados where QR=@QR", db);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT Id,Evento, Nombre, Apellido, Email, Dni, QR from Invitados where QR=@QR", db);
                 selectCommand.Parameters.AddWithValue("@QR", qr);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
@@ -156,11 +155,12 @@ namespace party
                     invitado = new Invitado
                     {
                         Id = query.GetInt32(0),
-                        Nombre = query.GetString(1),
-                        Apellidos = query.GetString(2),
-                        Email = query.GetString(3),
-                        DNI = query.GetString(4),
-                        QR = query.GetString(5)
+                        Evento = query.GetString(1),
+                        Nombre = query.GetString(2),
+                        Apellidos = query.GetString(3),
+                        Email = query.GetString(4),
+                        DNI = query.GetString(5),
+                        QR = query.GetString(6)
                     };
                 }
                 db.Close();
@@ -174,7 +174,7 @@ namespace party
             {
                 db.Open();
 
-                SqliteCommand selectCommand = new SqliteCommand("SELECT a.Id, a.Entrada, i.Nombre, i.Apellido, i.Email, i.Dni, i.QR from Asistencia a inner join Invitados i on i.Id = a.InvitadoId ", db);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT a.Id, a.Entrada,i.Evento, i.Nombre, i.Apellido, i.Email, i.Dni, i.QR from Asistencia a inner join Invitados i on i.Id = a.InvitadoId ", db);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
 
@@ -184,11 +184,12 @@ namespace party
                     {
                         Id = query.GetInt32(0),
                         Entrada = query.GetDateTime(1),
-                        Nombre = query.GetString(2),
-                        Apellidos = query.GetString(3),
-                        Email = query.GetString(4),
-                        DNI = query.GetString(5),
-                        QRLeido = query.GetString(6)
+                        Evento = query.GetString(2),
+                        Nombre = query.GetString(3),
+                        Apellidos = query.GetString(4),
+                        Email = query.GetString(5),
+                        DNI = query.GetString(6),
+                        QRLeido = query.GetString(7)
                     };
                     asistentes.Add(asistente);
                 }

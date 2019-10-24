@@ -40,5 +40,41 @@ namespace party.Properties {
                 return ((string)(this["CSVSeparationLetter"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2-City2")]
+        public string Evento {
+            get {
+                return ((string)(this["Evento"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Evento Party 25")]
+        public string Titulo {
+            get {
+                return ((string)(this["Titulo"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Background.png")]
+        public string BackgroundImage {
+            get {
+                return ((string)(this["BackgroundImage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Icon.png")]
+        public string IconImage {
+            get {
+                return ((string)(this["IconImage"]));
+            }
+        }
     }
 }
