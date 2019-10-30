@@ -9,7 +9,7 @@ namespace party
     public enum ResultadoCheck
     { 
         NoExiste,
-        Correcto,
+        PuedeEntrar,
         Registrado,
         NoValue
     }

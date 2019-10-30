@@ -16,14 +16,17 @@ namespace party
         protected Proceso proceso { get; set; }
         protected DataService dataService { get; set; }
         protected CSVService csvService { get; set; }
+        public Invitado InvitadoTemporal { get; private set; }
+
         public Asistencia()
         {
             InitializeComponent();
             configuracion = leerConfiguracion();
             setScreenSettings(configuracion);
             dataService = new DataService(configuracion.DatabaseName);
-            proceso = new Proceso(configuracion,dataService);
+            proceso = new Proceso(configuracion, dataService);
             csvService = new CSVService(configuracion.CSVSeparationLetter);
+            clearPanels();
 
         }
         private Configuracion leerConfiguracion()
@@ -45,7 +48,7 @@ namespace party
             this.Evento.Text = configuracion.Evento;
         }
 
-     
+
 
         private Image loadImage(string imagePath)
         {
@@ -55,25 +58,36 @@ namespace party
 
         private void checkQR_Click(object sender, EventArgs e)
         {
+            clearPanels();
             string qr = getQRValue();
-            (ResultadoCheck, Asistente) resultado = proceso.GetQR(qr);
-            procesar(resultado);
+            (ResultadoCheck, Invitado, Asistente) resultado = proceso.CheckQR(qr);
+            procesar(qr, resultado);
         }
 
-        protected void procesar((ResultadoCheck, Asistente) resultado)
+        private void clearPanels()
+        {
+            panelNoExiste.Visible = false;
+            panelConfirmacionEntrada.Visible = false;
+            this.InvitadoTemporal = null;
+            panelAsistenciaRegistrada.Visible = false;
+
+        }
+
+        protected void procesar(string qr, (ResultadoCheck, Invitado, Asistente) resultado)
         {
             switch (resultado.Item1)
             {
                 case ResultadoCheck.NoExiste:
                     cambiarBackground(Color.Red);
+                    mostrarNoExisteInvitado(qr);
                     break;
-                case ResultadoCheck.Correcto:
+                case ResultadoCheck.PuedeEntrar:
                     cambiarBackground(Color.Green);
-
+                    mostrarInvitado(resultado.Item2);
                     break;
                 case ResultadoCheck.Registrado:
                     cambiarBackground(Color.Orange);
-
+                    mostrarAsistente(resultado.Item3);
                     break;
                 case ResultadoCheck.NoValue:
                     cambiarBackground(Color.Transparent);
@@ -82,11 +96,42 @@ namespace party
                 default:
                     break;
             }
+            clearCode();
+        }
+
+        private void mostrarAsistente(Asistente asistente)
+        {
+            panelAsistenciaRegistrada.Visible = true;
+            AsistenteDatosLabel.Text = $"{asistente.Nombre} {asistente.Apellidos} \n {asistente.DNI} \n {asistente.Email} \n {asistente.Evento} \n {asistente.Entrada}";
+
+        }
+
+        private void mostrarInvitado(Invitado invitado)
+        {
+            panelConfirmacionEntrada.Visible = true;
+            this.InvitadoTemporal = invitado;
+            CheckQR.Enabled = false;
+            buttonNoVerificado.Visible = true;
+            buttonVerificado.Visible = true;
+            InvitadoDatosLabel.Text = $"{invitado.Nombre} {invitado.Apellidos} \n {invitado.DNI} \n {invitado.Email} \n {invitado.Evento}";
+
+        }
+
+        private void mostrarNoExisteInvitado(string qr)
+        {
+            panelNoExiste.Visible = true;
+            QRErrorLabel.Text = qr;
+        }
+
+        private void clearCode()
+        {
+            QRText.Text = string.Empty;
+          
         }
 
         private void cambiarBackground(Color color)
         {
-            panelResultado.BackColor = color;
+          
         }
 
         protected string getQRValue()
@@ -143,6 +188,24 @@ namespace party
                 IList<Asistente> asistentes = dataService.GetAllAsistentes();
                 csvService.WriteCSV(asistentes, saveFileDialog.FileName);
             }
+        }
+
+        private void buttonVerificado_Click(object sender, EventArgs e)
+        {
+            
+            proceso.AceptarInvitado(this.InvitadoTemporal);
+            buttonNoVerificado.Visible = false;
+            buttonVerificado.Visible = false;
+            CheckQR.Enabled = true;
+
+        }
+
+        private void buttonNoVerificado_Click(object sender, EventArgs e)
+        {
+            this.InvitadoTemporal = null;
+            buttonNoVerificado.Visible = false;
+            buttonVerificado.Visible = false;
+            CheckQR.Enabled = true;
         }
     }
 }

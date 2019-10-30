@@ -30,7 +30,7 @@ namespace party
                     {
                         asistente = new Asistente { InvitadoId = invitado.Id, QRLeido = qr, Entrada = DateTime.Now };
                         dataService.InsertAsistente(asistente);
-                        result = ResultadoCheck.Correcto;
+                        result = ResultadoCheck.PuedeEntrar;
                     }
                     else
                     {
@@ -58,6 +58,40 @@ namespace party
             }
             return verificado;
         }
-      
+
+
+        public (ResultadoCheck, Invitado, Asistente) CheckQR(string qr)
+        {
+            Asistente asistente = null;
+            Invitado invitado = null;
+            ResultadoCheck result = ResultadoCheck.NoValue;
+            if (!string.IsNullOrWhiteSpace(qr))
+            {
+                result = ResultadoCheck.NoExiste;
+
+                invitado = dataService.GetInvitadoByQR(qr);
+                if (verificarInvitado(invitado))
+                {
+                    asistente = dataService.GetAsistenteByIdInvitado(invitado.Id);
+                    if (verificarAsistente(asistente))
+                    {
+                        result = ResultadoCheck.PuedeEntrar;
+                    }
+                    else
+                    {
+                        result = ResultadoCheck.Registrado;
+                    }
+                }
+            }
+            (ResultadoCheck, Invitado, Asistente) resultComplete = ((ResultadoCheck)result, invitado, asistente);
+            return resultComplete;
+        }
+
+        internal void AceptarInvitado(Invitado invitado)
+        {
+
+            Asistente asistente = new Asistente { InvitadoId = invitado.Id, QRLeido = string.Empty, Entrada = DateTime.Now };
+            dataService.InsertAsistente(asistente);
+        }
     }
 }
