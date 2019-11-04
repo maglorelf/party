@@ -60,7 +60,7 @@
             // 
             // QRText
             // 
-            this.QRText.Location = new System.Drawing.Point(37, 298);
+            this.QRText.Location = new System.Drawing.Point(19, 88);
             this.QRText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.QRText.Multiline = true;
             this.QRText.Name = "QRText";
@@ -69,7 +69,7 @@
             // 
             // CheckQR
             // 
-            this.CheckQR.Location = new System.Drawing.Point(347, 298);
+            this.CheckQR.Location = new System.Drawing.Point(248, 116);
             this.CheckQR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.CheckQR.Name = "CheckQR";
             this.CheckQR.Size = new System.Drawing.Size(75, 28);
@@ -85,7 +85,7 @@
             this.configuraciónToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1083, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1374, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -167,9 +167,9 @@
             this.panelNoExiste.Controls.Add(this.QRErrorLabel);
             this.panelNoExiste.Controls.Add(this.NoExisteInfoLabel);
             this.panelNoExiste.ForeColor = System.Drawing.SystemColors.Info;
-            this.panelNoExiste.Location = new System.Drawing.Point(487, 220);
+            this.panelNoExiste.Location = new System.Drawing.Point(487, 50);
             this.panelNoExiste.Name = "panelNoExiste";
-            this.panelNoExiste.Size = new System.Drawing.Size(456, 286);
+            this.panelNoExiste.Size = new System.Drawing.Size(700, 400);
             this.panelNoExiste.TabIndex = 6;
             // 
             // QRErrorLabel
@@ -204,9 +204,9 @@
             this.panelConfirmacionEntrada.Controls.Add(this.InvitadoDatosLabel);
             this.panelConfirmacionEntrada.Controls.Add(this.LecturaCorrectaLabel);
             this.panelConfirmacionEntrada.ForeColor = System.Drawing.SystemColors.Info;
-            this.panelConfirmacionEntrada.Location = new System.Drawing.Point(487, 32);
+            this.panelConfirmacionEntrada.Location = new System.Drawing.Point(487, 50);
             this.panelConfirmacionEntrada.Name = "panelConfirmacionEntrada";
-            this.panelConfirmacionEntrada.Size = new System.Drawing.Size(456, 286);
+            this.panelConfirmacionEntrada.Size = new System.Drawing.Size(700, 400);
             this.panelConfirmacionEntrada.TabIndex = 7;
             // 
             // buttonNoVerificado
@@ -263,9 +263,9 @@
             this.panelAsistenciaRegistrada.Controls.Add(this.AsistenteDatosLabel);
             this.panelAsistenciaRegistrada.Controls.Add(this.AsistenteYaRegistradoLabel);
             this.panelAsistenciaRegistrada.ForeColor = System.Drawing.SystemColors.Info;
-            this.panelAsistenciaRegistrada.Location = new System.Drawing.Point(487, 361);
+            this.panelAsistenciaRegistrada.Location = new System.Drawing.Point(487, 50);
             this.panelAsistenciaRegistrada.Name = "panelAsistenciaRegistrada";
-            this.panelAsistenciaRegistrada.Size = new System.Drawing.Size(456, 286);
+            this.panelAsistenciaRegistrada.Size = new System.Drawing.Size(700, 400);
             this.panelAsistenciaRegistrada.TabIndex = 8;
             // 
             // AsistenteDatosLabel
@@ -297,7 +297,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1083, 568);
+            this.ClientSize = new System.Drawing.Size(1374, 568);
             this.Controls.Add(this.panelAsistenciaRegistrada);
             this.Controls.Add(this.panelConfirmacionEntrada);
             this.Controls.Add(this.panelNoExiste);
