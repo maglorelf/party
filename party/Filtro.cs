@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace party
 {
-    public enum ResultadoCheck
-    { 
-        NoExiste,
-        PuedeEntrar,
-        Registrado,
-        NoValue,
-        DatosIncorrectos
+    public class Filtro
+    {
+        public string TextoFiltrado { get; set; }
+        public string CampoFiltrado { get; set; }
     }
 }
