@@ -52,7 +52,11 @@ namespace party
 
         private Image loadImage(string imagePath)
         {
-            Image image = Image.FromFile(imagePath);
+            Image image = null;
+            if (!string.IsNullOrWhiteSpace(imagePath))
+            {
+                image = Image.FromFile(imagePath);
+            }
             return image;
         }
 
@@ -113,7 +117,7 @@ namespace party
             CheckQR.Enabled = false;
             buttonNoVerificado.Visible = true;
             buttonVerificado.Visible = true;
-            InvitadoDatosLabel.Text = $"{invitado.Nombre} {invitado.Apellidos} \n {invitado.DNI} \n {invitado.Email} \n {invitado.Evento}";
+            InvitadoDatosLabel.Text = $"{invitado.Nombre} \n {invitado.DNI} \n {invitado.Email} \n {invitado.Evento} \n {invitado.EventoLocal}";
 
         }
 
@@ -126,12 +130,12 @@ namespace party
         private void clearCode()
         {
             QRText.Text = string.Empty;
-          
+
         }
 
         private void cambiarBackground(Color color)
         {
-          
+
         }
 
         protected string getQRValue()
@@ -192,7 +196,7 @@ namespace party
 
         private void buttonVerificado_Click(object sender, EventArgs e)
         {
-            
+
             proceso.AceptarInvitado(this.InvitadoTemporal);
             buttonNoVerificado.Visible = false;
             buttonVerificado.Visible = false;
