@@ -83,14 +83,17 @@ namespace party
         {
             String tableCommand = "CREATE TABLE IF NOT " +
                   "EXISTS Invitados (Id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                  "Evento NVARCHAR(2048) NULL," +
-                  "Nombre NVARCHAR(2048) NULL," +
-                  "Apellido NVARCHAR(2048) NULL," +
-                  "Email NVARCHAR(2048) NULL," +
-                  "Dni NVARCHAR(2048) NULL," +
-                  "QR NVARCHAR(2048) NULL)";
+                    "Codigo INTEGER NULL," +
+                    "Nombre NVARCHAR(2048) NULL," +
+                    "Evento NVARCHAR(2048) NULL," +
+                    "EventoLocal NVARCHAR(2048) NULL," +
+                    "Extra NVARCHAR(2048) NULL," +
+                    "DNI NVARCHAR(2048) NULL," +
+                    "Email NVARCHAR(2048) COLLATE NOCASE NULL," +
+                    "Oficina NVARCHAR(2048) NULL," +
+                    "Asistencia NVARCHAR(2048) NULL)";
 
-            SqliteCommand createTable = new SqliteCommand(tableCommand, db);
+        SqliteCommand createTable = new SqliteCommand(tableCommand, db);
 
             createTable.ExecuteReader();
         }
@@ -127,26 +130,31 @@ namespace party
             insertCommand.Connection = db;
 
             // Use parameterized query to prevent SQL injection attacks
-            insertCommand.CommandText = "INSERT INTO Invitados VALUES (null,@Evento,@Nombre,@Apellido,@Email,@Dni,@QR);";
+            insertCommand.CommandText = "INSERT INTO Invitados VALUES (null,@Codigo, @Nombre, @Evento, @EventoLocal, @Extra, @DNI, @Email, @Oficina, @Asistencia);";
 
-            insertCommand.Parameters.AddWithValue("@Evento", invitado.Evento);
+            insertCommand.Parameters.AddWithValue("@Codigo", invitado.Codigo);
             insertCommand.Parameters.AddWithValue("@Nombre", invitado.Nombre);
-            insertCommand.Parameters.AddWithValue("@Apellido", invitado.Apellidos);
+            insertCommand.Parameters.AddWithValue("@Evento", invitado.Evento);
+            insertCommand.Parameters.AddWithValue("@EventoLocal", invitado.EventoLocal);
+            insertCommand.Parameters.AddWithValue("@Extra", invitado.Extra);
+            insertCommand.Parameters.AddWithValue("@DNI", invitado.DNI);
             insertCommand.Parameters.AddWithValue("@Email", invitado.Email);
-            insertCommand.Parameters.AddWithValue("@Dni", invitado.DNI);
-            insertCommand.Parameters.AddWithValue("@QR", invitado.QR);
+            insertCommand.Parameters.AddWithValue("@Oficina", invitado.Oficina);
+            insertCommand.Parameters.AddWithValue("@Asistencia", invitado.Asistencia);
 
             insertCommand.ExecuteReader();
         }
-        public Invitado GetInvitadoByQR(string qr)
+     
+        public Invitado GetInvitadoByEmail(string email)
         {
             Invitado invitado = null;
             using (SqliteConnection db = CreateConnection())
             {
                 db.Open();
 
-                SqliteCommand selectCommand = new SqliteCommand("SELECT Id,Evento, Nombre, Apellido, Email, Dni, QR from Invitados where QR=@QR", db);
-                selectCommand.Parameters.AddWithValue("@QR", qr);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT Id," +
+                    "Codigo, Nombre, Evento, EventoLocal, Extra, DNI, Email, Oficina, Asistencia FROM Invitados where Email=@EmailParam", db);
+                selectCommand.Parameters.AddWithValue("@EmailParam", email);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
 
@@ -155,12 +163,15 @@ namespace party
                     invitado = new Invitado
                     {
                         Id = query.GetInt32(0),
-                        Evento = query.GetString(1),
+                        Codigo = query.GetInt32(1),
                         Nombre = query.GetString(2),
-                        Apellidos = query.GetString(3),
-                        Email = query.GetString(4),
-                        DNI = query.GetString(5),
-                        QR = query.GetString(6)
+                        Evento = query.GetString(3),
+                        EventoLocal = query.GetString(4),
+                        Extra = query.GetString(5),
+                        DNI = query.GetString(6),
+                        Email = query.GetString(7),
+                        Oficina = query.GetString(8),
+                        Asistencia = query.GetString(9)
                     };
                 }
                 db.Close();

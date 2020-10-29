@@ -20,7 +20,7 @@ namespace party
         {
             string[] lineas = File.ReadAllLines(filename);
             IList<Invitado> invitados = new List<Invitado>();
-            for (int lineaId = 0; lineaId < lineas.Count(); lineaId++)
+            for (int lineaId = 1; lineaId < lineas.Count(); lineaId++)
             {
                 Invitado invitado = ConvertLineToInvitado(lineas[lineaId]);
                 invitados.Add(invitado);
@@ -33,12 +33,15 @@ namespace party
             var campos = linea.Split(new char[] { Convert.ToChar(CSVSeparationLetter) });
             Invitado invitado = new Invitado
             {
-                Evento = campos[0],
-                Nombre = campos[1],
-                Apellidos = campos[2],
-                Email = campos[3],
-                DNI = campos[4],
-                QR = campos[5]
+                Codigo = Convert.ToInt32(campos[0]),
+                Evento = campos[1],
+                Nombre = campos[6],
+                Asistencia = campos[4],
+                Email = campos[5],
+                Oficina = campos[7],
+                DNI = campos[8],
+                EventoLocal = campos[9],
+                Extra = campos[10]
             };
             return invitado;
 
