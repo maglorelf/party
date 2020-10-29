@@ -21,29 +21,40 @@ namespace party
         public Asistencia()
         {
             InitializeComponent();
+
+            inicializar();
+        }
+        protected void inicializar()
+        {
+
             configuracion = leerConfiguracion();
             setScreenSettings(configuracion);
             dataService = new DataService(configuracion.DatabaseName);
             proceso = new Proceso(configuracion, dataService);
             csvService = new CSVService(configuracion.CSVSeparationLetter);
-            clearPanels();
-
+            clearPanels();           
+            mostrarBaseDatosInfo();
         }
         private Configuracion leerConfiguracion()
         {
             Configuracion configuracion = new Configuracion
             {
-                DatabaseName = party.Properties.Settings.Default.DatabaseName,
-                CSVSeparationLetter = party.Properties.Settings.Default.CSVSeparationLetter,
-                Evento = party.Properties.Settings.Default.Evento,
-                Titulo = party.Properties.Settings.Default.Titulo,
-                BackgroundImage = party.Properties.Settings.Default.BackgroundImage,
+                DatabaseName = SettingsManager.ReadSetting("DatabaseName"),
+                CSVSeparationLetter = SettingsManager.ReadSetting("CSVSeparationLetter"),
+                Evento = SettingsManager.ReadSetting("Evento"),
+                Titulo = SettingsManager.ReadSetting("Titulo"),
+                BackgroundImage = SettingsManager.ReadSetting("BackgroundImage")
             };
+            if (!configuracion.DatabaseName.EndsWith(".db"))
+            {
+                actualizarSettings();
+            }
             return configuracion;
         }
         private void setScreenSettings(Configuracion configuracion)
         {
             this.BackgroundImage = loadImage(configuracion.BackgroundImage);
+            
             this.Text = configuracion.Titulo;
             this.Evento.Text = configuracion.Evento;
         }
@@ -55,7 +66,12 @@ namespace party
             Image image = null;
             if (!string.IsNullOrWhiteSpace(imagePath))
             {
-                image = Image.FromFile(imagePath);
+                try
+                {
+
+                    image = Image.FromFile(imagePath);
+                }
+                catch { }
             }
             return image;
         }
@@ -66,6 +82,7 @@ namespace party
             string qr = getQRValue();
             (ResultadoCheck, Invitado, Asistente) resultado = proceso.CheckQR(qr);
             procesar(qr, resultado);
+            mostrarBaseDatosInfo();
         }
 
         private void clearPanels()
@@ -93,6 +110,10 @@ namespace party
                     cambiarBackground(Color.Orange);
                     mostrarAsistente(resultado.Item3);
                     break;
+                case ResultadoCheck.DatosIncorrectos:
+                    cambiarBackground(Color.Orange);
+                    mostrarInvitadoDatosIncorrectos(resultado.Item2);
+                    break;
                 case ResultadoCheck.NoValue:
                     cambiarBackground(Color.Transparent);
 
@@ -106,21 +127,30 @@ namespace party
         private void mostrarAsistente(Asistente asistente)
         {
             panelAsistenciaRegistrada.Visible = true;
-            AsistenteDatosLabel.Text = $"{asistente.Nombre} {asistente.Apellidos} \n {asistente.DNI} \n {asistente.Email} \n {asistente.Evento} \n {asistente.Entrada}";
+            AsistenteDatosLabel.Text = $"{asistente.Nombre} \n {asistente.DNI} \n {asistente.Email} \n {asistente.Evento} \n {asistente.Entrada}";
 
         }
 
         private void mostrarInvitado(Invitado invitado)
         {
+            labelAsistenteAceptado.Visible = false;
             panelConfirmacionEntrada.Visible = true;
             this.InvitadoTemporal = invitado;
+            this.InvitadoTemporal.QRLeido = getQRValue();
             CheckQR.Enabled = false;
             buttonNoVerificado.Visible = true;
             buttonVerificado.Visible = true;
-            InvitadoDatosLabel.Text = $"{invitado.Nombre} \n {invitado.DNI} \n {invitado.Email} \n {invitado.Evento} \n {invitado.EventoLocal}";
+            InvitadoDatosLabel.Text = $"{invitado.Nombre} \n{invitado.DNI} \n{invitado.Email} \n{invitado.Evento} \n{invitado.EventoLocal}";
 
         }
-
+        private void mostrarInvitadoDatosIncorrectos(Invitado invitado)
+        {
+            labelAsistenteAceptado.Visible = false;
+            panelConfirmacionEntrada.Visible = true;
+            buttonNoVerificado.Visible = false;
+            buttonVerificado.Visible = false;
+            InvitadoDatosLabel.Text = $"Nombre: {invitado.Nombre} \nDNI: {invitado.DNI} \nEmail: {invitado.Email} \nLocal: {invitado.EventoLocal}\nConfirmado: {invitado.Asistencia}\n\nEl invitado no está confirmado para este evento/local. \nSe debe realizar una inserción manual previa comprobación de los datos";
+        }
         private void mostrarNoExisteInvitado(string qr)
         {
             panelNoExiste.Visible = true;
@@ -130,7 +160,6 @@ namespace party
         private void clearCode()
         {
             QRText.Text = string.Empty;
-
         }
 
         private void cambiarBackground(Color color)
@@ -156,7 +185,66 @@ namespace party
             bool confirmado = solicitarConfirmacion("El proceso de inicializar borrará todos los datos de la aplicación sin posibilidad de recuperarlos. ¿Desea continuar?");
             if (confirmado)
             {
+                QRText.Visible = false;
+                CheckQR.Visible = false;
+                panelAsistenciaRegistrada.Visible = false;
+                panelConfirmacionEntrada.Visible = false;
+                panelNoExiste.Visible = false;
                 dataService.InitializeDatabase();
+                QRText.Visible = true;
+                CheckQR.Visible = true;
+            }
+            mostrarBaseDatosInfo();
+        }
+
+        private void mostrarBaseDatosInfo()
+        {
+            string checkDatabase = string.Empty;
+            int cantidadInvitados = 0;
+            int cantidadInvitadosEvento = 0;
+            int cantidadAsistentes = 0;
+
+            try
+            {
+                checkDatabase = dataService.CheckDatabase();
+            }
+            catch { }
+            try
+            {
+                cantidadInvitados = dataService.GetCountInvitados();
+            }
+            catch { }
+            try
+            {
+                cantidadAsistentes = dataService.GetCountAsistentes();
+            }
+            catch { }
+            try
+            {
+                cantidadInvitadosEvento = dataService.GetCountInvitadosEvento(configuracion.Evento);
+            }
+            catch
+            {
+            }
+
+            statusDatabase.Text = $"Base de datos: {checkDatabase}";
+            statusInvitados.Text = $"Invitados: {cantidadInvitados}";
+            statusAsistentes.Text = $" {cantidadAsistentes} asistentes de {cantidadInvitadosEvento}";
+            if (cantidadInvitadosEvento > 0)
+            {
+                processBar.Minimum = 0;
+                processBar.Maximum = cantidadInvitadosEvento;
+                int porcentaje = Convert.ToInt32(100 * cantidadAsistentes / (double)cantidadInvitadosEvento);
+                processBar.ToolTipText = $"{porcentaje}% {statusAsistentes.Text}";
+                if (porcentaje > 100)
+                {
+                    processBar.Value = cantidadInvitadosEvento;
+                    statusAsistentes.BackColor = Color.Red;
+                }
+                else
+                {
+                    processBar.Value = cantidadAsistentes;
+                }
             }
         }
 
@@ -168,15 +256,14 @@ namespace party
 
         private void cargarFicheroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
 
+            OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-
-                IList<Invitado> invitadosLeidos = csvService.ReadFileInvitados(openFileDialog.FileName);
-                dataService.LoadInvitados(invitadosLeidos);
-
+                IList<Invitado> invitadosLeidos = csvService.ReadFileInvitados(openFileDialog.FileName, processBar);
+                dataService.LoadInvitados(invitadosLeidos, processBar);
             }
+            mostrarBaseDatosInfo();
         }
 
         private void descargarAsistenciaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -196,20 +283,91 @@ namespace party
 
         private void buttonVerificado_Click(object sender, EventArgs e)
         {
+            verificarInvitado();
+
+
+        }
+        private void verificarInvitado()
+        {
 
             proceso.AceptarInvitado(this.InvitadoTemporal);
             buttonNoVerificado.Visible = false;
             buttonVerificado.Visible = false;
+            labelAsistenteAceptado.Text = "Asistente aceptado";
+            labelAsistenteAceptado.Visible = true;
             CheckQR.Enabled = true;
-
+            mostrarBaseDatosInfo();
         }
-
-        private void buttonNoVerificado_Click(object sender, EventArgs e)
+        private void noVerificarInvitado()
         {
             this.InvitadoTemporal = null;
             buttonNoVerificado.Visible = false;
             buttonVerificado.Visible = false;
+            labelAsistenteAceptado.Text = "Asistente rechazado";
+            labelAsistenteAceptado.Visible = true;
             CheckQR.Enabled = true;
+
+        }
+        private void buttonNoVerificado_Click(object sender, EventArgs e)
+        {
+            noVerificarInvitado();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (buttonNoVerificado.Visible && buttonVerificado.Visible)
+            {
+
+                if (keyData == (Keys.S))
+                {
+                    verificarInvitado();
+                    return true;
+                }
+                if (keyData == (Keys.N))
+                {
+                    noVerificarInvitado();
+                    return true;
+                }
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void consultarInvitadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListaInvitadosForm formularioLista = new ListaInvitadosForm(dataService, proceso,configuracion);
+            formularioLista.ShowDialog();
+            formularioLista.Dispose();
+            mostrarBaseDatosInfo();
+        }
+
+        private void consultarAsistentesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListaAsistentesForm formularioLista = new ListaAsistentesForm(dataService, proceso);
+            formularioLista.ShowDialog();
+            formularioLista.Dispose();
+            mostrarBaseDatosInfo();
+        }
+
+        private void barcodesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BarcodesConfForm barcodesConfForm = new BarcodesConfForm();
+            barcodesConfForm.ShowDialog();
+            barcodesConfForm.Dispose();
+        }
+
+        private void textosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            actualizarSettings();
+        }
+        protected void actualizarSettings()
+        {
+            SettingsForm settingsForm = new SettingsForm();
+            DialogResult dialogResult = settingsForm.ShowDialog();
+            settingsForm.Dispose();
+            if (dialogResult == DialogResult.OK)
+            {
+                inicializar();
+            }
         }
     }
 }

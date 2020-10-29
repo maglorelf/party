@@ -16,15 +16,18 @@ namespace party
         {
             CSVSeparationLetter = separationLetter;
         }
-        public IList<Invitado> ReadFileInvitados(string filename)
+        public IList<Invitado> ReadFileInvitados(string filename, System.Windows.Forms.ToolStripProgressBar updateProgress)
         {
-            string[] lineas = File.ReadAllLines(filename);
+            string[] lineas = File.ReadAllLines(filename, Encoding.GetEncoding("iso-8859-15"));
+            updateProgress.Value = 0;
             IList<Invitado> invitados = new List<Invitado>();
             for (int lineaId = 1; lineaId < lineas.Count(); lineaId++)
             {
                 Invitado invitado = ConvertLineToInvitado(lineas[lineaId]);
                 invitados.Add(invitado);
+                updateProgress.Value = (100 * lineaId) / lineas.Count();
             }
+            updateProgress.Value = 100;
             return invitados;
         }
 
@@ -35,13 +38,13 @@ namespace party
             {
                 Codigo = Convert.ToInt32(campos[0]),
                 Evento = campos[1],
-                Nombre = campos[6],
-                Asistencia = campos[4],
-                Email = campos[5],
-                Oficina = campos[7],
-                DNI = campos[8],
-                EventoLocal = campos[9],
-                Extra = campos[10]
+                Asistencia = campos[2],
+                EventoLocal = campos[3],
+                Email = campos[4],
+                Nombre = campos[5],
+                Oficina = campos[6],
+                DNI = campos[7],
+                Extra = campos[8]
             };
             return invitado;
 

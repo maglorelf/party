@@ -16,7 +16,6 @@ namespace party
             this.configuracion = configuracion;
             this.dataService = dataService;
         }
-      
 
         private bool verificarAsistente(Asistente asistente)
         {
@@ -27,7 +26,7 @@ namespace party
             bool verificado = false;
             if (invitado != null)
             {
-                if (invitado.EventoLocal == configuracion.Evento)
+                if (invitado.EventoLocal == configuracion.Evento && invitado.IsConfirmado)
                 {
                     verificado = true;
                 }
@@ -44,18 +43,22 @@ namespace party
             if (!string.IsNullOrWhiteSpace(qr))
             {
                 result = ResultadoCheck.NoExiste;
-                string emailInvitado = desglosaQRGetEmail(qr);
+                string emailInvitado = desglosaQRGetEmail(qr);               
                 invitado = dataService.GetInvitadoByEmail(emailInvitado);
-                if (verificarInvitado(invitado))
+                if (invitado != null)
                 {
-                    asistente = dataService.GetAsistenteByIdInvitado(invitado.Id);
-                    if (verificarAsistente(asistente))
+                    result = ResultadoCheck.DatosIncorrectos;
+                    if (verificarInvitado(invitado))
                     {
-                        result = ResultadoCheck.PuedeEntrar;
-                    }
-                    else
-                    {
-                        result = ResultadoCheck.Registrado;
+                        asistente = dataService.GetAsistenteByIdInvitado(invitado.Id);
+                        if (verificarAsistente(asistente))
+                        {
+                            result = ResultadoCheck.PuedeEntrar;
+                        }
+                        else
+                        {
+                            result = ResultadoCheck.Registrado;
+                        }
                     }
                 }
             }
@@ -76,9 +79,13 @@ namespace party
 
         internal void AceptarInvitado(Invitado invitado)
         {
-
-            Asistente asistente = new Asistente { InvitadoId = invitado.Id, QRLeido = string.Empty, Entrada = DateTime.Now };
+            Asistente asistente = new Asistente { InvitadoId = invitado.Id, QRLeido = invitado.QRLeido, Entrada = DateTime.Now };
             dataService.InsertAsistente(asistente);
+        }
+
+        internal void BorrarAsistente(Asistente asistente)
+        {
+            dataService.BorrarAsistente(asistente.Id);
         }
     }
 }
