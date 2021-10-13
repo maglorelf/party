@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+    <None Remove="Background.jpg" />
+    <None Remove="Fonts\OFL.txt" />
+    <None Remove="Icon.ico" />
+    <None Remove="images\barcode1.png" />
+    <None Remove="images\barcode2.png" />
+    <None Remove="runtimes\win-arm\native\e_sqlite3.dll" />
+    <None Remove="runtimes\win-x64\native\e_sqlite3.dll" />
+    <None Remove="runtimes\win-x86\native\e_sqlite3.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json" />
+    <Content Include="Background.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fonts\OFL.txt" />
+    <Content Include="Icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\barcode1.png" />
+    <Content Include="images\barcode2.png" />
+    <Content Include="runtimes\win-arm\native\e_sqlite3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\e_sqlite3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\e_sqlite3.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Asistencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="BarcodesConfForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ListaAsistentesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ListaInvitadosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="NuevoInvitadoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>
