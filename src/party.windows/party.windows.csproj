@@ -43,6 +43,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\party.core.model\party.core.model.csproj" />
+    <ProjectReference Include="..\party.core\party.core.csproj" />
+    <ProjectReference Include="..\party.service.data\party.service.data.csproj" />
+    <ProjectReference Include="..\party.service\party.service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Asistencia.cs">
       <SubType>Form</SubType>
     </Compile>

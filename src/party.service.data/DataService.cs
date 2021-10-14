@@ -1,11 +1,12 @@
 ﻿using Microsoft.Data.Sqlite;
+using party.core.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace party.windows
+namespace party.service.data
 {
     public class DataService
     {
@@ -78,7 +79,7 @@ namespace party.windows
             CreateTableAsistencia(db);
         }
 
-        internal void BorrarAsistente(int id)
+        public void BorrarAsistente(int id)
         {
             using SqliteConnection db = CreateConnection();
             db.Open();
@@ -131,7 +132,7 @@ namespace party.windows
             createTable.ExecuteNonQuery();
         }
 
-        public void LoadInvitados(IList<Invitado> invitadosLeidos, System.Windows.Forms.ToolStripProgressBar updateProgress)
+        public void LoadInvitados(IList<Invitado> invitadosLeidos, IProgress<int> updateProgress)
         {
             using (SqliteConnection db = CreateConnection())
             {
@@ -139,11 +140,11 @@ namespace party.windows
                 for (int idInvitado = 0; idInvitado < invitadosLeidos.Count; idInvitado++)
                 {
                     InsertInvitado(db, invitadosLeidos[idInvitado]);
-                    updateProgress.Value = (100 * idInvitado) / invitadosLeidos.Count;
+                    updateProgress.Report((100 * idInvitado) / invitadosLeidos.Count);
                 }
                 db.Close();
             }
-            updateProgress.Value = 100;
+            updateProgress.Report(100);
         }
         public void InsertInvitadoManual(Invitado invitado)
         {
@@ -189,7 +190,7 @@ namespace party.windows
             db.Close();
 
         }
-        internal int GetCountAsistentes()
+        public int GetCountAsistentes()
         {
             int elementos = 0;
             using (SqliteConnection db = CreateConnection())
@@ -202,7 +203,7 @@ namespace party.windows
             return elementos;
         }
 
-        internal int GetCountInvitados()
+        public int GetCountInvitados()
         {
             int elementos = 0;
             using (SqliteConnection db = CreateConnection())
@@ -214,7 +215,7 @@ namespace party.windows
             }
             return elementos;
         }
-        internal int GetCountInvitadosEvento(string eventoLocal)
+        public int GetCountInvitadosEvento(string eventoLocal)
         {
             int elementos = 0;
             using (SqliteConnection db = CreateConnection())
@@ -227,7 +228,7 @@ namespace party.windows
             }
             return elementos;
         }
-        internal string CheckDatabase()
+        public string CheckDatabase()
         {
             string databaseOk = string.Empty;
             try

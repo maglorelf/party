@@ -1,4 +1,5 @@
-﻿using System;
+﻿using party.core.model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace party.windows
+namespace party.service
 {
     public class CSVService
     {
@@ -16,18 +17,21 @@ namespace party.windows
         {
             CSVSeparationLetter = separationLetter;
         }
-        public IList<Invitado> ReadFileInvitados(string filename, System.Windows.Forms.ToolStripProgressBar updateProgress)
+        public async Task<IList<Invitado>> ReadFileInvitados(string filename, IProgress<int> updateProgress)
         {
-            string[] lineas = File.ReadAllLines(filename, Encoding.GetEncoding("iso-8859-15"));
-            updateProgress.Value = 0;
             IList<Invitado> invitados = new List<Invitado>();
-            for (int lineaId = 1; lineaId < lineas.Length; lineaId++)
+            await Task.Run(() =>
             {
-                Invitado invitado = ConvertLineToInvitado(lineas[lineaId]);
-                invitados.Add(invitado);
-                updateProgress.Value = (100 * lineaId) / lineas.Length;
-            }
-            updateProgress.Value = 100;
+                string[] lineas = File.ReadAllLines(filename, Encoding.GetEncoding("iso-8859-15"));
+                updateProgress.Report(0);
+                for (int lineaId = 1; lineaId < lineas.Length; lineaId++)
+                {
+                    Invitado invitado = ConvertLineToInvitado(lineas[lineaId]);
+                    invitados.Add(invitado);
+                    updateProgress.Report((100 * lineaId) / lineas.Length);
+                }
+                updateProgress.Report(100);
+            });
             return invitados;
         }
 

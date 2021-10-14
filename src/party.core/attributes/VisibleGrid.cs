@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace party.windows
+namespace party.core.attributes
 {
     [System.AttributeUsage(System.AttributeTargets.Property, AllowMultiple = false)]
     public class VisibleGrid : System.Attribute

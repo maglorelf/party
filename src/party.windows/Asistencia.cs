@@ -1,4 +1,7 @@
-﻿using System;
+﻿using party.core.model;
+using party.service;
+using party.service.data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,7 +35,7 @@ namespace party.windows
             DataService = new DataService(Configuracion.DatabaseName);
             Proceso = new Proceso(Configuracion, DataService);
             CsvService = new CSVService(Configuracion.CSVSeparationLetter);
-            ClearPanels();           
+            ClearPanels();
             MostrarBaseDatosInfo();
         }
         private Configuracion LeerConfiguracion()
@@ -54,7 +57,7 @@ namespace party.windows
         private void SetScreenSettings(Configuracion configuracion)
         {
             this.BackgroundImage = LoadImage(configuracion.BackgroundImage);
-            
+
             this.Text = configuracion.Titulo;
             this.Evento.Text = configuracion.Evento;
         }
@@ -157,7 +160,7 @@ namespace party.windows
             QRErrorLabel.Text = qr;
         }
 
-        private void 
+        private void
             ClearCode()
         {
             QRText.Text = string.Empty;
@@ -261,8 +264,10 @@ namespace party.windows
             OpenFileDialog openFileDialog = new();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                IList<Invitado> invitadosLeidos = CsvService.ReadFileInvitados(openFileDialog.FileName, processBar);
-                DataService.LoadInvitados(invitadosLeidos, processBar);
+                Progress<int> progress = new(i => processBar.Value = i);
+                IList<Invitado> invitadosLeidos = CsvService.ReadFileInvitados(openFileDialog.FileName, progress).GetAwaiter().GetResult();
+
+                DataService.LoadInvitados(invitadosLeidos, progress);
             }
             MostrarBaseDatosInfo();
         }
@@ -335,7 +340,7 @@ namespace party.windows
 
         private void ConsultarInvitadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListaInvitadosForm formularioLista = new(DataService, Proceso,Configuracion);
+            ListaInvitadosForm formularioLista = new(DataService, Proceso, Configuracion);
             formularioLista.ShowDialog();
             formularioLista.Dispose();
             MostrarBaseDatosInfo();

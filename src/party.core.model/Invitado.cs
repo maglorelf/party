@@ -1,10 +1,11 @@
-﻿using System;
+﻿using party.core.attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace party.windows
+namespace party.core.model
 {
     public class Invitado
     {
@@ -36,7 +37,7 @@ namespace party.windows
         public string Email { get; set; }
         [VisibleGrid("Oficina Empleado",2)]
         public string Oficina { get; set; }
-        public string QRLeido { get; internal set; }
+        public string QRLeido { get; set; }
         [VisibleGrid("Confirmado",4)]
         public string Asistencia { get; set; }
 
