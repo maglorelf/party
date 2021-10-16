@@ -7,15 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="runtimes\**" />
+    <EmbeddedResource Remove="runtimes\**" />
+    <None Remove="runtimes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="images\Background.jpg" />
     <None Remove="Fonts\OFL.txt" />
     <None Remove="images\Icon.ico" />
     <None Remove="images\barcode1.png" />
     <None Remove="images\barcode2.png" />
-    <None Remove="runtimes\win-arm\native\e_sqlite3.dll" />
-    <None Remove="runtimes\win-x64\native\e_sqlite3.dll" />
-    <None Remove="runtimes\win-x86\native\e_sqlite3.dll" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,13 +32,6 @@
     </Content>
     <Content Include="images\barcode1.png" />
     <Content Include="images\barcode2.png" />
-    <Content Include="runtimes\win-arm\native\e_sqlite3.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="runtimes\win-x64\native\e_sqlite3.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="runtimes\win-x86\native\e_sqlite3.dll" />
   </ItemGroup>
 
   <ItemGroup>
