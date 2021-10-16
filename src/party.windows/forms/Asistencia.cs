@@ -1,4 +1,5 @@
-﻿using party.core.model;
+﻿using party.core.enums;
+using party.core.model;
 using party.service;
 using party.service.data;
 using party.windows.configuration;

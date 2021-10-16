@@ -180,7 +180,7 @@
             // 
             this.Evento.AutoSize = true;
             this.Evento.BackColor = System.Drawing.Color.Transparent;
-            this.Evento.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Evento.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Evento.ForeColor = System.Drawing.SystemColors.Window;
             this.Evento.Location = new System.Drawing.Point(13, 34);
             this.Evento.Name = "Evento";
@@ -202,7 +202,7 @@
             // QRErrorLabel
             // 
             this.QRErrorLabel.AutoSize = true;
-            this.QRErrorLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F);
+            this.QRErrorLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.QRErrorLabel.Location = new System.Drawing.Point(22, 59);
             this.QRErrorLabel.Name = "QRErrorLabel";
             this.QRErrorLabel.Size = new System.Drawing.Size(132, 24);
@@ -215,7 +215,7 @@
             this.NoExisteInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NoExisteInfoLabel.AutoSize = true;
-            this.NoExisteInfoLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F);
+            this.NoExisteInfoLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.NoExisteInfoLabel.Location = new System.Drawing.Point(30, 17);
             this.NoExisteInfoLabel.Name = "NoExisteInfoLabel";
             this.NoExisteInfoLabel.Size = new System.Drawing.Size(490, 29);
@@ -240,7 +240,7 @@
             // buttonNoVerificado
             // 
             this.buttonNoVerificado.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.buttonNoVerificado.Font = new System.Drawing.Font("Trebuchet MS", 14F);
+            this.buttonNoVerificado.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonNoVerificado.Location = new System.Drawing.Point(170, 345);
             this.buttonNoVerificado.Name = "buttonNoVerificado";
             this.buttonNoVerificado.Size = new System.Drawing.Size(209, 39);
@@ -252,7 +252,7 @@
             // buttonVerificado
             // 
             this.buttonVerificado.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.buttonVerificado.Font = new System.Drawing.Font("Trebuchet MS", 14F);
+            this.buttonVerificado.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonVerificado.Location = new System.Drawing.Point(15, 345);
             this.buttonVerificado.Name = "buttonVerificado";
             this.buttonVerificado.Size = new System.Drawing.Size(139, 39);
@@ -264,7 +264,7 @@
             // InvitadoDatosLabel
             // 
             this.InvitadoDatosLabel.AutoSize = true;
-            this.InvitadoDatosLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F);
+            this.InvitadoDatosLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.InvitadoDatosLabel.Location = new System.Drawing.Point(22, 59);
             this.InvitadoDatosLabel.Name = "InvitadoDatosLabel";
             this.InvitadoDatosLabel.Size = new System.Drawing.Size(141, 24);
@@ -277,7 +277,7 @@
             this.LecturaCorrectaLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LecturaCorrectaLabel.AutoSize = true;
-            this.LecturaCorrectaLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F);
+            this.LecturaCorrectaLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LecturaCorrectaLabel.Location = new System.Drawing.Point(30, 17);
             this.LecturaCorrectaLabel.Name = "LecturaCorrectaLabel";
             this.LecturaCorrectaLabel.Size = new System.Drawing.Size(193, 29);
@@ -287,7 +287,7 @@
             // labelAsistenteAceptado
             // 
             this.labelAsistenteAceptado.AutoSize = true;
-            this.labelAsistenteAceptado.Font = new System.Drawing.Font("Trebuchet MS", 14F);
+            this.labelAsistenteAceptado.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelAsistenteAceptado.Location = new System.Drawing.Point(13, 352);
             this.labelAsistenteAceptado.Name = "labelAsistenteAceptado";
             this.labelAsistenteAceptado.Size = new System.Drawing.Size(173, 24);
@@ -310,7 +310,7 @@
             // AsistenteDatosLabel
             // 
             this.AsistenteDatosLabel.AutoSize = true;
-            this.AsistenteDatosLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F);
+            this.AsistenteDatosLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.AsistenteDatosLabel.Location = new System.Drawing.Point(22, 59);
             this.AsistenteDatosLabel.Name = "AsistenteDatosLabel";
             this.AsistenteDatosLabel.Size = new System.Drawing.Size(132, 24);
@@ -323,7 +323,7 @@
             this.AsistenteYaRegistradoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AsistenteYaRegistradoLabel.AutoSize = true;
-            this.AsistenteYaRegistradoLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F);
+            this.AsistenteYaRegistradoLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.AsistenteYaRegistradoLabel.Location = new System.Drawing.Point(30, 17);
             this.AsistenteYaRegistradoLabel.Name = "AsistenteYaRegistradoLabel";
             this.AsistenteYaRegistradoLabel.Size = new System.Drawing.Size(513, 29);
@@ -397,7 +397,7 @@
             this.Controls.Add(this.panelConfirmacionEntrada);
             this.Controls.Add(this.panelNoExiste);
             this.Controls.Add(this.panelAsistenciaRegistrada);
-            this.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

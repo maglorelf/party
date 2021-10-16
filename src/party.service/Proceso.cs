@@ -1,4 +1,5 @@
-﻿using party.core.model;
+﻿using party.core.enums;
+using party.core.model;
 using party.service.data;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace party.windows
+namespace party.service
 {
     public class Proceso
     {
@@ -79,13 +80,13 @@ namespace party.windows
             return emailInvitado;
         }
 
-        internal void AceptarInvitado(Invitado invitado)
+        public void AceptarInvitado(Invitado invitado)
         {
             Asistente asistente = new() { InvitadoId = invitado.Id, QRLeido = invitado.QRLeido, Entrada = DateTime.Now };
             DataService.InsertAsistente(asistente);
         }
 
-        internal void BorrarAsistente(Asistente asistente)
+        public void BorrarAsistente(Asistente asistente)
         {
             DataService.BorrarAsistente(asistente.Id);
         }
