@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace party.windows
+namespace party.windows.components
 {
     public class Filtro
     {

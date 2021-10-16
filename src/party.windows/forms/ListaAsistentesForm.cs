@@ -1,16 +1,15 @@
-﻿
-using party.core.attributes;
+﻿using party.core.attributes;
 using party.core.model;
 using party.core.sorting;
 using party.service;
 using party.service.data;
+using party.windows.components;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Forms;
-
 namespace party.windows.forms
 {
     public partial class ListaAsistentesForm : Form
@@ -30,7 +29,7 @@ namespace party.windows.forms
             InitializeComponent();
             CamposVisibles = ListaCamposVisibles();
             FillComboCampos();
-            FillGrid();          
+            FillGrid();
         }
 
         public void GetAsistentes()
@@ -64,14 +63,14 @@ namespace party.windows.forms
                     column.SortMode = DataGridViewColumnSortMode.Automatic;
                     column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     column.HeaderText = campoMetadata.Item2;
-               //     column.DisplayIndex = campoMetadata.Item3;   
+                    //     column.DisplayIndex = campoMetadata.Item3;   
                 }
                 else
                 {
                     column.Visible = false;
                 }
             }
-         
+
         }
 
         protected static IList<Tuple<string, string, int>> ListaCamposVisibles()
@@ -121,7 +120,7 @@ namespace party.windows.forms
 
         private void RetirarAsistencia_Click(object sender, EventArgs e)
         {
-            Asistente asistente= AsistenteSeleccionado();
+            Asistente asistente = AsistenteSeleccionado();
             if (asistente != null)
             {
                 string mensaje = $"El invitado {asistente.Nombre} con DNI {asistente.DNI}, ¿se cancela la asistencia?";
@@ -143,7 +142,7 @@ namespace party.windows.forms
         }
 
         private void BorrarAsistente(Asistente asistente)
-        {           
+        {
             Proceso.BorrarAsistente(asistente);
             FillGrid();
         }
