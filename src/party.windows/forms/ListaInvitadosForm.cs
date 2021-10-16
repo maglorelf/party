@@ -2,6 +2,7 @@
 using party.core.model;
 using party.core.sorting;
 using party.service.data;
+using party.windows.components;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Forms;
 
-namespace party.windows
+namespace party.windows.forms
 {
     public partial class ListaInvitadosForm : Form
     {

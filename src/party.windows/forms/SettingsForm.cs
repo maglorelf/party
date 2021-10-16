@@ -1,4 +1,5 @@
-﻿using System;
+﻿using party.windows.configuration;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace party.windows
+namespace party.windows.forms
 {
     public partial class SettingsForm : Form
     {

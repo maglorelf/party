@@ -1,6 +1,7 @@
 ﻿using party.core.model;
 using party.service;
 using party.service.data;
+using party.windows.configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace party.windows
+namespace party.windows.forms
 {
     public partial class Asistencia : Form
     {

@@ -50,22 +50,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Asistencia.cs">
+    <Compile Update="forms\Asistencia.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="BarcodesConfForm.cs">
+    <Compile Update="forms\BarcodesConfForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="ListaAsistentesForm.cs">
+    <Compile Update="forms\ListaAsistentesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="ListaInvitadosForm.cs">
+    <Compile Update="forms\ListaInvitadosForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="NuevoInvitadoForm.cs">
+    <Compile Update="forms\NuevoInvitadoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="SettingsForm.cs">
+    <Compile Update="forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

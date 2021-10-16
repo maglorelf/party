@@ -1,4 +1,4 @@
-﻿namespace party.windows
+﻿namespace party.windows.forms
 {
     partial class SettingsForm
     {

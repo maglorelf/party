@@ -10,7 +10,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Forms;
 
-namespace party.windows
+namespace party.windows.forms
 {
     public partial class ListaAsistentesForm : Form
     {

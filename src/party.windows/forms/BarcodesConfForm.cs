@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace party.windows
+namespace party.windows.forms
 {
     public partial class BarcodesConfForm : Form
     {
