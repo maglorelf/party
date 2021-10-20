@@ -27,17 +27,21 @@ namespace party.windows.forms
         {
             InitializeComponent();
 
+
+        }
+        private void Asistencia_Load(object sender, EventArgs e)
+        {
             Inicializar();
         }
         protected void Inicializar()
         {
+            ClearPanels();
 
             Configuracion = LeerConfiguracion();
             SetScreenSettings(Configuracion);
             DataService = new DataService(Configuracion.DatabaseName);
             Proceso = new Proceso(Configuracion, DataService);
             CsvService = new CSVService(Configuracion.CSVSeparationLetter);
-            ClearPanels();
             MostrarBaseDatosInfo();
         }
         private Configuracion LeerConfiguracion()
@@ -53,6 +57,7 @@ namespace party.windows.forms
             if (!configuracion.DatabaseName.EndsWith(".db"))
             {
                 ActualizarSettings();
+                configuracion = Configuracion;
             }
             return configuracion;
         }
@@ -73,7 +78,6 @@ namespace party.windows.forms
             {
                 try
                 {
-
                     image = Image.FromFile(imagePath);
                 }
                 catch { }
@@ -162,15 +166,14 @@ namespace party.windows.forms
             QRErrorLabel.Text = qr;
         }
 
-        private void
-            ClearCode()
+        private void ClearCode()
         {
             QRText.Text = string.Empty;
         }
 
         private static void CambiarBackground(Color color)
         {
-            throw new NotImplementedException($"FunctionNotDeveloped {nameof(color)}");
+            //  throw new NotImplementedException($"FunctionNotDeveloped {nameof(color)}");
         }
 
         protected string GetQRValue()
@@ -377,5 +380,7 @@ namespace party.windows.forms
                 Inicializar();
             }
         }
+
+
     }
 }
