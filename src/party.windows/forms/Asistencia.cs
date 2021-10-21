@@ -36,7 +36,6 @@ namespace party.windows.forms
         protected void Inicializar()
         {
             ClearPanels();
-
             Configuracion = LeerConfiguracion();
             SetScreenSettings(Configuracion);
             DataService = new DataService(Configuracion.DatabaseName);

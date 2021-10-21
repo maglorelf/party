@@ -103,9 +103,9 @@
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cargarFicheroToolStripMenuItem,
             this.descargarAsistenciaToolStripMenuItem,
-            this.salirToolStripMenuItem,
             this.consultarInvitadosToolStripMenuItem,
-            this.consultarAsistentesToolStripMenuItem});
+            this.consultarAsistentesToolStripMenuItem,
+            this.salirToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
@@ -148,8 +148,8 @@
             // configuraciónToolStripMenuItem1
             // 
             this.configuraciónToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.barcodesToolStripMenuItem,
             this.textosToolStripMenuItem,
+            this.barcodesToolStripMenuItem,
             this.inicializarTodoToolStripMenuItem});
             this.configuraciónToolStripMenuItem1.Name = "configuraciónToolStripMenuItem1";
             this.configuraciónToolStripMenuItem1.Size = new System.Drawing.Size(95, 20);
@@ -166,7 +166,7 @@
             // 
             this.textosToolStripMenuItem.Name = "textosToolStripMenuItem";
             this.textosToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.textosToolStripMenuItem.Text = "Evento";
+            this.textosToolStripMenuItem.Text = "Base de datos";
             this.textosToolStripMenuItem.Click += new System.EventHandler(this.TextosToolStripMenuItem_Click);
             // 
             // inicializarTodoToolStripMenuItem
@@ -198,6 +198,7 @@
             this.panelNoExiste.Name = "panelNoExiste";
             this.panelNoExiste.Size = new System.Drawing.Size(700, 400);
             this.panelNoExiste.TabIndex = 6;
+            this.panelNoExiste.Visible = false;
             // 
             // QRErrorLabel
             // 
@@ -236,6 +237,7 @@
             this.panelConfirmacionEntrada.Name = "panelConfirmacionEntrada";
             this.panelConfirmacionEntrada.Size = new System.Drawing.Size(700, 400);
             this.panelConfirmacionEntrada.TabIndex = 7;
+            this.panelConfirmacionEntrada.Visible = false;
             // 
             // buttonNoVerificado
             // 
@@ -306,6 +308,7 @@
             this.panelAsistenciaRegistrada.Name = "panelAsistenciaRegistrada";
             this.panelAsistenciaRegistrada.Size = new System.Drawing.Size(700, 400);
             this.panelAsistenciaRegistrada.TabIndex = 8;
+            this.panelAsistenciaRegistrada.Visible = false;
             // 
             // AsistenteDatosLabel
             // 

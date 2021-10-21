@@ -22,6 +22,29 @@ namespace party.windows.forms
             EventoText.Text = SettingsManager.ReadSetting("Evento");
             SeparadorCSVText.Text = SettingsManager.ReadSetting("CSVSeparationLetter");
             BackgroundText.Text = SettingsManager.ReadSetting("BackgroundImage");
+            UpdateEmptyValues();
+        }
+
+        private void UpdateEmptyValues()
+        {
+            TituloText.PlaceholderText = "Party Events";
+            if (String.IsNullOrWhiteSpace(TituloText.Text))
+            {
+                TituloText.Text = TituloText.PlaceholderText;
+            }
+            EventoText.PlaceholderText = "Event Local 1";
+            if (String.IsNullOrWhiteSpace(EventoText.Text))
+            {
+                EventoText.Text = EventoText.PlaceholderText;
+            }
+            if (String.IsNullOrWhiteSpace(BackgroundText.Text))
+            {
+                BackgroundText.Text = @".\images\Background.jpg";
+            }
+            if (String.IsNullOrWhiteSpace(DatabaseText.Text))
+            {
+                DatabaseText.Text = @".\eventDatabase.db";
+            }
         }
 
         private void ButtonGuardar_Click(object sender, EventArgs e)
