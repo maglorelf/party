@@ -14,9 +14,9 @@ namespace party.windows.forms
 {
     public partial class NuevoInvitadoForm : Form
     {
-        protected DataService DataService { get; set; }
+        protected IDataService DataService { get; set; }
         protected Configuracion Configuracion { get; set; }
-        public NuevoInvitadoForm(DataService dataService, Configuracion configuracion)
+        public NuevoInvitadoForm(IDataService dataService, Configuracion configuracion)
         {
             InitializeComponent();
             this.DataService = dataService;

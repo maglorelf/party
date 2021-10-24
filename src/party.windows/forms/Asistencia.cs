@@ -18,9 +18,9 @@ namespace party.windows.forms
     public partial class Asistencia : Form
     {
         protected Configuracion Configuracion { get; set; }
-        protected Proceso Proceso { get; set; }
-        protected DataService DataService { get; set; }
-        protected CSVService CsvService { get; set; }
+        protected IProceso Proceso { get; set; }
+        protected IDataService DataService { get; set; }
+        protected ICSVService CsvService { get; set; }
         public Invitado InvitadoTemporal { get; private set; }
 
         public Asistencia()

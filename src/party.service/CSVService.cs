@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace party.service
 {
-    public class CSVService
+    public class CSVService : ICSVService
     {
-        public string CSVSeparationLetter { get; set; }
+        protected readonly string CSVSeparationLetter;
 
         public CSVService(string separationLetter)
         {

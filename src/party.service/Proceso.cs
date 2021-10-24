@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace party.service
 {
-    public class Proceso
+    public class Proceso : IProceso
     {
         protected Configuracion Configuracion { get; set; }
-        protected DataService DataService { get; set; }
-        public Proceso(Configuracion configuracion, DataService dataService)
+        protected IDataService DataService { get; set; }
+        public Proceso(Configuracion configuracion, IDataService dataService)
         {
             this.Configuracion = configuracion;
             this.DataService = dataService;
@@ -46,7 +46,7 @@ namespace party.service
             if (!string.IsNullOrWhiteSpace(qr))
             {
                 result = ResultadoCheck.NoExiste;
-                string emailInvitado = DesglosaQRGetEmail(qr);               
+                string emailInvitado = DesglosaQRGetEmail(qr);
                 invitado = DataService.GetInvitadoByEmail(emailInvitado);
                 if (invitado != null)
                 {

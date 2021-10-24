@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace party.service.data
 {
-    public class DataService
+    public class DataService : IDataService
     {
         public bool DatabaseReady { get; set; }
         protected string DatabaseName { get; set; }
