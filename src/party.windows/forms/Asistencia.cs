@@ -1,16 +1,12 @@
-﻿using party.core.enums;
+﻿using Microsoft.Extensions.Options;
+using party.core.enums;
 using party.core.model;
 using party.service;
 using party.service.data;
 using party.windows.configuration;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace party.windows.forms
@@ -22,12 +18,10 @@ namespace party.windows.forms
         protected IDataService DataService { get; set; }
         protected ICSVService CsvService { get; set; }
         public Invitado InvitadoTemporal { get; private set; }
-
-        public Asistencia()
+        public Asistencia(IOptionsSnapshot<Configuracion> configuracion)
         {
+            this.Configuracion = configuracion.Value;
             InitializeComponent();
-
-
         }
         private void Asistencia_Load(object sender, EventArgs e)
         {
@@ -36,29 +30,22 @@ namespace party.windows.forms
         protected void Inicializar()
         {
             ClearPanels();
-            Configuracion = LeerConfiguracion();
-            SetScreenSettings(Configuracion);
-            DataService = new DataService(Configuracion.DatabaseName);
-            Proceso = new Proceso(Configuracion, DataService);
-            CsvService = new CSVService(Configuracion.CSVSeparationLetter);
-            MostrarBaseDatosInfo();
-        }
-        private Configuracion LeerConfiguracion()
-        {
-            Configuracion configuracion = new()
+            UpdateConfiguracion();
+            if (Configuracion != null)
             {
-                DatabaseName = SettingsManager.ReadSetting("DatabaseName"),
-                CSVSeparationLetter = SettingsManager.ReadSetting("CSVSeparationLetter"),
-                Evento = SettingsManager.ReadSetting("Evento"),
-                Titulo = SettingsManager.ReadSetting("Titulo"),
-                BackgroundImage = SettingsManager.ReadSetting("BackgroundImage")
-            };
-            if (!configuracion.DatabaseName.EndsWith(".db"))
+                SetScreenSettings(Configuracion);
+                DataService = new DataService(Configuracion.DatabaseName);
+                Proceso = new Proceso(Configuracion, DataService);
+                CsvService = new CSVService(Configuracion.CSVSeparationLetter);
+                MostrarBaseDatosInfo();
+            }
+        }
+        private void UpdateConfiguracion()
+        {
+            if (!Configuracion.DatabaseName.EndsWith(".db"))
             {
                 ActualizarSettings();
-                configuracion = Configuracion;
             }
-            return configuracion;
         }
         private void SetScreenSettings(Configuracion configuracion)
         {
@@ -177,8 +164,7 @@ namespace party.windows.forms
 
         protected string GetQRValue()
         {
-            string qr;
-            qr = QRText.Text;
+            string qr = QRText.Text;
             return qr;
         }
 
@@ -294,8 +280,6 @@ namespace party.windows.forms
         private void ButtonVerificado_Click(object sender, EventArgs e)
         {
             VerificarInvitado();
-
-
         }
         private void VerificarInvitado()
         {

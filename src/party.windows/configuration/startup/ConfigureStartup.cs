@@ -22,10 +22,11 @@ namespace party.windows.configuration.startup
             IConfiguration configuration = ConfigureSetup();
 
             IHost host = Host.CreateDefaultBuilder()
-                 .ConfigureServices((context, services) => {
+                 .ConfigureServices((context, services) =>
+                 {
                      services.ConfigureServices(configuration);
                  })
-                 
+
                 .Build();
             return host;
         }
@@ -41,9 +42,9 @@ namespace party.windows.configuration.startup
         public static IConfiguration ConfigureSetup()
         {
             var builder = new ConfigurationBuilder();
-        IConfiguration configuration=    builder.SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                    .Build ();
+            IConfiguration configuration = builder.SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                        .Build();
             return configuration;
         }
     }
