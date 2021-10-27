@@ -1,4 +1,5 @@
-﻿using party.core.enums;
+﻿using Microsoft.Extensions.Options;
+using party.core.enums;
 using party.core.model;
 using party.service.data;
 using System;
@@ -14,9 +15,9 @@ namespace party.service
     {
         protected Configuracion Configuracion { get; set; }
         protected IDataService DataService { get; set; }
-        public Proceso(Configuracion configuracion, IDataService dataService)
+        public Proceso(IOptionsSnapshot<Configuracion> configuracion, IDataService dataService)
         {
-            this.Configuracion = configuracion;
+            this.Configuracion = configuracion.Value;
             this.DataService = dataService;
         }
 

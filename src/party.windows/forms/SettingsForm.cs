@@ -1,4 +1,5 @@
-﻿using party.windows.configuration;
+﻿using party.core.model;
+using party.windows.configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,19 +15,24 @@ namespace party.windows.forms
 {
     public partial class SettingsForm : Form
     {
-        public SettingsForm()
+        private readonly Configuracion configuracion;
+
+        public SettingsForm(core.model.Configuracion configuracion)
         {
+            this.configuracion = configuracion;
             InitializeComponent();
-            TituloText.Text = SettingsManager.ReadSetting("Titulo");
-            DatabaseText.Text = SettingsManager.ReadSetting("DatabaseName");
-            EventoText.Text = SettingsManager.ReadSetting("Evento");
-            SeparadorCSVText.Text = SettingsManager.ReadSetting("CSVSeparationLetter");
-            BackgroundText.Text = SettingsManager.ReadSetting("BackgroundImage");
-            UpdateEmptyValues();
+
+            UpdateFields();
         }
 
-        private void UpdateEmptyValues()
+        private void UpdateFields()
         {
+            TituloText.Text = configuracion.Titulo;
+            _ = SettingsManager.ReadSetting("Titulo");
+            DatabaseText.Text = configuracion.DatabaseName;
+            EventoText.Text = configuracion.Evento;
+            SeparadorCSVText.Text = configuracion.CSVSeparationLetter;
+            BackgroundText.Text = configuracion.BackgroundImage;
             //TituloText.PlaceholderText = "Party Events";
             //if (String.IsNullOrWhiteSpace(TituloText.Text))
             //{
@@ -48,13 +54,14 @@ namespace party.windows.forms
         }
 
         private void ButtonGuardar_Click(object sender, EventArgs e)
-        {
-            SettingsManager.AddUpdateAppSettings("Titulo", TituloText.Text);
-            SettingsManager.AddUpdateAppSettings("DatabaseName", DatabaseText.Text);
-            SettingsManager.AddUpdateAppSettings("Evento", EventoText.Text);
-            SettingsManager.AddUpdateAppSettings("CSVSeparationLetter", SeparadorCSVText.Text);
-            SettingsManager.AddUpdateAppSettings("BackgroundImage", BackgroundText.Text);
-
+        {            
+            Configuracion configuracion = new();
+            configuracion.Titulo = TituloText.Text;
+            configuracion.DatabaseName = DatabaseText.Text;
+            configuracion.Evento = EventoText.Text;
+            configuracion.CSVSeparationLetter = SeparadorCSVText.Text;
+            configuracion.BackgroundImage = BackgroundText.Text;
+            SettingsManager.SaveConfiguration(configuracion);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

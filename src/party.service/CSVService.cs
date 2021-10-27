@@ -1,4 +1,5 @@
-﻿using party.core.model;
+﻿using Microsoft.Extensions.Options;
+using party.core.model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,9 +14,9 @@ namespace party.service
     {
         protected readonly string CSVSeparationLetter;
 
-        public CSVService(string separationLetter)
+        public CSVService(IOptionsSnapshot<Configuracion> configuracion)
         {
-            CSVSeparationLetter = separationLetter;
+            CSVSeparationLetter = configuracion.Value.CSVSeparationLetter;
         }
         public async Task<IList<Invitado>> ReadFileInvitados(string filename, IProgress<int> updateProgress)
         {

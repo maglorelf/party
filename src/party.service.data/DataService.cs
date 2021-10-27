@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Options;
 using party.core.model;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ namespace party.service.data
     {
         public bool DatabaseReady { get; set; }
         protected string DatabaseName { get; set; }
-        public DataService(string databaseName)
+        public DataService(IOptionsSnapshot<Configuracion> configuracion)
         {
-            this.DatabaseName = databaseName;
+            this.DatabaseName = configuracion.Value.DatabaseName ;
             DatabaseReady = false;
         }
 

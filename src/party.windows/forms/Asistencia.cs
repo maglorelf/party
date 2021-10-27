@@ -14,13 +14,16 @@ namespace party.windows.forms
     public partial class Asistencia : Form
     {
         protected Configuracion Configuracion { get; set; }
-        protected IProceso Proceso { get; set; }
-        protected IDataService DataService { get; set; }
-        protected ICSVService CsvService { get; set; }
+        protected IProceso Proceso { get; private set; }
+        protected IDataService DataService { get; private set; }
+        protected ICSVService CsvService { get; private set; }
         public Invitado InvitadoTemporal { get; private set; }
-        public Asistencia(IOptionsSnapshot<Configuracion> configuracion)
+        public Asistencia(IOptionsSnapshot<Configuracion> configuracion, IProceso proceso, ICSVService csvService, IDataService dataService)
         {
             this.Configuracion = configuracion.Value;
+            this.Proceso = proceso;
+            this.CsvService = csvService;
+            this.DataService = dataService;
             InitializeComponent();
         }
         private void Asistencia_Load(object sender, EventArgs e)
@@ -33,10 +36,7 @@ namespace party.windows.forms
             UpdateConfiguracion();
             if (Configuracion != null)
             {
-                SetScreenSettings(Configuracion);
-                DataService = new DataService(Configuracion.DatabaseName);
-                Proceso = new Proceso(Configuracion, DataService);
-                CsvService = new CSVService(Configuracion.CSVSeparationLetter);
+                SetScreenSettings(Configuracion);               
                 MostrarBaseDatosInfo();
             }
         }
@@ -355,7 +355,7 @@ namespace party.windows.forms
         }
         protected void ActualizarSettings()
         {
-            SettingsForm settingsForm = new();
+            SettingsForm settingsForm = new(Configuracion);
             DialogResult dialogResult = settingsForm.ShowDialog();
             settingsForm.Dispose();
             if (dialogResult == DialogResult.OK)
