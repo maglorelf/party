@@ -13,14 +13,15 @@ namespace party.windows.forms
 {
     public partial class Asistencia : Form
     {
-        protected Configuracion Configuracion { get; set; }
+        protected IOptionsMonitor<Configuracion> Configuracion { get; set; }
         protected IProceso Proceso { get; private set; }
         protected IDataService DataService { get; private set; }
         protected ICSVService CsvService { get; private set; }
         public Invitado InvitadoTemporal { get; private set; }
-        public Asistencia(IOptionsSnapshot<Configuracion> configuracion, IProceso proceso, ICSVService csvService, IDataService dataService)
+        public Asistencia(IOptionsMonitor<Configuracion> configuracion, IProceso proceso, ICSVService csvService, IDataService dataService)
         {
-            this.Configuracion = configuracion.Value;
+            this.Configuracion = configuracion;
+            this.Configuracion.OnChange(conf => Inicializar());
             this.Proceso = proceso;
             this.CsvService = csvService;
             this.DataService = dataService;
@@ -36,23 +37,23 @@ namespace party.windows.forms
             UpdateConfiguracion();
             if (Configuracion != null)
             {
-                SetScreenSettings(Configuracion);               
+                SetScreenSettings(Configuracion.CurrentValue);
                 MostrarBaseDatosInfo();
             }
         }
         private void UpdateConfiguracion()
         {
-            if (!Configuracion.DatabaseName.EndsWith(".db"))
+            if (!Configuracion.CurrentValue.DatabaseName.EndsWith(".db"))
             {
                 ActualizarSettings();
             }
         }
         private void SetScreenSettings(Configuracion configuracion)
         {
-            this.BackgroundImage = LoadImage(configuracion.BackgroundImage);
+            this.BackgroundImage = LoadImage(configuracion.BackgroundImage);            
+            this.Invoke(new Action(() => this.Text = configuracion.Titulo));
+            Evento.Invoke(new Action(() => Evento.Text = configuracion.Evento));
 
-            this.Text = configuracion.Titulo;
-            this.Evento.Text = configuracion.Evento;
         }
 
 
@@ -215,7 +216,7 @@ namespace party.windows.forms
             catch { }
             try
             {
-                cantidadInvitadosEvento = DataService.GetCountInvitadosEvento(Configuracion.Evento);
+                cantidadInvitadosEvento = DataService.GetCountInvitadosEvento(Configuracion.CurrentValue.Evento);
             }
             catch
             {
@@ -328,7 +329,7 @@ namespace party.windows.forms
 
         private void ConsultarInvitadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListaInvitadosForm formularioLista = new(DataService, Proceso, Configuracion);
+            ListaInvitadosForm formularioLista = new(DataService, Proceso, Configuracion.CurrentValue);
             formularioLista.ShowDialog();
             formularioLista.Dispose();
             MostrarBaseDatosInfo();
@@ -355,12 +356,12 @@ namespace party.windows.forms
         }
         protected void ActualizarSettings()
         {
-            SettingsForm settingsForm = new(Configuracion);
+            SettingsForm settingsForm = new(Configuracion.CurrentValue);
             DialogResult dialogResult = settingsForm.ShowDialog();
             settingsForm.Dispose();
             if (dialogResult == DialogResult.OK)
             {
-                Inicializar();
+                //Inicializar();
             }
         }
 

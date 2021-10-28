@@ -12,11 +12,12 @@ namespace party.service
 {
     public class CSVService : ICSVService
     {
-        protected readonly string CSVSeparationLetter;
+        private readonly IOptionsMonitor<Configuracion> configuracion;
+        protected string CSVSeparationLetter => configuracion.CurrentValue.CSVSeparationLetter;
 
-        public CSVService(IOptionsSnapshot<Configuracion> configuracion)
+        public CSVService(IOptionsMonitor<Configuracion> configuracion)
         {
-            CSVSeparationLetter = configuracion.Value.CSVSeparationLetter;
+            this.configuracion = configuracion;
         }
         public async Task<IList<Invitado>> ReadFileInvitados(string filename, IProgress<int> updateProgress)
         {

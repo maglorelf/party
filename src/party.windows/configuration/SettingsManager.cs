@@ -53,6 +53,22 @@ namespace party.windows.configuration
             }
             return dict;
         }
+        public static void SetAppSettingConfiguracionValues(Configuracion value, string appSettingsJsonFilePath = null)
+        {
+            if (appSettingsJsonFilePath == null)
+            {
+                appSettingsJsonFilePath = System.IO.Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
+            }
+
+            var json = System.IO.File.ReadAllText(appSettingsJsonFilePath);
+            AppSettings jsonObj = JsonSerializer.Deserialize<AppSettings>(json);
+
+            //       jsonObj[key] = value;
+            jsonObj.SettingsApp = value;
+            string output = JsonSerializer.Serialize(jsonObj, new JsonSerializerOptions { WriteIndented = true });
+
+            System.IO.File.WriteAllText(appSettingsJsonFilePath, output);
+        }
         public static void SetAppSettingValue(string key, string value, string appSettingsJsonFilePath = null)
         {
             if (appSettingsJsonFilePath == null)
@@ -61,7 +77,7 @@ namespace party.windows.configuration
             }
 
             var json = System.IO.File.ReadAllText(appSettingsJsonFilePath);
-            Configuracion jsonObj = JsonSerializer.Deserialize<Configuracion>(json);
+            AppSettings jsonObj = JsonSerializer.Deserialize<AppSettings>(json);
 
      //       jsonObj[key] = value;
 

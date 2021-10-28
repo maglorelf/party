@@ -28,7 +28,7 @@ namespace party.windows.forms
         private void UpdateFields()
         {
             TituloText.Text = configuracion.Titulo;
-            _ = SettingsManager.ReadSetting("Titulo");
+   
             DatabaseText.Text = configuracion.DatabaseName;
             EventoText.Text = configuracion.Evento;
             SeparadorCSVText.Text = configuracion.CSVSeparationLetter;
@@ -61,7 +61,7 @@ namespace party.windows.forms
             configuracion.Evento = EventoText.Text;
             configuracion.CSVSeparationLetter = SeparadorCSVText.Text;
             configuracion.BackgroundImage = BackgroundText.Text;
-            SettingsManager.SaveConfiguration(configuracion);
+            SettingsManager.SetAppSettingConfiguracionValues (configuracion);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

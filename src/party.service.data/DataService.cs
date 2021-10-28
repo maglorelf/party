@@ -12,10 +12,11 @@ namespace party.service.data
     public class DataService : IDataService
     {
         public bool DatabaseReady { get; set; }
-        protected string DatabaseName { get; set; }
-        public DataService(IOptionsSnapshot<Configuracion> configuracion)
+        private readonly IOptionsMonitor<Configuracion> configuracion;
+        protected string DatabaseName => configuracion.CurrentValue.DatabaseName;
+        public DataService(IOptionsMonitor<Configuracion> configuracion)
         {
-            this.DatabaseName = configuracion.Value.DatabaseName ;
+            this.configuracion = configuracion;
             DatabaseReady = false;
         }
 
