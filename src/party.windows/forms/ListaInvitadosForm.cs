@@ -17,12 +17,12 @@ namespace party.windows.forms
     {
         protected Configuracion Configuracion { get; set; }
         private SortableBindingList<Invitado> invitadosBinding;
-        protected DataService DataService { get; set; }
+        protected IDataService DataService { get; set; }
         protected IList<Tuple<string, string, int>> CamposVisibles { get; set; }
 
-        protected Proceso Proceso { get; set; }
+        protected IProceso Proceso { get; set; }
         protected Filtro FiltroSeleccionado { get; set; }
-        public ListaInvitadosForm(DataService dataService, Proceso proceso, Configuracion configuracion)
+        public ListaInvitadosForm(IDataService dataService, IProceso proceso, Configuracion configuracion)
         {
             invitadosBinding = new SortableBindingList<Invitado>();
             FiltroSeleccionado = null;

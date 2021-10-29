@@ -15,12 +15,12 @@ namespace party.windows.forms
     public partial class ListaAsistentesForm : Form
     {
         private SortableBindingList<Asistente> asistentesBinding;
-        protected DataService DataService { get; set; }
+        protected IDataService DataService { get; set; }
         protected IList<Tuple<string, string, int>> CamposVisibles { get; set; }
 
-        protected Proceso Proceso { get; set; }
+        protected IProceso Proceso { get; set; }
         protected Filtro FiltroSeleccionado { get; set; }
-        public ListaAsistentesForm(DataService dataService, Proceso proceso)
+        public ListaAsistentesForm(IDataService dataService, IProceso proceso)
         {
             asistentesBinding = new SortableBindingList<Asistente>();
             FiltroSeleccionado = null;
