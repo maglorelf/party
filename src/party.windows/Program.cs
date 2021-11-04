@@ -1,7 +1,9 @@
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using party.windows.configuration.startup;
+using party.windows.forms;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace party.windows
@@ -17,7 +19,14 @@ namespace party.windows
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Asistencia());
+
+            IHost host = ConfigureStartup.Startup();
+
+            var mainForm = ActivatorUtilities.CreateInstance<Asistencia >(host.Services);
+            Application. Run(mainForm);
+
         }
+
+
     }
 }
