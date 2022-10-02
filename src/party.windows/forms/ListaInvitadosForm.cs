@@ -1,18 +1,18 @@
-﻿using party.core.attributes;
-using party.core.model;
-using party.core.sorting;
-using party.service;
-using party.service.data;
-using party.windows.components;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Windows.Forms;
-
-namespace party.windows.forms
+﻿namespace party.windows.forms
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Windows.Forms;
+    using party.core.attributes;
+    using party.core.model;
+    using party.core.sorting;
+    using party.service;
+    using party.service.data;
+    using party.windows.components;
+
     public partial class ListaInvitadosForm : Form
     {
         protected Configuracion Configuracion { get; set; }

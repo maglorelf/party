@@ -1,15 +1,14 @@
-﻿using Microsoft.Extensions.Options;
-using party.core.model;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace party.service
+﻿namespace party.service
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.Options;
+    using party.core.model;
     public class CSVService : ICSVService
     {
         private readonly IOptionsMonitor<Configuracion> configuracion;
@@ -53,9 +52,6 @@ namespace party.service
                 Extra = campos[8]
             };
             return invitado;
-
-
-
         }
 
         public void WriteCSV<T>(IEnumerable<T> items, string path)

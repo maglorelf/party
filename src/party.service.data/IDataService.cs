@@ -1,14 +1,12 @@
-﻿using Microsoft.Data.Sqlite;
-using party.core.model;
-using System;
-using System.Collections.Generic;
-
-namespace party.service.data
+﻿namespace party.service.data
 {
+    using System;
+    using System.Collections.Generic;
+    using Microsoft.Data.Sqlite;
+    using party.core.model;
     public interface IDataService
     {
         bool DatabaseReady { get; set; }
-
         void ActualizarNotasInvitado(Invitado invitado);
         void BorrarAsistente(int id);
         string CheckDatabase();

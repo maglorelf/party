@@ -1,17 +1,10 @@
-﻿using party.core.model;
-using party.service.data;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace party.windows.forms
+﻿namespace party.windows.forms
 {
+    using System;
+    using System.Windows.Forms;
+    using party.core.model;
+    using party.service.data;
+
     public partial class NuevoInvitadoForm : Form
     {
         protected IDataService DataService { get; set; }

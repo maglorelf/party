@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace party.core.attributes
+﻿namespace party.core.attributes
 {
     [System.AttributeUsage(System.AttributeTargets.Property, AllowMultiple = false)]
     public class VisibleGrid : System.Attribute
@@ -20,4 +14,3 @@ namespace party.core.attributes
         }
     }
 }
-

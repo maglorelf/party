@@ -1,10 +1,9 @@
-﻿using party.core.model;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace party.service
+﻿namespace party.service
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using party.core.model;
     public interface ICSVService
     {
         Invitado ConvertLineToInvitado(string linea);

@@ -1,14 +1,10 @@
-﻿using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.Options;
-using party.core.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace party.service.data
+﻿namespace party.service.data
 {
+    using System;
+    using System.Collections.Generic;
+    using Microsoft.Data.Sqlite;
+    using Microsoft.Extensions.Options;
+    using party.core.model;
     public class DataService : IDataService
     {
         public bool DatabaseReady { get; set; }
@@ -31,11 +27,13 @@ namespace party.service.data
             using SqliteConnection db = CreateConnection();
             db.Open();
 
-            SqliteCommand insertCommand = new();
-            insertCommand.Connection = db;
+            SqliteCommand insertCommand = new()
+            {
+                Connection = db,
 
-            // Use parameterized query to prevent SQL injection attacks
-            insertCommand.CommandText = "INSERT INTO Asistencia VALUES (null,@QRLeido,@InvitadoId,@Entrada);";
+                // Use parameterized query to prevent SQL injection attacks
+                CommandText = "INSERT INTO Asistencia VALUES (null,@QRLeido,@InvitadoId,@Entrada);"
+            };
             insertCommand.Parameters.AddWithValue("@QRLeido", asistente.QRLeido);
             insertCommand.Parameters.AddWithValue("@InvitadoId", asistente.InvitadoId);
             insertCommand.Parameters.AddWithValue("@Entrada", asistente.Entrada);
@@ -90,9 +88,11 @@ namespace party.service.data
         }
         protected static void BorrarInvitado(SqliteConnection db, int id)
         {
-            SqliteCommand deleteCommand = new();
-            deleteCommand.Connection = db;
-            deleteCommand.CommandText = "DELETE FROM Asistencia WHERE Id=@Id;";
+            SqliteCommand deleteCommand = new()
+            {
+                Connection = db,
+                CommandText = "DELETE FROM Asistencia WHERE Id=@Id;"
+            };
             deleteCommand.Parameters.AddWithValue("@Id", id);
             deleteCommand.ExecuteNonQuery();
         }
@@ -157,11 +157,13 @@ namespace party.service.data
         }
         protected static void InsertInvitado(SqliteConnection db, Invitado invitado)
         {
-            SqliteCommand insertCommand = new();
-            insertCommand.Connection = db;
+            SqliteCommand insertCommand = new()
+            {
+                Connection = db,
 
-            // Use parameterized query to prevent SQL injection attacks
-            insertCommand.CommandText = "INSERT INTO Invitados VALUES (null,@Codigo, @Nombre, @Evento, @EventoLocal, @Extra, @DNI, @Email, @Oficina, @Asistencia, @Notas);";
+                // Use parameterized query to prevent SQL injection attacks
+                CommandText = "INSERT INTO Invitados VALUES (null,@Codigo, @Nombre, @Evento, @EventoLocal, @Extra, @DNI, @Email, @Oficina, @Asistencia, @Notas);"
+            };
 
             insertCommand.Parameters.AddWithValue("@Codigo", invitado.Codigo);
             insertCommand.Parameters.AddWithValue("@Nombre", invitado.Nombre);
@@ -180,11 +182,13 @@ namespace party.service.data
         {
             using SqliteConnection db = CreateConnection();
             db.Open();
-            SqliteCommand updateCommand = new();
-            updateCommand.Connection = db;
+            SqliteCommand updateCommand = new()
+            {
+                Connection = db,
 
-            // Use parameterized query to prevent SQL injection attacks
-            updateCommand.CommandText = "UPDATE Invitados SET Notas= @Notas WHERE Id = @Id;";
+                // Use parameterized query to prevent SQL injection attacks
+                CommandText = "UPDATE Invitados SET Notas= @Notas WHERE Id = @Id;"
+            };
 
             updateCommand.Parameters.AddWithValue("@Id", invitado.Id);
             updateCommand.Parameters.AddWithValue("@Notas", invitado.Notas);

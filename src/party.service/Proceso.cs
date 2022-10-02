@@ -1,16 +1,11 @@
-﻿using Microsoft.Extensions.Options;
-using party.core.enums;
-using party.core.model;
-using party.service.data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
-namespace party.service
+﻿namespace party.service
 {
+    using System;
+    using System.Text.RegularExpressions;
+    using Microsoft.Extensions.Options;
+    using party.core.enums;
+    using party.core.model;
+    using party.service.data;
     public class Proceso : IProceso
     {
         protected Configuracion Configuracion { get; set; }
@@ -19,23 +14,6 @@ namespace party.service
         {
             this.Configuracion = configuracion.Value;
             this.DataService = dataService;
-        }
-
-        private static bool VerificarAsistente(Asistente asistente)
-        {
-            return asistente == null;
-        }
-        private bool VerificarInvitado(Invitado invitado)
-        {
-            bool verificado = false;
-            if (invitado != null)
-            {
-                if (invitado.EventoLocal == Configuracion.Evento && invitado.IsConfirmado)
-                {
-                    verificado = true;
-                }
-            }
-            return verificado;
         }
 
 
@@ -70,16 +48,6 @@ namespace party.service
             return resultComplete;
         }
 
-        private static string DesglosaQRGetEmail(string qr)
-        {
-            string emailInvitado = string.Empty;
-            var match = Regex.Match(qr, @"(?i)USUARIO DEL INVITADO:\s+(.+?)\s+NOMBRE DEL INVITADO:");
-            if (match.Success)
-            {
-                emailInvitado = match.Groups[1].Value;
-            }
-            return emailInvitado;
-        }
 
         public void AceptarInvitado(Invitado invitado)
         {
@@ -90,6 +58,32 @@ namespace party.service
         public void BorrarAsistente(Asistente asistente)
         {
             DataService.BorrarAsistente(asistente.Id);
+        }
+        private static bool VerificarAsistente(Asistente asistente)
+        {
+            return asistente == null;
+        }
+        private bool VerificarInvitado(Invitado invitado)
+        {
+            bool verificado = false;
+            if (invitado != null)
+            {
+                if (invitado.EventoLocal == Configuracion.Evento && invitado.IsConfirmado)
+                {
+                    verificado = true;
+                }
+            }
+            return verificado;
+        }
+        private static string DesglosaQRGetEmail(string qr)
+        {
+            string emailInvitado = string.Empty;
+            var match = Regex.Match(qr, @"(?i)USUARIO DEL INVITADO:\s+(.+?)\s+NOMBRE DEL INVITADO:");
+            if (match.Success)
+            {
+                emailInvitado = match.Groups[1].Value;
+            }
+            return emailInvitado;
         }
     }
 }

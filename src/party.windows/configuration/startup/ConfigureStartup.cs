@@ -1,19 +1,14 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using party.core.model;
-using party.service;
-using party.service.data;
-using party.windows.forms;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace party.windows.configuration.startup
+﻿namespace party.windows.configuration.startup
 {
+    using System.IO;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using party.core.model;
+    using party.service;
+    using party.service.data;
+    using party.windows.forms;
+
     public static class ConfigureStartup
 
     {

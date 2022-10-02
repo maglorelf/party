@@ -1,14 +1,13 @@
-﻿using party.core.attributes;
-using System;
-
-namespace party.core.model
+﻿namespace party.core.model
 {
+    using System;
+    using party.core.attributes;
     public class Asistente
     {
         public int Id;
         [VisibleGrid("Hora de entrada", 0)]
         public DateTime Entrada { get; set; }
-        public int InvitadoId{ get; set; }
+        public int InvitadoId { get; set; }
         public string QRLeido { get; set; }
         [VisibleGrid("Nombre", 1)]
         public string Nombre { get; set; }
