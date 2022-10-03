@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace party.core.sorting
+﻿namespace party.core.sorting
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
     public class SortableBindingList<T> : BindingList<T>
     {
         private readonly Dictionary<Type, PropertyComparer<T>> comparers;

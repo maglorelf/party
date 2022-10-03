@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Reflection;
-namespace party.core.sorting
+﻿namespace party.core.sorting
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Reflection;
     public class PropertyComparer<T> : IComparer<T>
     {
         private readonly IComparer comparer;

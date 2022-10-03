@@ -1,16 +1,15 @@
-﻿using Microsoft.Extensions.Options;
-using party.core.enums;
-using party.core.model;
-using party.service;
-using party.service.data;
-using party.windows.configuration;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace party.windows.forms
+﻿namespace party.windows.forms
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
+    using Microsoft.Extensions.Options;
+    using party.core.enums;
+    using party.core.model;
+    using party.service;
+    using party.service.data;
+
     public partial class Asistencia : Form
     {
         protected IOptionsMonitor<Configuracion> Configuracion { get; set; }

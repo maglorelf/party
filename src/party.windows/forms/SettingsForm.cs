@@ -1,18 +1,10 @@
-﻿using party.core.model;
-using party.windows.configuration;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace party.windows.forms
+﻿namespace party.windows.forms
 {
+    using System;
+    using System.Windows.Forms;
+    using party.core.model;
+    using party.windows.configuration;
+
     public partial class SettingsForm : Form
     {
         private readonly Configuracion configuracion;

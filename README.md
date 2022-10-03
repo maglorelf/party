@@ -19,7 +19,7 @@ In the /examples folder the are a list of people with an invitation to the party
 
 ## Built With
 
-* [Net 5](https://dotnet.microsoft.com/download/dotnet/5.0) - Base framework
+* [Net 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) - .NET Version
 * [Windows Forms](https://docs.microsoft.com/es-es/dotnet/desktop/winforms/get-started/create-app-visual-studio?WT.mc_id=dotnet-35129-website&view=netdesktop-5.0) - Current desktop patterns
 * [SQLite](https://www.sqlite.org/) - Local database
 
@@ -32,7 +32,8 @@ All people can contribute to this project. This is a personal project but if som
 
 * **Marcos Javier Martinez Ramos ** - *Initial work* - [Maglor_elf](https://github.com/Maglor_elf)
 
-See also the list of [contributors](https://github.com/maglorelf/party/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/maglorelf/party/graphs/contributors) who participated in this project. We are open to new colaborators.
+
 
 ## License
 

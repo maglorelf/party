@@ -1,23 +1,28 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29409.12
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4DA5252E-70BE-4DC8-8338-00D6E0E1E111}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "party.windows", "src\party.windows\party.windows.csproj", "{08E24993-397C-4010-9085-26BB15CD8239}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "party.core.model", "src\party.core.model\party.core.model.csproj", "{A3CA8F22-8A09-49CB-8AD4-421D84E62321}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "party.core.model", "src\party.core.model\party.core.model.csproj", "{A3CA8F22-8A09-49CB-8AD4-421D84E62321}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "party.service.data", "src\party.service.data\party.service.data.csproj", "{A97B27D2-23B6-449A-AB9B-85B94AB22476}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "party.core", "src\party.core\party.core.csproj", "{24DFED63-0B23-4597-AF3E-38E5973567AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "party.core", "src\party.core\party.core.csproj", "{24DFED63-0B23-4597-AF3E-38E5973567AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "party.service", "src\party.service\party.service.csproj", "{BD800B11-CC07-439D-994C-81FC6F0A95E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "party.service", "src\party.service\party.service.csproj", "{BD800B11-CC07-439D-994C-81FC6F0A95E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9F889D7F-09F3-4E6C-BD55-2BCD1E3E4C27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "party.test.unittest", "party.test.unittest\party.test.unittest.csproj", "{D0EBE554-11D0-447E-B84C-C89D59AB0909}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +50,16 @@ Global
 		{BD800B11-CC07-439D-994C-81FC6F0A95E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD800B11-CC07-439D-994C-81FC6F0A95E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD800B11-CC07-439D-994C-81FC6F0A95E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0EBE554-11D0-447E-B84C-C89D59AB0909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0EBE554-11D0-447E-B84C-C89D59AB0909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0EBE554-11D0-447E-B84C-C89D59AB0909}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0EBE554-11D0-447E-B84C-C89D59AB0909}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D0EBE554-11D0-447E-B84C-C89D59AB0909} = {9F889D7F-09F3-4E6C-BD55-2BCD1E3E4C27}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {79D2436C-5248-408E-B98A-825D89034254}

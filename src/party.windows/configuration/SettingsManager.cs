@@ -1,15 +1,12 @@
-﻿using party.core.model;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-namespace party.windows.configuration
+﻿namespace party.windows.configuration
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Reflection;
+    using System.Text.Json;
+    using party.core.model;
+
     public class SettingsManager
     {
         public static string ReadSetting(string key)

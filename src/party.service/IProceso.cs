@@ -1,8 +1,7 @@
-﻿using party.core.enums;
-using party.core.model;
-
-namespace party.service
+﻿namespace party.service
 {
+    using party.core.enums;
+    using party.core.model;
     public interface IProceso
     {
         void AceptarInvitado(Invitado invitado);
