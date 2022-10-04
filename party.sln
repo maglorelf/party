@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "party.service", "src\party.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9F889D7F-09F3-4E6C-BD55-2BCD1E3E4C27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "party.test.unittest", "party.test.unittest\party.test.unittest.csproj", "{D0EBE554-11D0-447E-B84C-C89D59AB0909}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "party.test.unittest", "src\test\party.test.unittest\party.test.unittest.csproj", "{AAEEBCE6-9150-48BF-B240-69C90B09228E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,16 +50,16 @@ Global
 		{BD800B11-CC07-439D-994C-81FC6F0A95E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD800B11-CC07-439D-994C-81FC6F0A95E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD800B11-CC07-439D-994C-81FC6F0A95E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0EBE554-11D0-447E-B84C-C89D59AB0909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0EBE554-11D0-447E-B84C-C89D59AB0909}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0EBE554-11D0-447E-B84C-C89D59AB0909}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0EBE554-11D0-447E-B84C-C89D59AB0909}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAEEBCE6-9150-48BF-B240-69C90B09228E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAEEBCE6-9150-48BF-B240-69C90B09228E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAEEBCE6-9150-48BF-B240-69C90B09228E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAEEBCE6-9150-48BF-B240-69C90B09228E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D0EBE554-11D0-447E-B84C-C89D59AB0909} = {9F889D7F-09F3-4E6C-BD55-2BCD1E3E4C27}
+		{AAEEBCE6-9150-48BF-B240-69C90B09228E} = {9F889D7F-09F3-4E6C-BD55-2BCD1E3E4C27}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {79D2436C-5248-408E-B98A-825D89034254}
