@@ -39,6 +39,8 @@ jobs:
 
       - name: Build code
         run: msbuild $env:Solution_Name /p:RestorePackages=false /p:Configuration=$env:Configuration /p:platform=Any CPU
+        env:
+          Configuration: ${{ matrix.configuration }}
 
       # Execute all unit tests in the solution
       - name: Execute unit tests
