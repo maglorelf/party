@@ -38,7 +38,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Build code
-        run: msbuild $env:Solution_Name /p:RestorePackages=false /p:Configuration=$env:Configuration /p:platform=x64
+        run: msbuild $env:Solution_Name /p:RestorePackages=false /p:Configuration=$env:Configuration /p:platform=Any CPU
 
       # Execute all unit tests in the solution
       - name: Execute unit tests
