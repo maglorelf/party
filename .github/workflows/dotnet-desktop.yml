@@ -1,11 +1,6 @@
 name: .NET Core Desktop
 
-on:
-  push:
-    branches: ["master"]
-  pull_request:
-    types: [opened, reopened]
-
+on: push
 jobs:
   build:
     strategy:
