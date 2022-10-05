@@ -34,7 +34,7 @@ jobs:
         run: dotnet restore
 
       - name: Build code
-        run: dotnet build --configuration $env:Configuration --no-restore
+        run: msbuild $env:Solution_Name /p:RestorePackages=false /p:Configuration=$env:Configuration
 
       # Execute all unit tests in the solution
       - name: Execute unit tests
