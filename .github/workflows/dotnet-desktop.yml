@@ -5,7 +5,7 @@ jobs:
   build:
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        configuration: [Debug]
 
     runs-on:
       windows-latest # For a list of available runner types, refer to
@@ -45,12 +45,3 @@ jobs:
       # Execute all unit tests in the solution
       - name: Execute unit tests
         run: dotnet test --no-restore --verbosity normal
-
-      - name: Publish application
-        run: dotnet publish -c $env:Configuration -o $env:SolutionExe
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: party-artifact
-          path: "./artifacts"
