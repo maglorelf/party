@@ -33,6 +33,10 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
 
+      # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+      - name: Setup MSBuild.exe
+        uses: microsoft/setup-msbuild@v1.0.2
+
       - name: Build code
         run: msbuild $env:Solution_Name /p:RestorePackages=false /p:Configuration=$env:Configuration
 
