@@ -34,7 +34,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Restore the application
-        run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration /p:RunCodeAnalysis=true
+        run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
         env:
           Configuration: ${{ matrix.configuration }}
 
@@ -42,19 +42,19 @@ jobs:
       - name: Execute unit tests
         run: dotnet test --no-restore --verbosity normal
 
-      # Execute code analysis
-      - name: Run .NET Code Analysis
-        uses: dotnet/code-analysis@main
-        id: code-analysis
-        with:
-          solution: $env:Solution_Name
-          build-breaking: true
-          all-categories: all
-          style: all
+      # # Execute code analysis
+      # - name: Run .NET Code Analysis
+      #   uses: dotnet/code-analysis@main
+      #   id: code-analysis
+      #   with:
+      #     solution: $env:Solution_Name
+      #     build-breaking: true
+      #     all-categories: all
+      #     style: all
 
-      # Upload the analysis results file
-      - name: Upload analysis results
-        uses: actions/upload-artifact@v2
-        with:
-          name: analysis_results.sarif
-          path: ${{ steps.code-analysis.outputs.sarifFile }}
+      # # Upload the analysis results file
+      # - name: Upload analysis results
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: analysis_results.sarif
+      #     path: ${{ steps.code-analysis.outputs.sarifFile }}
