@@ -24,8 +24,8 @@
                 DNI = DniText.Text,
                 Notas = NotasText.Text,
                 Evento = string.Empty,
-                EventoLocal=Configuracion.Evento
-                
+                EventoLocal = Configuracion.Evento
+
             };
             if (invitado.HasValuesMinimos())
             {

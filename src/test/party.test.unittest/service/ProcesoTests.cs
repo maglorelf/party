@@ -11,7 +11,7 @@ namespace party.test.unittest.service
         [Fact]
         public void AceptarInvitado_ExistingGuest_Accepted()
         {
-            Invitado invitado= new() { Id= 1, QRLeido = "QR"};
+            Invitado invitado = new() { Id = 1, QRLeido = "QR" };
 
             IDataService dataService = Mock.Of<IDataService>();
             IOptionsSnapshot<Configuracion> options = Mock.Of<IOptionsSnapshot<Configuracion>>();

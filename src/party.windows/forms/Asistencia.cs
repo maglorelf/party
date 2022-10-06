@@ -49,7 +49,7 @@
         }
         private void SetScreenSettings(Configuracion configuracion)
         {
-            this.BackgroundImage = LoadImage(configuracion.BackgroundImage);            
+            this.BackgroundImage = LoadImage(configuracion.BackgroundImage);
             this.Invoke(new Action(() => this.Text = configuracion.Titulo));
             Evento.Invoke(new Action(() => Evento.Text = configuracion.Evento));
 

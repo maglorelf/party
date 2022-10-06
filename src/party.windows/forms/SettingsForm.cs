@@ -20,7 +20,7 @@
         private void UpdateFields()
         {
             TituloText.Text = configuracion.Titulo;
-   
+
             DatabaseText.Text = configuracion.DatabaseName;
             EventoText.Text = configuracion.Evento;
             SeparadorCSVText.Text = configuracion.CSVSeparationLetter;
@@ -46,14 +46,14 @@
         }
 
         private void ButtonGuardar_Click(object sender, EventArgs e)
-        {            
+        {
             Configuracion configuracion = new();
             configuracion.Titulo = TituloText.Text;
             configuracion.DatabaseName = DatabaseText.Text;
             configuracion.Evento = EventoText.Text;
             configuracion.CSVSeparationLetter = SeparadorCSVText.Text;
             configuracion.BackgroundImage = BackgroundText.Text;
-            SettingsManager.SetAppSettingConfiguracionValues (configuracion);
+            SettingsManager.SetAppSettingConfiguracionValues(configuracion);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

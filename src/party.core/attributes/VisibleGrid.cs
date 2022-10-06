@@ -6,7 +6,7 @@
         public bool IsVisible { get; set; }
         public string Header { get; set; }
         public int Order { get; set; }
-        public VisibleGrid(string header,int order)
+        public VisibleGrid(string header, int order)
         {
             IsVisible = true;
             Header = header;
