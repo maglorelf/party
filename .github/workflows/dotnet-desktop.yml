@@ -1,4 +1,4 @@
-name: .NET Core Desktop
+name: Verify Build and Test
 
 on: push
 jobs:
