@@ -48,7 +48,16 @@ jobs:
 
       # Execute code analysis
       - name: Run .NET Code Analysis
-        uses: dotnet/code-analysis@v1
+        uses: ./
         id: code-analysis
         with:
-          build-breaking: true
+          project: $env:Solution_Name
+          build-breaking: false
+          all-categories: all
+
+      # Upload the analysis results file
+      - name: Upload analysis results
+        uses: actions/upload-artifact@v2
+        with:
+          name: analysis_results.sarif
+          path: ${{ steps.code-analysis.outputs.sarifFile }}
