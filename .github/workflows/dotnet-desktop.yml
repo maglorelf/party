@@ -51,7 +51,6 @@ jobs:
         uses: dotnet/code-analysis@main
         id: code-analysis
         with:
-          project: $env:Solution_Name
           build-breaking: true
           all-categories: all
           style: all
