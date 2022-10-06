@@ -45,3 +45,10 @@ jobs:
       # Execute all unit tests in the solution
       - name: Execute unit tests
         run: dotnet test --no-restore --verbosity normal
+
+      # Execute code analysis
+      - name: Run .NET Code Analysis
+        uses: dotnet/code-analysis@v1
+        id: code-analysis
+        with:
+          build-breaking: true
