@@ -5,6 +5,7 @@ namespace party.test.unittest.service
     using party.core.model;
     using party.service;
     using party.service.data;
+    using Xunit;
 
     public class ProcesoTests
     {
