@@ -48,7 +48,6 @@ jobs:
 
       # Execute code analysis
       - name: Run .NET Code Analysis
-        uses: ./
         id: code-analysis
         with:
           project: $env:Solution_Name
