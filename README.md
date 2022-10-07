@@ -1,3 +1,9 @@
+[![Verify Build and Test](https://github.com/maglorelf/party/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/maglorelf/party/actions/workflows/dotnet-desktop.yml)
+
+[![Lint Code Base](https://github.com/maglorelf/party/actions/workflows/lint-analysis.yml/badge.svg)](https://github.com/maglorelf/party/actions/workflows/lint-analysis.yml)
+
+[![CodeQL Analysis](https://github.com/maglorelf/party/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/maglorelf/party/actions/workflows/codeql-analysis.yml)
+
 # Party Tickets Access Control
 
 An app to register and control the entries in a party (or any event) with the help of QR.
