@@ -21,8 +21,8 @@ namespace party.windows
 
             IHost host = ConfigureStartup.Startup();
 
-            var mainForm = ActivatorUtilities.CreateInstance<Asistencia >(host.Services);
-            Application. Run(mainForm);
+            var mainForm = ActivatorUtilities.CreateInstance<Asistencia>(host.Services);
+            Application.Run(mainForm);
 
         }
 

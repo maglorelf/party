@@ -5,13 +5,14 @@ namespace party.test.unittest.service
     using party.core.model;
     using party.service;
     using party.service.data;
+    using Xunit;
 
     public class ProcesoTests
     {
         [Fact]
         public void AceptarInvitado_ExistingGuest_Accepted()
         {
-            Invitado invitado= new() { Id= 1, QRLeido = "QR"};
+            Invitado invitado = new() { Id = 1, QRLeido = "QR" };
 
             IDataService dataService = Mock.Of<IDataService>();
             IOptionsSnapshot<Configuracion> options = Mock.Of<IOptionsSnapshot<Configuracion>>();

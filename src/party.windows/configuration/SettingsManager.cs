@@ -76,7 +76,7 @@
             var json = System.IO.File.ReadAllText(appSettingsJsonFilePath);
             AppSettings jsonObj = JsonSerializer.Deserialize<AppSettings>(json);
 
-     //       jsonObj[key] = value;
+            //       jsonObj[key] = value;
 
             string output = JsonSerializer.Serialize(jsonObj, new JsonSerializerOptions { WriteIndented = true });
 

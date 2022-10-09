@@ -151,12 +151,13 @@
             invitado.QRLeido = "Proceso Manual";
             if (!invitado.IsRegistrado)
             {
-            Proceso.AceptarInvitado(invitado);
-            int? indexSelecte = gridInvitados.SelectedRows[0]?.Index;
-            FillGrid();
-            gridInvitados.Rows[indexSelecte.GetValueOrDefault()].Selected = true;
-            gridInvitados.FirstDisplayedScrollingRowIndex = indexSelecte.GetValueOrDefault();
-            } else
+                Proceso.AceptarInvitado(invitado);
+                int? indexSelecte = gridInvitados.SelectedRows[0]?.Index;
+                FillGrid();
+                gridInvitados.Rows[indexSelecte.GetValueOrDefault()].Selected = true;
+                gridInvitados.FirstDisplayedScrollingRowIndex = indexSelecte.GetValueOrDefault();
+            }
+            else
             {
                 MessageBox.Show("El invitado ya se había registrado antes");
             }

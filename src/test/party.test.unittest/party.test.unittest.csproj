@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
@@ -23,8 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\party.core.model\party.core.model.csproj" />
-    <ProjectReference Include="..\src\party.service\party.service.csproj" />
+    <ProjectReference Include="..\..\party.core.model\party.core.model.csproj" />
+    <ProjectReference Include="..\..\party.service.data\party.service.data.csproj" />
+    <ProjectReference Include="..\..\party.service\party.service.csproj" />
   </ItemGroup>
 
 </Project>

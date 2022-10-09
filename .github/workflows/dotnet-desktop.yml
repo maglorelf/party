@@ -1,0 +1,60 @@
+name: Verify Build and Test
+
+on: push
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Debug]
+
+    runs-on:
+      windows-latest # For a list of available runner types, refer to
+      # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+
+    env:
+      Solution_Name: party.sln
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Install the .NET Core workload
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+      - name: Setup MSBuild.exe
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Restore the application
+        run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+        env:
+          Configuration: ${{ matrix.configuration }}
+
+      # Execute all unit tests in the solution
+      - name: Execute unit tests
+        run: dotnet test --no-restore --verbosity normal
+
+      # # Execute code analysis
+      # - name: Run .NET Code Analysis
+      #   uses: dotnet/code-analysis@main
+      #   id: code-analysis
+      #   with:
+      #     solution: $env:Solution_Name
+      #     build-breaking: true
+      #     all-categories: all
+      #     style: all
+
+      # # Upload the analysis results file
+      # - name: Upload analysis results
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: analysis_results.sarif
+      #     path: ${{ steps.code-analysis.outputs.sarifFile }}
