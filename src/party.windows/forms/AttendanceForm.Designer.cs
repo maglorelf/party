@@ -1,6 +1,6 @@
 ﻿namespace party.windows.forms
 {
-    partial class Asistencia
+    partial class AttendanceForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Asistencia));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AttendanceForm));
             this.QRText = new System.Windows.Forms.TextBox();
             this.CheckQR = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarFicheroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.descargarAsistenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultarInvitadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultarAsistentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.barcodesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.barcodesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inicializarTodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Evento = new System.Windows.Forms.Label();
             this.panelNoExiste = new System.Windows.Forms.Panel();
@@ -124,13 +124,6 @@
             this.descargarAsistenciaToolStripMenuItem.Text = "&Descargar Asistencia";
             this.descargarAsistenciaToolStripMenuItem.Click += new System.EventHandler(this.DescargarAsistenciaToolStripMenuItem_Click);
             // 
-            // salirToolStripMenuItem
-            // 
-            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.salirToolStripMenuItem.Text = "&Salir";
-            this.salirToolStripMenuItem.Click += new System.EventHandler(this.SalirToolStripMenuItem_Click);
-            // 
             // consultarInvitadosToolStripMenuItem
             // 
             this.consultarInvitadosToolStripMenuItem.Name = "consultarInvitadosToolStripMenuItem";
@@ -145,6 +138,13 @@
             this.consultarAsistentesToolStripMenuItem.Text = "Consultar &Asistentes";
             this.consultarAsistentesToolStripMenuItem.Click += new System.EventHandler(this.ConsultarAsistentesToolStripMenuItem_Click);
             // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.salirToolStripMenuItem.Text = "&Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.SalirToolStripMenuItem_Click);
+            // 
             // configuraciónToolStripMenuItem1
             // 
             this.configuraciónToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -155,19 +155,19 @@
             this.configuraciónToolStripMenuItem1.Size = new System.Drawing.Size(95, 20);
             this.configuraciónToolStripMenuItem1.Text = "Configuración";
             // 
+            // textosToolStripMenuItem
+            // 
+            this.textosToolStripMenuItem.Name = "textosToolStripMenuItem";
+            this.textosToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.textosToolStripMenuItem.Text = "Settings";
+            this.textosToolStripMenuItem.Click += new System.EventHandler(this.TextosToolStripMenuItem_Click);
+            // 
             // barcodesToolStripMenuItem
             // 
             this.barcodesToolStripMenuItem.Name = "barcodesToolStripMenuItem";
             this.barcodesToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.barcodesToolStripMenuItem.Text = "Lectora";
             this.barcodesToolStripMenuItem.Click += new System.EventHandler(this.BarcodesToolStripMenuItem_Click);
-            // 
-            // textosToolStripMenuItem
-            // 
-            this.textosToolStripMenuItem.Name = "textosToolStripMenuItem";
-            this.textosToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.textosToolStripMenuItem.Text = "Base de datos";
-            this.textosToolStripMenuItem.Click += new System.EventHandler(this.TextosToolStripMenuItem_Click);
             // 
             // inicializarTodoToolStripMenuItem
             // 
@@ -385,7 +385,7 @@
             this.processBar.Size = new System.Drawing.Size(200, 16);
             this.processBar.Step = 1;
             // 
-            // Asistencia
+            // AttendanceForm
             // 
             this.AcceptButton = this.CheckQR;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
@@ -404,11 +404,11 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Asistencia";
+            this.Name = "AttendanceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Party";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Asistencia_Load);
+            this.Load += new System.EventHandler(this.AttendanceForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panelNoExiste.ResumeLayout(false);

@@ -5,32 +5,36 @@
     using System.Drawing;
     using System.Windows.Forms;
     using Microsoft.Extensions.Options;
+    using party.core.constants;
     using party.core.enums;
     using party.core.model;
     using party.service;
     using party.service.data;
+    using party.windows.infrastructure.extensions;
 
-    public partial class Asistencia : Form
+    public partial class AttendanceForm : Form
     {
         protected IOptionsMonitor<Configuracion> Configuracion { get; set; }
-        protected IProceso Proceso { get; private set; }
-        protected IDataService DataService { get; private set; }
-        protected ICSVService CsvService { get; private set; }
+        private readonly IProceso proceso;
+        private readonly IDataService dataService;
+        private readonly ICSVService csvService;
+        private readonly IManageService manageService;
         public Invitado InvitadoTemporal { get; private set; }
-        public Asistencia(IOptionsMonitor<Configuracion> configuracion, IProceso proceso, ICSVService csvService, IDataService dataService)
+        public AttendanceForm(IOptionsMonitor<Configuracion> configuracion, IProceso proceso, ICSVService csvService, IDataService dataService, IManageService manageService)
         {
-            this.Configuracion = configuracion;
-            this.Configuracion.OnChange(conf => Inicializar());
-            this.Proceso = proceso;
-            this.CsvService = csvService;
-            this.DataService = dataService;
+            Configuracion = configuracion;
+            Configuracion.OnChange(conf => Initialize());
+            this.proceso = proceso;
+            this.csvService = csvService;
+            this.dataService = dataService;
+            this.manageService = manageService;
             InitializeComponent();
         }
-        private void Asistencia_Load(object sender, EventArgs e)
+        private void AttendanceForm_Load(object sender, EventArgs e)
         {
-            Inicializar();
+            Initialize();
         }
-        protected void Inicializar()
+        protected void Initialize()
         {
             ClearPanels();
             UpdateConfiguracion();
@@ -42,16 +46,21 @@
         }
         private void UpdateConfiguracion()
         {
-            if (!Configuracion.CurrentValue.DatabaseName.EndsWith(".db"))
+            Configuracion existingConfiguration = Configuracion.CurrentValue;
+            if (existingConfiguration.ExistsConfiguration())
+            {
+                existingConfiguration.RefreshFromInfo();
+            }
+            if (!existingConfiguration.HasBasicValues())
             {
                 ActualizarSettings();
             }
         }
         private void SetScreenSettings(Configuracion configuracion)
         {
-            this.BackgroundImage = LoadImage(configuracion.BackgroundImage);
-            this.Invoke(new Action(() => this.Text = configuracion.Titulo));
-            Evento.Invoke(new Action(() => Evento.Text = configuracion.Evento));
+            BackgroundImage = LoadImage(configuracion.BackgroundImage);
+            Invoke(new Action(() => Text = configuracion.Title));
+            Evento.Invoke(new Action(() => Evento.Text = configuracion.Event));
 
         }
 
@@ -75,7 +84,7 @@
         {
             ClearPanels();
             string qr = GetQRValue();
-            (ResultadoCheck, Invitado, Asistente) resultado = Proceso.CheckQR(qr);
+            (ResultadoCheck, Invitado, Asistente) resultado = proceso.CheckQR(qr);
             Procesar(qr, resultado);
             MostrarBaseDatosInfo();
         }
@@ -84,7 +93,7 @@
         {
             panelNoExiste.Visible = false;
             panelConfirmacionEntrada.Visible = false;
-            this.InvitadoTemporal = null;
+            InvitadoTemporal = null;
             panelAsistenciaRegistrada.Visible = false;
 
         }
@@ -130,8 +139,8 @@
         {
             labelAsistenteAceptado.Visible = false;
             panelConfirmacionEntrada.Visible = true;
-            this.InvitadoTemporal = invitado;
-            this.InvitadoTemporal.QRLeido = GetQRValue();
+            InvitadoTemporal = invitado;
+            InvitadoTemporal.QRLeido = GetQRValue();
             CheckQR.Enabled = false;
             buttonNoVerificado.Visible = true;
             buttonVerificado.Visible = true;
@@ -170,7 +179,7 @@
 
         private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
 
@@ -184,7 +193,7 @@
                 panelAsistenciaRegistrada.Visible = false;
                 panelConfirmacionEntrada.Visible = false;
                 panelNoExiste.Visible = false;
-                DataService.InitializeDatabase();
+                dataService.InitializeDatabase();
                 QRText.Visible = true;
                 CheckQR.Visible = true;
             }
@@ -200,22 +209,22 @@
 
             try
             {
-                checkDatabase = DataService.CheckDatabase();
+                checkDatabase = dataService.CheckDatabase();
             }
             catch { }
             try
             {
-                cantidadInvitados = DataService.GetCountInvitados();
+                cantidadInvitados = dataService.GetCountInvitados();
             }
             catch { }
             try
             {
-                cantidadAsistentes = DataService.GetCountAsistentes();
+                cantidadAsistentes = dataService.GetCountAsistentes();
             }
             catch { }
             try
             {
-                cantidadInvitadosEvento = DataService.GetCountInvitadosEvento(Configuracion.CurrentValue.Evento);
+                cantidadInvitadosEvento = dataService.GetCountInvitadosEvento(Configuracion.CurrentValue.Event);
             }
             catch
             {
@@ -255,25 +264,27 @@
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 Progress<int> progress = new(i => processBar.Value = i);
-                IList<Invitado> invitadosLeidos = CsvService.ReadFileInvitados(openFileDialog.FileName, progress).GetAwaiter().GetResult();
+                IList<Invitado> invitadosLeidos = csvService.ReadFileInvitados(openFileDialog.FileName, progress).GetAwaiter().GetResult();
 
-                DataService.LoadInvitados(invitadosLeidos, progress);
+                dataService.LoadInvitados(invitadosLeidos, progress);
             }
             MostrarBaseDatosInfo();
         }
 
         private void DescargarAsistenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new();
-            saveFileDialog.Filter = "CSV File|*.csv";
-            saveFileDialog.Title = "Guardar fichero de asistencia";
+            SaveFileDialog saveFileDialog = new()
+            {
+                Filter = "CSV File|*.csv",
+                Title = "Guardar fichero de asistencia"
+            };
             saveFileDialog.ShowDialog();
 
             // If the file name is not an empty string open it for saving.
             if (!string.IsNullOrWhiteSpace(saveFileDialog.FileName))
             {
-                IList<Asistente> asistentes = DataService.GetAllAsistentes();
-                CsvService.WriteCSV(asistentes, saveFileDialog.FileName);
+                IList<Asistente> asistentes = dataService.GetAllAsistentes();
+                csvService.WriteCSV(asistentes, saveFileDialog.FileName);
             }
         }
 
@@ -284,7 +295,7 @@
         private void VerificarInvitado()
         {
 
-            Proceso.AceptarInvitado(this.InvitadoTemporal);
+            proceso.AceptarInvitado(InvitadoTemporal);
             buttonNoVerificado.Visible = false;
             buttonVerificado.Visible = false;
             labelAsistenteAceptado.Text = "Asistente aceptado";
@@ -294,7 +305,7 @@
         }
         private void NoVerificarInvitado()
         {
-            this.InvitadoTemporal = null;
+            InvitadoTemporal = null;
             buttonNoVerificado.Visible = false;
             buttonVerificado.Visible = false;
             labelAsistenteAceptado.Text = "Asistente rechazado";
@@ -328,7 +339,7 @@
 
         private void ConsultarInvitadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListaInvitadosForm formularioLista = new(DataService, Proceso, Configuracion.CurrentValue);
+            ListaInvitadosForm formularioLista = new(dataService, proceso, Configuracion.CurrentValue);
             formularioLista.ShowDialog();
             formularioLista.Dispose();
             MostrarBaseDatosInfo();
@@ -336,7 +347,7 @@
 
         private void ConsultarAsistentesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListaAsistentesForm formularioLista = new(DataService, Proceso);
+            ListaAsistentesForm formularioLista = new(dataService, proceso);
             formularioLista.ShowDialog();
             formularioLista.Dispose();
             MostrarBaseDatosInfo();
@@ -357,11 +368,17 @@
         {
             SettingsForm settingsForm = new(Configuracion.CurrentValue);
             DialogResult dialogResult = settingsForm.ShowDialog();
-            settingsForm.Dispose();
             if (dialogResult == DialogResult.OK)
             {
-                //Inicializar();
+                Configuracion.CurrentValue.EventPath = settingsForm.Configuration.EventPath;
+                Configuracion.CurrentValue.Title = settingsForm.Configuration.Title;
+                Configuracion.CurrentValue.DatabaseName = settingsForm.Configuration.DatabaseName;
+                Configuracion.CurrentValue.Event = settingsForm.Configuration.Event;
+                Configuracion.CurrentValue.CSVSeparationLetter = settingsForm.Configuration.CSVSeparationLetter;
+                Configuracion.CurrentValue.BackgroundImage = settingsForm.Configuration.BackgroundImage;
+                Initialize();
             }
+            settingsForm.Dispose();
         }
 
 

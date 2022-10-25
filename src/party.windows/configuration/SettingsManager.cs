@@ -26,12 +26,12 @@
         }
         public static void SaveConfiguration(Configuracion configuration)
         {
-            var props = DictionaryFromType(configuration);
-            foreach (var prop in props)
-            {
-                SetAppSettingValue(prop.Key, prop.Value.ToString());
-            }
-
+            //var props = DictionaryFromType(configuration);
+            //foreach (var prop in props)
+            //{
+            //    SetAppSettingValue(prop.Key, prop.Value.ToString(), configuration.EventPath);
+            //}
+            SetAppSettingConfiguracionValues(configuration, configuration.ConfigurationFilename);
         }
 
         private static Dictionary<string, object> DictionaryFromType(object atype)
@@ -50,15 +50,19 @@
             }
             return dict;
         }
-        public static void SetAppSettingConfiguracionValues(Configuracion value, string appSettingsJsonFilePath = null)
+        public static void SetAppSettingConfiguracionValues(Configuracion value, string appSettingsJsonFilePath)
         {
-            if (appSettingsJsonFilePath == null)
+            appSettingsJsonFilePath ??= System.IO.Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
+            AppSettings jsonObj;
+            if (System.IO.File.Exists(appSettingsJsonFilePath))
             {
-                appSettingsJsonFilePath = System.IO.Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
+                var json = System.IO.File.ReadAllText(appSettingsJsonFilePath);
+                jsonObj = JsonSerializer.Deserialize<AppSettings>(json);
             }
-
-            var json = System.IO.File.ReadAllText(appSettingsJsonFilePath);
-            AppSettings jsonObj = JsonSerializer.Deserialize<AppSettings>(json);
+            else
+            {
+                jsonObj = new AppSettings();
+            }
 
             //       jsonObj[key] = value;
             jsonObj.SettingsApp = value;
@@ -66,17 +70,22 @@
 
             System.IO.File.WriteAllText(appSettingsJsonFilePath, output);
         }
-        public static void SetAppSettingValue(string key, string value, string appSettingsJsonFilePath = null)
+        public static Configuracion ReadConfiguration(string appSettingsJsonFilePath)
         {
-            if (appSettingsJsonFilePath == null)
-            {
-                appSettingsJsonFilePath = System.IO.Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
-            }
+            appSettingsJsonFilePath ??= System.IO.Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
+            var json = System.IO.File.ReadAllText(appSettingsJsonFilePath);
+            AppSettings jsonObj = JsonSerializer.Deserialize<AppSettings>(json);
+            return jsonObj.SettingsApp;
+
+        }
+        public static void SetAppSettingValue(string key, string value, string appSettingsJsonFilePath)
+        {
+            appSettingsJsonFilePath ??= System.IO.Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
 
             var json = System.IO.File.ReadAllText(appSettingsJsonFilePath);
             AppSettings jsonObj = JsonSerializer.Deserialize<AppSettings>(json);
 
-            //       jsonObj[key] = value;
+            // jsonObj.SettingsApp[key] = value;
 
             string output = JsonSerializer.Serialize(jsonObj, new JsonSerializerOptions { WriteIndented = true });
 
