@@ -11,6 +11,6 @@
         public string CSVSeparationLetter { get; set; }
         public string Event { get; set; }
         public string Title { get; set; }
-        public string BackgroundImage { get; set; }       
+        public string BackgroundImage { get; set; }
     }
 }

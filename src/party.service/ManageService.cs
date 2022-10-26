@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class ManageService: IManageService
+    public class ManageService : IManageService
     {
         public ManageService()
         {
@@ -16,8 +16,9 @@
 
         public void CreateEventRepository(string repositoryPath)
         {
-            if (string.IsNullOrEmpty(repositoryPath)){
-           //     repositoryPath=System.app.
+            if (string.IsNullOrEmpty(repositoryPath))
+            {
+                //     repositoryPath=System.app.
             }
         }
     }

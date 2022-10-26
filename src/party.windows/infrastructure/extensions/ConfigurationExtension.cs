@@ -23,7 +23,7 @@
         public static void RefreshFromInfo(this Configuracion configuracion)
         {
             //Generate settings file in folder
-            
+
         }
     }
 }
