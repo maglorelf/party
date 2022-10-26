@@ -1,7 +1,6 @@
 ﻿namespace party.core.model
 {
     using System.IO;
-    using party.core.constants;
     public class Configuracion
     {
         public string EventPath { get; set; }
