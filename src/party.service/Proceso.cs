@@ -68,7 +68,7 @@
             bool verificado = false;
             if (invitado != null)
             {
-                if (invitado.EventoLocal == Configuracion.Evento && invitado.IsConfirmado)
+                if (invitado.EventoLocal == Configuracion.Event && invitado.IsConfirmado)
                 {
                     verificado = true;
                 }

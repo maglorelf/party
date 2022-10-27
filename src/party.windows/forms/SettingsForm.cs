@@ -2,16 +2,17 @@
 {
     using System;
     using System.Windows.Forms;
+    using party.core.constants;
     using party.core.model;
     using party.windows.configuration;
 
     public partial class SettingsForm : Form
     {
-        private readonly Configuracion configuracion;
+        public Configuracion Configuration { get; protected set; }
 
-        public SettingsForm(core.model.Configuracion configuracion)
+        public SettingsForm(Configuracion configuracion)
         {
-            this.configuracion = configuracion;
+            this.Configuration = configuracion;
             InitializeComponent();
 
             UpdateFields();
@@ -19,49 +20,35 @@
 
         private void UpdateFields()
         {
-            TituloText.Text = configuracion.Titulo;
-
-            DatabaseText.Text = configuracion.DatabaseName;
-            EventoText.Text = configuracion.Evento;
-            SeparadorCSVText.Text = configuracion.CSVSeparationLetter;
-            BackgroundText.Text = configuracion.BackgroundImage;
-            //TituloText.PlaceholderText = "Party Events";
-            //if (String.IsNullOrWhiteSpace(TituloText.Text))
-            //{
-            //    TituloText.Text = TituloText.PlaceholderText;
-            //}
-            //EventoText.PlaceholderText = "Event Local 1";
-            //if (String.IsNullOrWhiteSpace(EventoText.Text))
-            //{
-            //    EventoText.Text = EventoText.PlaceholderText;
-            //}
-            //if (String.IsNullOrWhiteSpace(BackgroundText.Text))
-            //{
-            //    BackgroundText.Text = @".\images\Background.jpg";
-            //}
-            //if (String.IsNullOrWhiteSpace(DatabaseText.Text))
-            //{
-            //    DatabaseText.Text = @".\eventDatabase.db";
-            //}
+            TituloText.Text = Configuration.Title;
+            PathText.Text = Configuration.EventPath;
+            DatabaseText.Text = Configuration.DatabaseName;
+            EventoText.Text = Configuration.Event;
+            SeparadorCSVText.Text = Configuration.CSVSeparationLetter;
+            BackgroundText.Text = Configuration.BackgroundImage;
         }
 
         private void ButtonGuardar_Click(object sender, EventArgs e)
         {
-            Configuracion configuracion = new();
-            configuracion.Titulo = TituloText.Text;
-            configuracion.DatabaseName = DatabaseText.Text;
-            configuracion.Evento = EventoText.Text;
-            configuracion.CSVSeparationLetter = SeparadorCSVText.Text;
-            configuracion.BackgroundImage = BackgroundText.Text;
-            SettingsManager.SetAppSettingConfiguracionValues(configuracion);
+            Configuration.EventPath = PathText.Text;
+            Configuration.Title = TituloText.Text;
+            Configuration.DatabaseName = DatabaseText.Text;
+            Configuration.Event = EventoText.Text;
+            Configuration.CSVSeparationLetter = SeparadorCSVText.Text;
+            Configuration.BackgroundImage = BackgroundText.Text;
+
+            SettingsManager.SetAppSettingConfiguracionValues(Configuration, Configuration.ConfigurationFilename);
+            SettingsManager.SetAppSettingConfiguracionValues(Configuration, null);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
         private void SelectDatabaseButton_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new();
-            saveFileDialog.Filter = "Bases de datos  (*.db) | *.db;";
+            SaveFileDialog saveFileDialog = new()
+            {
+                Filter = $"Bases de datos  (*{SQLiteConstants.DefaultExtension}) | *{SQLiteConstants.DefaultExtension};"
+            };
             DialogResult result = saveFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -71,12 +58,24 @@
 
         private void SelectBackgroundButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new();
-            openFileDialog.Filter = "Imágenes (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+            OpenFileDialog openFileDialog = new()
+            {
+                Filter = "Imágenes (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png"
+            };
             DialogResult result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
                 BackgroundText.Text = openFileDialog.FileName;
+            }
+        }
+
+        private void SelectEventPathButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new();
+            DialogResult result = folderBrowserDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                PathText.Text = folderBrowserDialog.SelectedPath;
             }
         }
     }
