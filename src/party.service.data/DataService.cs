@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using Microsoft.Data.Sqlite;
     using Microsoft.Extensions.Options;
     using party.core.model;
@@ -9,7 +10,7 @@
     {
         public bool DatabaseReady { get; set; }
         private readonly IOptionsMonitor<Configuracion> configuracion;
-        protected string DatabaseName => configuracion.CurrentValue.DatabaseName;
+        protected string DatabaseName => Path.Combine(configuracion.CurrentValue.EventPath, configuracion.CurrentValue.DatabaseName);
         public DataService(IOptionsMonitor<Configuracion> configuracion)
         {
             this.configuracion = configuracion;
@@ -21,7 +22,10 @@
             SqliteConnection connection = new($"Filename={DatabaseName}");
             return connection;
         }
-
+        public bool ExistDatabaseFile()
+        {
+            return File.Exists(DatabaseName);
+        }
         public void InsertAsistente(Asistente asistente)
         {
             using SqliteConnection db = CreateConnection();
@@ -98,8 +102,11 @@
         }
         private static void DeleteDatabase(string databaseName)
         {
-            System.IO.File.Delete(databaseName);
-            System.Threading.Thread.Sleep(5000);
+            if (File.Exists(databaseName))
+            {
+                System.IO.File.Delete(databaseName);
+                System.Threading.Thread.Sleep(5000);
+            }
         }
 
         public static void CreateTableInvitados(SqliteConnection db)

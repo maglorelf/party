@@ -38,6 +38,7 @@
             Configuration.BackgroundImage = BackgroundText.Text;
 
             SettingsManager.SetAppSettingConfiguracionValues(Configuration, Configuration.ConfigurationFilename);
+            SettingsManager.SetAppSettingConfiguracionValues(Configuration, null);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

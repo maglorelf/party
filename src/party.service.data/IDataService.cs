@@ -10,6 +10,7 @@
         void ActualizarNotasInvitado(Invitado invitado);
         void BorrarAsistente(int id);
         string CheckDatabase();
+        bool ExistDatabaseFile();
         SqliteConnection CreateConnection();
         IList<Asistente> GetAllAsistentes();
         IList<Invitado> GetAllInvitados();

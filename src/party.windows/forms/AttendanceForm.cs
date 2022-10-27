@@ -5,7 +5,6 @@
     using System.Drawing;
     using System.Windows.Forms;
     using Microsoft.Extensions.Options;
-    using party.core.constants;
     using party.core.enums;
     using party.core.model;
     using party.service;
@@ -206,28 +205,31 @@
             int cantidadInvitados = 0;
             int cantidadInvitadosEvento = 0;
             int cantidadAsistentes = 0;
+            if (dataService.ExistDatabaseFile())
+            {
 
-            try
-            {
-                checkDatabase = dataService.CheckDatabase();
-            }
-            catch { }
-            try
-            {
-                cantidadInvitados = dataService.GetCountInvitados();
-            }
-            catch { }
-            try
-            {
-                cantidadAsistentes = dataService.GetCountAsistentes();
-            }
-            catch { }
-            try
-            {
-                cantidadInvitadosEvento = dataService.GetCountInvitadosEvento(Configuracion.CurrentValue.Event);
-            }
-            catch
-            {
+                try
+                {
+                    checkDatabase = dataService.CheckDatabase();
+                }
+                catch { }
+                try
+                {
+                    cantidadInvitados = dataService.GetCountInvitados();
+                }
+                catch { }
+                try
+                {
+                    cantidadAsistentes = dataService.GetCountAsistentes();
+                }
+                catch { }
+                try
+                {
+                    cantidadInvitadosEvento = dataService.GetCountInvitadosEvento(Configuracion.CurrentValue.Event);
+                }
+                catch
+                {
+                }
             }
 
             statusDatabase.Text = $"Base de datos: {checkDatabase}";
