@@ -8,6 +8,9 @@
     using party.core.model;
     public class DataService : IDataService
     {
+        public const string MessageFileNotExists = "No existe fichero";
+        public const string MessageDatabaseNotInitialized = "No está inicializada";
+        public const string MessageDatabaseInitialized = "Inicializada";
         public bool DatabaseReady { get; set; }
         private readonly IOptionsMonitor<Configuracion> configuracion;
         protected string DatabaseName => Path.Combine(configuracion.CurrentValue.EventPath, configuracion.CurrentValue.DatabaseName);
@@ -79,8 +82,7 @@
             DeleteDatabase(DatabaseName);
             using SqliteConnection db = CreateConnection();
             db.Open();
-            CreateTableInvitados(db);
-            CreateTableAsistencia(db);
+            CreateTables(db);
         }
 
         public void BorrarAsistente(int id)
@@ -108,7 +110,11 @@
                 System.Threading.Thread.Sleep(5000);
             }
         }
-
+        public static void CreateTables(SqliteConnection db)
+        {
+            CreateTableAsistencia(db);
+            CreateTableInvitados(db);
+        }
         public static void CreateTableInvitados(SqliteConnection db)
         {
             String tableCommand = "CREATE TABLE IF NOT " +
@@ -246,16 +252,16 @@
             string databaseOk = string.Empty;
             try
             {
-                databaseOk = "No existe fichero";
+                databaseOk = MessageFileNotExists;
                 bool existeFichero = System.IO.File.Exists(DatabaseName);
                 if (existeFichero)
                 {
-                    databaseOk = "No está inicializada";
+                    databaseOk = MessageDatabaseNotInitialized;
                     bool existeTableInvitados = ExisteTable("Invitados");
                     bool existeTableAsistente = ExisteTable("Asistencia");
                     if (existeTableInvitados && existeTableAsistente)
                     {
-                        databaseOk = "Inicializada";
+                        databaseOk = MessageDatabaseInitialized;
                     }
                 }
             }
