@@ -79,8 +79,7 @@
             DeleteDatabase(DatabaseName);
             using SqliteConnection db = CreateConnection();
             db.Open();
-            CreateTableInvitados(db);
-            CreateTableAsistencia(db);
+            CreateTables(db);
         }
 
         public void BorrarAsistente(int id)
@@ -108,7 +107,11 @@
                 System.Threading.Thread.Sleep(5000);
             }
         }
-
+        public static void CreateTables(SqliteConnection db)
+        {
+            CreateTableAsistencia(db);
+            CreateTableInvitados(db);
+        }
         public static void CreateTableInvitados(SqliteConnection db)
         {
             String tableCommand = "CREATE TABLE IF NOT " +
