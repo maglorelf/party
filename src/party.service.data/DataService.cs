@@ -8,6 +8,9 @@
     using party.core.model;
     public class DataService : IDataService
     {
+        public const string MessageFileNotExists = "No existe fichero";
+        public const string MessageDatabaseNotInitialized = "No está inicializada";
+        public const string MessageDatabaseInitialized = "Inicializada";
         public bool DatabaseReady { get; set; }
         private readonly IOptionsMonitor<Configuracion> configuracion;
         protected string DatabaseName => Path.Combine(configuracion.CurrentValue.EventPath, configuracion.CurrentValue.DatabaseName);
@@ -249,16 +252,16 @@
             string databaseOk = string.Empty;
             try
             {
-                databaseOk = "No existe fichero";
+                databaseOk = MessageFileNotExists;
                 bool existeFichero = System.IO.File.Exists(DatabaseName);
                 if (existeFichero)
                 {
-                    databaseOk = "No está inicializada";
+                    databaseOk = MessageDatabaseNotInitialized;
                     bool existeTableInvitados = ExisteTable("Invitados");
                     bool existeTableAsistente = ExisteTable("Asistencia");
                     if (existeTableInvitados && existeTableAsistente)
                     {
-                        databaseOk = "Inicializada";
+                        databaseOk = MessageDatabaseInitialized;
                     }
                 }
             }

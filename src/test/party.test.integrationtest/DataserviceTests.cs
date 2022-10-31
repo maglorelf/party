@@ -40,7 +40,7 @@ namespace party.test.integrationtest
             IDataService dataService = new DataService(options);
             string checkMessage = dataService.CheckDatabase();
 
-            Assert.Equal("No existe fichero", checkMessage);
+            Assert.Equal(DataService.MessageFileNotExists, checkMessage);
         }
         [Fact]
         public void CheckDatabase_CreateConnectionNotInitialization_ReturnNotInitizedDatabaseMessage()
@@ -57,7 +57,7 @@ namespace party.test.integrationtest
             connection.Open();
             string checkMessage = dataService.CheckDatabase();
 
-            Assert.Equal("No está inicializada", checkMessage);
+            Assert.Equal(DataService.MessageDatabaseNotInitialized, checkMessage);
         }
         [Fact]
         public void CheckDatabase_CreateConnectionAndInitialization_ReturnInitizedDatabaseMessage()
@@ -73,7 +73,7 @@ namespace party.test.integrationtest
             dataService.InitializeDatabase();
             string checkMessage = dataService.CheckDatabase();
 
-            Assert.Equal("Inicializada", checkMessage);
+            Assert.Equal(DataService.MessageDatabaseInitialized, checkMessage);
         }
     }
 }
