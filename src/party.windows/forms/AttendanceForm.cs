@@ -60,10 +60,7 @@
             BackgroundImage = LoadImage(configuracion.BackgroundImage);
             Invoke(new Action(() => Text = configuracion.Title));
             Evento.Invoke(new Action(() => Evento.Text = configuracion.Event));
-
         }
-
-
 
         private static Image LoadImage(string imagePath)
         {
@@ -94,7 +91,6 @@
             panelConfirmacionEntrada.Visible = false;
             InvitadoTemporal = null;
             panelAsistenciaRegistrada.Visible = false;
-
         }
 
         protected void Procesar(string qr, (ResultadoCheck, Invitado, Asistente) resultado)
@@ -126,14 +122,12 @@
             }
             ClearCode();
         }
-
         private void MostrarAsistente(Asistente asistente)
         {
             panelAsistenciaRegistrada.Visible = true;
             AsistenteDatosLabel.Text = $"{asistente.Nombre} \n {asistente.DNI} \n {asistente.Email} \n {asistente.Evento} \n {asistente.Entrada}";
 
         }
-
         private void MostrarInvitado(Invitado invitado)
         {
             labelAsistenteAceptado.Visible = false;
@@ -144,7 +138,6 @@
             buttonNoVerificado.Visible = true;
             buttonVerificado.Visible = true;
             InvitadoDatosLabel.Text = $"{invitado.Nombre} \n{invitado.DNI} \n{invitado.Email} \n{invitado.Evento} \n{invitado.EventoLocal}";
-
         }
         private void MostrarInvitadoDatosIncorrectos(Invitado invitado)
         {
@@ -198,7 +191,6 @@
             }
             MostrarBaseDatosInfo();
         }
-
         private void MostrarBaseDatosInfo()
         {
             string checkDatabase = string.Empty;
@@ -207,7 +199,6 @@
             int cantidadAsistentes = 0;
             if (dataService.ExistDatabaseFile())
             {
-
                 try
                 {
                     checkDatabase = dataService.CheckDatabase();
@@ -252,13 +243,11 @@
                 }
             }
         }
-
         protected static bool SolicitarConfirmacion(string mensaje)
         {
             DialogResult result = MessageBox.Show(mensaje, "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             return (result == DialogResult.Yes);
         }
-
         private void CargarFicheroToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -272,7 +261,6 @@
             }
             MostrarBaseDatosInfo();
         }
-
         private void DescargarAsistenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new()
@@ -289,14 +277,12 @@
                 csvService.WriteCSV(asistentes, saveFileDialog.FileName);
             }
         }
-
         private void ButtonVerificado_Click(object sender, EventArgs e)
         {
             VerificarInvitado();
         }
         private void VerificarInvitado()
         {
-
             proceso.AceptarInvitado(InvitadoTemporal);
             buttonNoVerificado.Visible = false;
             buttonVerificado.Visible = false;
@@ -313,7 +299,6 @@
             labelAsistenteAceptado.Text = "Asistente rechazado";
             labelAsistenteAceptado.Visible = true;
             CheckQR.Enabled = true;
-
         }
         private void ButtonNoVerificado_Click(object sender, EventArgs e)
         {
@@ -324,7 +309,6 @@
         {
             if (buttonNoVerificado.Visible && buttonVerificado.Visible)
             {
-
                 if (keyData == (Keys.S))
                 {
                     VerificarInvitado();
@@ -338,7 +322,6 @@
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
         private void ConsultarInvitadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ListaInvitadosForm formularioLista = new(dataService, proceso, Configuracion.CurrentValue);
@@ -346,7 +329,6 @@
             formularioLista.Dispose();
             MostrarBaseDatosInfo();
         }
-
         private void ConsultarAsistentesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ListaAsistentesForm formularioLista = new(dataService, proceso);
@@ -354,14 +336,12 @@
             formularioLista.Dispose();
             MostrarBaseDatosInfo();
         }
-
         private void BarcodesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BarcodesConfForm barcodesConfForm = new();
             barcodesConfForm.ShowDialog();
             barcodesConfForm.Dispose();
         }
-
         private void TextosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ActualizarSettings();

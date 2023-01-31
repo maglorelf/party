@@ -16,10 +16,7 @@
 
         public TOptions CurrentValue { get; private set; }
 
-        public TOptions Get(string name)
-        {
-            return CurrentValue;
-        }
+        public TOptions Get(string? name) => CurrentValue;
 
         public void Set(TOptions value)
         {
