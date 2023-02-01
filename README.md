@@ -25,7 +25,7 @@ In the /examples folder the are a list of people with an invitation to the party
 
 ## Built With
 
-* [Net 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) - .NET Version
+* [Net 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) - .NET Version
 * [Windows Forms](https://docs.microsoft.com/es-es/dotnet/desktop/winforms/get-started/create-app-visual-studio?WT.mc_id=dotnet-35129-website&view=netdesktop-5.0) - Current desktop patterns
 * [SQLite](https://www.sqlite.org/) - Local database
 

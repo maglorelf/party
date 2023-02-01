@@ -30,17 +30,38 @@
 
         private void ButtonGuardar_Click(object sender, EventArgs e)
         {
-            Configuration.EventPath = PathText.Text;
-            Configuration.Title = TituloText.Text;
-            Configuration.DatabaseName = DatabaseText.Text;
-            Configuration.Event = EventoText.Text;
-            Configuration.CSVSeparationLetter = SeparadorCSVText.Text;
-            Configuration.BackgroundImage = BackgroundText.Text;
+            (bool validForm, string messageInvalidation) = ValidateForm();
+            if (validForm)
+            {
+                Configuration.EventPath = PathText.Text;
+                Configuration.Title = TituloText.Text;
+                Configuration.DatabaseName = DatabaseText.Text;
+                Configuration.Event = EventoText.Text;
+                Configuration.CSVSeparationLetter = SeparadorCSVText.Text;
+                Configuration.BackgroundImage = BackgroundText.Text;
 
-            SettingsManager.SetAppSettingConfiguracionValues(Configuration, Configuration.ConfigurationFilename);
-            SettingsManager.SetAppSettingConfiguracionValues(Configuration, null);
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+                SettingsManager.SetAppSettingConfiguracionValues(Configuration, Configuration.ConfigurationFilename);
+                SettingsManager.SetAppSettingConfiguracionValues(Configuration, null);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show(messageInvalidation);
+                this.DialogResult = DialogResult.None;
+            }
+        }
+
+        private (bool validForm, string messageInvalidation) ValidateForm()
+        {
+            bool valid = true;
+            string message = string.Empty;
+            if (!System.IO.Path.IsPathFullyQualified(PathText.Text))
+            {
+                message += "El path tiene que ser válido.";
+                valid = false;
+            }
+            return (valid, message);
         }
 
         private void SelectDatabaseButton_Click(object sender, EventArgs e)
@@ -77,6 +98,12 @@
             {
                 PathText.Text = folderBrowserDialog.SelectedPath;
             }
+        }
+
+        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.DialogResult == DialogResult.None)
+                e.Cancel = true;
         }
     }
 }

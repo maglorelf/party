@@ -16,7 +16,6 @@
             this.DataService = dataService;
         }
 
-
         public (ResultadoCheck, Invitado, Asistente) CheckQR(string qr)
         {
             Asistente asistente = null;

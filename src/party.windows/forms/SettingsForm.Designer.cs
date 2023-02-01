@@ -286,6 +286,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Configuración de evento";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
             this.panelInferior.ResumeLayout(false);
             this.CabeceraPanel.ResumeLayout(false);
             this.CabeceraPanel.PerformLayout();
