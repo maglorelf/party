@@ -106,6 +106,7 @@
         {
             if (File.Exists(databaseName))
             {
+                SqliteConnection.ClearAllPools();
                 System.IO.File.Delete(databaseName);
                 System.Threading.Thread.Sleep(5000);
             }

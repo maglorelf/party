@@ -60,7 +60,7 @@ namespace party.test.integrationtest
             Assert.Equal(DataService.MessageDatabaseNotInitialized, checkMessage);
         }
         [Fact]
-        public void CheckDatabase_CreateConnectionAndInitialization_ReturnInitizedDatabaseMessage()
+        public void CheckDatabase_CreateConnectionAndInitialization_ReturnInitializedDatabaseMessage()
         {
             string testFile = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".db";
 
@@ -74,6 +74,26 @@ namespace party.test.integrationtest
             string checkMessage = dataService.CheckDatabase();
 
             Assert.Equal(DataService.MessageDatabaseInitialized, checkMessage);
+        }
+        [Fact]
+        public void CheckDatabase_CreateConnectionAndInitializationToAExistingConnection_ReturnInitializedDatabaseMessage()
+        {
+            string testFile = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".db";
+
+            IOptionsMonitor<Configuracion> options = new TestOptionsMonitor<Configuracion>(new Configuracion
+            {
+                DatabaseName = Path.GetFileName(testFile),
+                EventPath = Path.GetDirectoryName(testFile)
+            }); ;
+            IDataService dataService = new DataService(options);
+            dataService.InitializeDatabase();
+            string checkMessageFirstTime = dataService.CheckDatabase();
+
+            dataService.InitializeDatabase();
+            string checkMessageSecondTime = dataService.CheckDatabase();
+
+            Assert.Equal(DataService.MessageDatabaseInitialized, checkMessageFirstTime);
+            Assert.Equal(DataService.MessageDatabaseInitialized, checkMessageSecondTime);
         }
     }
 }
