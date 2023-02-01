@@ -33,7 +33,6 @@
             services.AddScoped<IProceso, Proceso>();
             services.AddScoped<IDataService, DataService>();
             services.AddScoped<ICSVService, CSVService>();
-            services.AddScoped<IManageService, ManageService>();
         }
         public static IConfiguration ConfigureSetup()
         {
