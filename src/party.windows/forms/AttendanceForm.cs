@@ -17,16 +17,14 @@
         private readonly IProceso proceso;
         private readonly IDataService dataService;
         private readonly ICSVService csvService;
-        private readonly IManageService manageService;
         public Invitado InvitadoTemporal { get; private set; }
-        public AttendanceForm(IOptionsMonitor<Configuracion> configuracion, IProceso proceso, ICSVService csvService, IDataService dataService, IManageService manageService)
+        public AttendanceForm(IOptionsMonitor<Configuracion> configuracion, IProceso proceso, ICSVService csvService, IDataService dataService)
         {
             Configuracion = configuracion;
             Configuracion.OnChange(conf => Initialize());
             this.proceso = proceso;
             this.csvService = csvService;
             this.dataService = dataService;
-            this.manageService = manageService;
             InitializeComponent();
         }
         private void AttendanceForm_Load(object sender, EventArgs e)

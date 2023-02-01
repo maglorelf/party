@@ -35,7 +35,6 @@
             });
             return invitados;
         }
-
         public Invitado ConvertLineToInvitado(string linea)
         {
             var campos = linea.Split(new char[] { Convert.ToChar(CSVSeparationLetter) });
@@ -53,7 +52,6 @@
             };
             return invitado;
         }
-
         public void WriteCSV<T>(IEnumerable<T> items, string path)
         {
             Type itemType = typeof(T);

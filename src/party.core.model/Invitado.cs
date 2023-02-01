@@ -47,7 +47,6 @@
         public bool IsRegistrado => Registrado == "Sí";
         public bool IsConfirmado => Asistencia == "Sí";
 
-
         public bool HasValuesMinimos()
         {
             return !string.IsNullOrEmpty(Nombre) && !string.IsNullOrEmpty(DNI) && !string.IsNullOrEmpty(Notas);
