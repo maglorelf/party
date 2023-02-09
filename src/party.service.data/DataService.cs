@@ -5,6 +5,7 @@
     using System.IO;
     using Microsoft.Data.Sqlite;
     using Microsoft.Extensions.Options;
+    using party.core.infrastructure;
     using party.core.model;
     public class DataService : IDataService
     {
@@ -107,8 +108,7 @@
             if (File.Exists(databaseName))
             {
                 SqliteConnection.ClearAllPools();
-                System.IO.File.Delete(databaseName);
-                System.Threading.Thread.Sleep(5000);
+                File.Delete(databaseName);
             }
         }
         public static void CreateTables(SqliteConnection db)
@@ -248,26 +248,36 @@
             }
             return elementos;
         }
-        public string CheckDatabase()
+        public ResultValue<string> CheckDatabase()
         {
-            string databaseOk = string.Empty;
+            ResultValue<string> databaseCheck;
             try
             {
-                databaseOk = MessageFileNotExists;
-                bool existeFichero = System.IO.File.Exists(DatabaseName);
+                bool existeFichero = File.Exists(DatabaseName);
                 if (existeFichero)
                 {
-                    databaseOk = MessageDatabaseNotInitialized;
                     bool existeTableInvitados = ExisteTable("Invitados");
                     bool existeTableAsistente = ExisteTable("Asistencia");
                     if (existeTableInvitados && existeTableAsistente)
                     {
-                        databaseOk = MessageDatabaseInitialized;
+                        databaseCheck = ResultValue<string>.NewOk(MessageDatabaseInitialized);
+                    }
+                    else
+                    {
+                        databaseCheck = ResultValue<string>.NewError(MessageDatabaseNotInitialized);
                     }
                 }
+                else
+                {
+                    databaseCheck = ResultValue<string>.NewError(MessageFileNotExists);
+                }
             }
-            catch { }
-            return databaseOk;
+            catch (Exception ex)
+            {
+                databaseCheck = ResultValue<string>.NewError(1);
+                databaseCheck.AddError(ex.Message);
+            }
+            return databaseCheck;
         }
         protected bool ExisteTable(string tablename)
         {

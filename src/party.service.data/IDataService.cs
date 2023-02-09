@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
     using Microsoft.Data.Sqlite;
+    using party.core.infrastructure;
     using party.core.model;
     public interface IDataService
     {
         bool DatabaseReady { get; set; }
         void ActualizarNotasInvitado(Invitado invitado);
         void BorrarAsistente(int id);
-        string CheckDatabase();
+        ResultValue<string> CheckDatabase();
         bool ExistDatabaseFile();
         SqliteConnection CreateConnection();
         IList<Asistente> GetAllAsistentes();

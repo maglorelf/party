@@ -6,6 +6,7 @@
     using System.Windows.Forms;
     using Microsoft.Extensions.Options;
     using party.core.enums;
+    using party.core.infrastructure;
     using party.core.model;
     using party.service;
     using party.service.data;
@@ -191,17 +192,13 @@
         }
         private void MostrarBaseDatosInfo()
         {
-            string checkDatabase = string.Empty;
+            ResultValue<string> checkDatabase = ResultValue<string>.NewOk();
             int cantidadInvitados = 0;
             int cantidadInvitadosEvento = 0;
             int cantidadAsistentes = 0;
             if (dataService.ExistDatabaseFile())
             {
-                try
-                {
-                    checkDatabase = dataService.CheckDatabase();
-                }
-                catch { }
+                checkDatabase = dataService.CheckDatabase();
                 try
                 {
                     cantidadInvitados = dataService.GetCountInvitados();
@@ -221,7 +218,7 @@
                 }
             }
 
-            statusDatabase.Text = $"Base de datos: {checkDatabase}";
+            statusDatabase.Text = $"Base de datos: {checkDatabase.Result}";
             statusInvitados.Text = $"Invitados: {cantidadInvitados}";
             statusAsistentes.Text = $" {cantidadAsistentes} asistentes de {cantidadInvitadosEvento}";
             if (cantidadInvitadosEvento > 0)

@@ -1,7 +1,9 @@
 ﻿namespace party.service
 {
+    using party.core.infrastructure;
+
     public interface IManagementService
     {
-        void GenerateEvent();
+        ResultValue<string> GenerateEvent();
     }
 }

@@ -2,6 +2,7 @@
 {
     using Microsoft.Extensions.Options;
     using Moq;
+    using party.core.infrastructure;
     using party.core.model;
     using party.service;
     using party.service.data;
@@ -12,12 +13,19 @@
         [Fact]
         public void GenerateEmptyEventTest()
         {
-            string eventPath = @"C:\TEMP\EVENT1";
-            IOptionsSnapshot<Configuracion> options = Mock.Of<IOptionsSnapshot<Configuracion>>();
-            options.Value.EventPath = eventPath;
-            IDataService dataService = Mock.Of<IDataService>();
+            var options = new Configuracion()
+            {
+                Event = @"C:\TEMP\EVENT1",
+                DatabaseName = "database.db"
+            };
+            Mock<IOptionsSnapshot<Configuracion>> configurationMock = new();
+            configurationMock.Setup(m => m.Value).Returns(options);
+
+            IDataService dataService = Mock.Of<IDataService>(m => m.CheckDatabase() == ResultValue<string>.NewOk());
             IManagementService service = new ManagementService(dataService);
-            service.GenerateEvent();
+            ResultValue<string> actual = service.GenerateEvent();
+            Assert.True(actual.Success);
+
         }
     }
 }
