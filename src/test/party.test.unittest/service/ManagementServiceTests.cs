@@ -1,9 +1,7 @@
 ﻿namespace party.test.unittest.service
 {
-    using Microsoft.Extensions.Options;
     using Moq;
     using party.core.infrastructure;
-    using party.core.model;
     using party.service;
     using party.service.data;
     using Xunit;
@@ -13,19 +11,16 @@
         [Fact]
         public void GenerateEmptyEventTest()
         {
-            var options = new Configuracion()
-            {
-                Event = @"C:\TEMP\EVENT1",
-                DatabaseName = "database.db"
-            };
-            Mock<IOptionsSnapshot<Configuracion>> configurationMock = new();
-            configurationMock.Setup(m => m.Value).Returns(options);
+            Mock<IDataService> dataServiceMock = new(MockBehavior.Strict);
+            dataServiceMock.Setup(m => m.CheckDatabase()).Returns(ResultValue<string>.NewOk());
+            dataServiceMock.Setup(m => m.InitializeDatabase());
+            IManagementService service = new ManagementService(dataServiceMock.Object);
 
-            IDataService dataService = Mock.Of<IDataService>(m => m.CheckDatabase() == ResultValue<string>.NewOk());
-            IManagementService service = new ManagementService(dataService);
             ResultValue<string> actual = service.GenerateEvent();
-            Assert.True(actual.Success);
 
+            dataServiceMock.Verify(m => m.CheckDatabase(), Times.Once);
+            dataServiceMock.Verify(m => m.InitializeDatabase(), Times.Once);
+            Assert.True(actual.Success);
         }
     }
 }
