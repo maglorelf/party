@@ -1,6 +1,5 @@
 namespace party.test.integrationtest
 {
-    using System;
     using System.IO;
     using Microsoft.Data.Sqlite;
     using Microsoft.Extensions.Options;
@@ -8,6 +7,7 @@ namespace party.test.integrationtest
     using party.core.model;
     using party.service.data;
     using party.test.integrationtest.setup;
+    using party.test.tools.Extensions;
     using Xunit;
 
     public class DataserviceTests
@@ -31,7 +31,7 @@ namespace party.test.integrationtest
         [Fact]
         public void CheckDatabase_NoExistFile_ReturnMissingDatabaseMessage()
         {
-            string testFile = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".db";
+            string testFile = "testdata.db".ShallowFileInUniqueFolder();
 
             IOptionsMonitor<Configuracion> options = new TestOptionsMonitor<Configuracion>(new Configuracion
             {
@@ -47,7 +47,7 @@ namespace party.test.integrationtest
         [Fact]
         public void CheckDatabase_CreateConnectionNotInitialization_ReturnNotInitizedDatabaseMessage()
         {
-            string testFile = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".db";
+            string testFile = "testdata.db".ShallowFileInUniqueFolder();
 
             IOptionsMonitor<Configuracion> options = new TestOptionsMonitor<Configuracion>(new Configuracion
             {
@@ -65,7 +65,7 @@ namespace party.test.integrationtest
         [Fact]
         public void CheckDatabase_CreateConnectionAndInitialization_ReturnInitializedDatabaseMessage()
         {
-            string testFile = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".db";
+            string testFile = "testdata.db".ShallowFileInUniqueFolder();
 
             IOptionsMonitor<Configuracion> options = new TestOptionsMonitor<Configuracion>(new Configuracion
             {
@@ -82,7 +82,7 @@ namespace party.test.integrationtest
         [Fact]
         public void CheckDatabase_CreateConnectionAndInitializationToAExistingConnection_ReturnInitializedDatabaseMessage()
         {
-            string testFile = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".db";
+            string testFile = "testdata.db".ShallowFileInUniqueFolder();
 
             IOptionsMonitor<Configuracion> options = new TestOptionsMonitor<Configuracion>(new Configuracion
             {

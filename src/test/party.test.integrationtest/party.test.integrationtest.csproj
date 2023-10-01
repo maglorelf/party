@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\party.service.data\party.service.data.csproj" />
+    <ProjectReference Include="..\party.test.tools\party.test.tools.csproj" />
   </ItemGroup>
 
 </Project>
