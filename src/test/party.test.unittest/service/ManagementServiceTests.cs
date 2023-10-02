@@ -20,6 +20,7 @@
 
             dataServiceMock.Verify(m => m.CheckDatabase(), Times.Once);
             dataServiceMock.Verify(m => m.InitializeDatabase(), Times.Once);
+
             Assert.True(actual.Success);
         }
     }

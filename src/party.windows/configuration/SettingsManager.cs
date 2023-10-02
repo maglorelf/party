@@ -63,8 +63,6 @@
             {
                 jsonObj = new AppSettings();
             }
-
-            //       jsonObj[key] = value;
             jsonObj.SettingsApp = value;
             string output = JsonSerializer.Serialize(jsonObj, new JsonSerializerOptions { WriteIndented = true });
 

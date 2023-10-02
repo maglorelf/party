@@ -357,7 +357,22 @@
             }
             settingsForm.Dispose();
         }
+        private void EventToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditEvent();
+        }
 
-
+        protected void EditEvent()
+        {
+            Event @event = dataService.GetCurrentEvent();
+            EventForm eventForm = new(@event);
+            DialogResult dialogResult = eventForm.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                Configuracion.CurrentValue.Title = eventForm.Event.Title;
+                dataService.UpdateDataEvent(@event);
+            }
+            eventForm.Dispose();
+        }
     }
 }

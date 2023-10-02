@@ -113,38 +113,53 @@
         }
         public static void CreateTables(SqliteConnection db)
         {
-            CreateTableAsistencia(db);
-            CreateTableInvitados(db);
+            foreach (Tables table in Enum.GetValues<Tables>())
+            {
+                CreateTable(db, table);
+            }
+        }
+        public static void CreateTable(SqliteConnection db, Tables table)
+        {
+            string command = string.Empty;
+            switch (table)
+            {
+                case Tables.Invitados:
+                    command = SqlCommands.TableInvitadosCommand;
+                    break;
+                case Tables.Asistencia:
+                    command = SqlCommands.TableAsistenciaCommand;
+                    break;
+                case Tables.Event:
+                    command = SqlCommands.TableEventCommand;
+                    break;
+                case Tables.Route:
+                    command = SqlCommands.TableRouteCommand;
+                    break;
+            }
+            if (!string.IsNullOrEmpty(command))
+            {
+                SqliteCommand createTable = new(command, db);
+                createTable.ExecuteNonQuery();
+            }
         }
         public static void CreateTableInvitados(SqliteConnection db)
         {
-            String tableCommand = "CREATE TABLE IF NOT " +
-                  "EXISTS Invitados (Id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                    "Codigo INTEGER NULL," +
-                    "Nombre NVARCHAR(2048) NULL," +
-                    "Evento NVARCHAR(2048) NULL," +
-                    "EventoLocal NVARCHAR(2048) NULL," +
-                    "Extra NVARCHAR(2048) NULL," +
-                    "DNI NVARCHAR(2048) NULL," +
-                    "Email NVARCHAR(2048) COLLATE NOCASE NULL," +
-                    "Oficina NVARCHAR(2048) NULL," +
-                    "Asistencia NVARCHAR(2048) NULL," +
-                    "Notas NVARCHAR(2048) NULL)";
-
-            SqliteCommand createTable = new(tableCommand, db);
-
+            SqliteCommand createTable = new(SqlCommands.TableInvitadosCommand, db);
             createTable.ExecuteNonQuery();
         }
         public static void CreateTableAsistencia(SqliteConnection db)
         {
-            String tableCommand = "CREATE TABLE IF NOT " +
-                  "EXISTS Asistencia (Id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                  "QRLeido NVARCHAR(2048) NOT NULL," +
-                  "InvitadoId integer NOT NULL," +
-                  "Entrada integer NOT NULL)";
-
-            SqliteCommand createTable = new(tableCommand, db);
-
+            SqliteCommand createTable = new(SqlCommands.TableAsistenciaCommand, db);
+            createTable.ExecuteNonQuery();
+        }
+        public static void CreateTableEvent(SqliteConnection db)
+        {
+            SqliteCommand createTable = new(SqlCommands.TableEventCommand, db);
+            createTable.ExecuteNonQuery();
+        }
+        public static void CreateTableRoute(SqliteConnection db)
+        {
+            SqliteCommand createTable = new(SqlCommands.TableRouteCommand, db);
             createTable.ExecuteNonQuery();
         }
 
@@ -256,9 +271,12 @@
                 bool existeFichero = File.Exists(DatabaseName);
                 if (existeFichero)
                 {
-                    bool existeTableInvitados = ExisteTable("Invitados");
-                    bool existeTableAsistente = ExisteTable("Asistencia");
-                    if (existeTableInvitados && existeTableAsistente)
+                    bool existeTable = true;
+                    foreach (string table in Enum.GetNames<Tables>())
+                    {
+                        existeTable &= ExisteTable(table);
+                    }
+                    if (existeTable)
                     {
                         databaseCheck = ResultValue<string>.NewOk(MessageDatabaseInitialized);
                     }
@@ -431,6 +449,16 @@
                 db.Close();
             }
             return invitados;
+        }
+        public Event GetCurrentEvent()
+        {
+            Event @event = new();
+            @event.Routes.Add(new Route());
+            return @event;
+        }
+
+        public void UpdateDataEvent(Event @event)
+        {
         }
     }
 }
