@@ -15,6 +15,10 @@
         public List<Route> Routes { get; set; }
         public Event()
         {
+            Id = Guid.NewGuid();
+            Start = DateTime.Now;
+            End = DateTime.Now;
+            CheckIn = DateTime.Now;
             Routes = new List<Route>();
         }
     }

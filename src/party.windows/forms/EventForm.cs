@@ -34,11 +34,11 @@
             if (validForm)
             {
                 Event.Title = TituloText.Text;
-                Event.Description = TituloText.Text;
-                //Event.Start= TituloText.Text;
-                //Event.End = TituloText.Text;
-                //Event.CheckIn = TituloText.Text;
-                //Event.Routes = TituloText.Text;
+                Event.Description = DescriptionText.Text;
+                Event.Start = StartDatePicker.Value;
+                Event.End = EndDatePicker.Value;
+                Event.CheckIn = CheckInPicker.Value;
+                Event.Routes = routesBinding.ToList();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -52,9 +52,19 @@
         {
             bool valid = true;
             string message = string.Empty;
-            if (!string.IsNullOrEmpty(TituloText.Text))
+            if (string.IsNullOrEmpty(TituloText.Text))
             {
                 message += "El titulo es obligatorio.";
+                valid = false;
+            }
+            if (routesBinding.Count == 0)
+            {
+                message += "Al menos debe existir una localización.";
+                valid = false;
+            }
+            if (routesBinding.Any(r => string.IsNullOrWhiteSpace(r.Name)))
+            {
+                message += "Se requiere al menos dar un nombre a las localizaciones.";
                 valid = false;
             }
             return (valid, message);
@@ -62,7 +72,9 @@
         private void EventForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (DialogResult == DialogResult.None)
+            {
                 e.Cancel = true;
+            }
         }
         public void FillGrid(IList<Route> routes)
         {
@@ -101,6 +113,23 @@
                 }
             }
             return visibleFieldList;
+        }
+        private void MenuItemDelete_Click(object sender, EventArgs e)
+        {
+            Route route = SelectedRoute();
+            if (route != null)
+            {
+                routesBinding.Remove(route);
+            }
+        }
+        private Route SelectedRoute()
+        {
+            Route route = null;
+            if (gridRoutes?.SelectedRows.Count > 0)
+            {
+                route = (Route)gridRoutes.SelectedRows[0].DataBoundItem;
+            }
+            return route;
         }
     }
 }

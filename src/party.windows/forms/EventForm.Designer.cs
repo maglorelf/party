@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             panelInferior = new System.Windows.Forms.Panel();
             buttonGuardar = new System.Windows.Forms.Button();
@@ -45,10 +46,13 @@
             CheckInPicker = new System.Windows.Forms.DateTimePicker();
             CheckInLabel = new System.Windows.Forms.Label();
             gridRoutes = new System.Windows.Forms.DataGridView();
+            contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(components);
+            menuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
             RoutesLabel = new System.Windows.Forms.Label();
             panelInferior.SuspendLayout();
             CabeceraPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridRoutes).BeginInit();
+            contextMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // panelInferior
@@ -139,9 +143,9 @@
             DescriptionLabel.Location = new System.Drawing.Point(17, 95);
             DescriptionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             DescriptionLabel.Name = "DescriptionLabel";
-            DescriptionLabel.Size = new System.Drawing.Size(130, 16);
+            DescriptionLabel.Size = new System.Drawing.Size(79, 16);
             DescriptionLabel.TabIndex = 8;
-            DescriptionLabel.Text = "Nombre Base Datos";
+            DescriptionLabel.Text = "Descripción";
             // 
             // TituloText
             // 
@@ -214,7 +218,6 @@
             // 
             // gridRoutes
             // 
-            gridRoutes.AllowUserToAddRows = false;
             gridRoutes.AllowUserToDeleteRows = false;
             gridRoutes.AllowUserToOrderColumns = true;
             gridRoutes.AllowUserToResizeRows = false;
@@ -227,16 +230,29 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             gridRoutes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             gridRoutes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gridRoutes.ContextMenuStrip = contextMenuStrip;
             gridRoutes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            gridRoutes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            gridRoutes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             gridRoutes.Location = new System.Drawing.Point(0, 263);
             gridRoutes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gridRoutes.MultiSelect = false;
             gridRoutes.Name = "gridRoutes";
             gridRoutes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            gridRoutes.ShowEditingIcon = false;
             gridRoutes.Size = new System.Drawing.Size(813, 273);
             gridRoutes.TabIndex = 16;
+            // 
+            // contextMenuStrip
+            // 
+            contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { menuItemDelete });
+            contextMenuStrip.Name = "contextMenuStrip";
+            contextMenuStrip.Size = new System.Drawing.Size(107, 26);
+            // 
+            // menuItemDelete
+            // 
+            menuItemDelete.Name = "menuItemDelete";
+            menuItemDelete.Size = new System.Drawing.Size(106, 22);
+            menuItemDelete.Text = "Borrar";
+            menuItemDelete.Click += MenuItemDelete_Click;
             // 
             // RoutesLabel
             // 
@@ -284,6 +300,7 @@
             CabeceraPanel.ResumeLayout(false);
             CabeceraPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gridRoutes).EndInit();
+            contextMenuStrip.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -307,5 +324,7 @@
         private System.Windows.Forms.Label CheckInLabel;
         private System.Windows.Forms.DataGridView gridRoutes;
         private System.Windows.Forms.Label RoutesLabel;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem menuItemDelete;
     }
 }

@@ -13,6 +13,9 @@
         public string Location { get; set; }
         [VisibleGrid("Descripción", 1)]
         public string Description { get; set; }
-        public Route() { }
+        public Route()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }
