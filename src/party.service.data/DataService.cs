@@ -452,13 +452,124 @@
         }
         public Event GetCurrentEvent()
         {
-            Event @event = new();
-            @event.Routes.Add(new Route());
+            Guid? eventId = null;
+            using (SqliteConnection db = CreateConnection())
+            {
+                db.Open();
+                SqliteCommand selectCommand = new(SqlCommands.GetFirstEventId, db);
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    @eventId = query.GetGuid(0);
+                }
+                db.Close();
+            }
+            Event @event = Event.GenerateDefault();
+            if (eventId.HasValue)
+            {
+                @event = GetEvent(eventId.Value);
+            }
             return @event;
+        }
+        public Event GetEvent(Guid id)
+        {
+            Event @event = null;
+            using (SqliteConnection db = CreateConnection())
+            {
+                db.Open();
+                SqliteCommand selectCommand = new(SqlCommands.GetEventById, db);
+                selectCommand.Parameters.AddWithValue("@Id", id);
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    @event = new Event
+                    {
+                        Id = query.GetGuid(0),
+                        Title = query.GetString(1),
+                        Description = query.GetString(2),
+                        Start = query.GetDateTime(3),
+                        End = query.GetDateTime(4),
+                        CheckIn = query.GetDateTime(5)
+                    };
+                }
+                db.Close();
+            }
+            if (@event != null)
+            {
+                @event.Routes = GetAllRoutesOfEvent(@event.Id);
+            }
+            else
+            {
+                @event = Event.GenerateDefault();
+            }
+            return @event;
+        }
+        public List<Route> GetAllRoutesOfEvent(Guid eventId)
+        {
+            List<Route> routes = new();
+            using (SqliteConnection db = CreateConnection())
+            {
+                db.Open();
+                SqliteCommand selectCommand = new(SqlCommands.GetAllRoutesOfEvent, db);
+                selectCommand.Parameters.AddWithValue("@EventId", eventId);
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    Route route = new()
+                    {
+                        Id = query.GetGuid(0),
+                        EventId = query.GetGuid(1),
+                        Name = query.GetString(2),
+                        Description = query.GetString(3),
+                        Location = query.GetString(4),
+                    };
+                    routes.Add(route);
+                }
+
+                db.Close();
+                if (routes.Count == 0)
+                {
+                    routes.Add(new Route { EventId = eventId });
+                }
+            }
+            return routes;
         }
 
         public void UpdateDataEvent(Event @event)
         {
+            using SqliteConnection db = CreateConnection();
+            db.Open();
+            SqliteCommand updateEventCommand = new(SqlCommands.ReplaceEvent, db);
+
+
+            updateEventCommand.Parameters.AddWithValue("@Id", @event.Id);
+            updateEventCommand.Parameters.AddWithValue("@Title", @event.Title);
+            updateEventCommand.Parameters.AddWithValue("@Description", @event.Description);
+            updateEventCommand.Parameters.AddWithValue("@Start", @event.Start);
+            updateEventCommand.Parameters.AddWithValue("@End", @event.End);
+            updateEventCommand.Parameters.AddWithValue("@CheckIn", @event.CheckIn);
+            updateEventCommand.ExecuteNonQuery();
+            SqliteCommand deleteAllRoutesCommand = new(SqlCommands.DeleteEventRoutes, db);
+            deleteAllRoutesCommand.Parameters.AddWithValue("@EventId", @event.Id);
+
+            deleteAllRoutesCommand.ExecuteNonQuery();
+
+            foreach (var route in @event.Routes)
+            {
+                SqliteCommand updateRouteCommand = new(SqlCommands.InsertEventRoute, db);
+                updateRouteCommand.Parameters.AddWithValue("@Id", route.Id);
+                updateRouteCommand.Parameters.AddWithValue("@EventId", @event.Id);
+                updateRouteCommand.Parameters.AddWithValue("@Name", route.Name);
+                updateRouteCommand.Parameters.AddWithValue("@Description", route.Description);
+                updateRouteCommand.Parameters.AddWithValue("@Location", route.Location);
+                updateRouteCommand.ExecuteNonQuery();
+            }
+            db.Close();
         }
     }
 }

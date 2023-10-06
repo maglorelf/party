@@ -21,5 +21,12 @@
             CheckIn = DateTime.Now;
             Routes = new List<Route>();
         }
+        public static Event GenerateDefault()
+        {
+            Event @event = new();
+            @event.Routes.Add(new Route());
+            return @event;
+        }
     }
+
 }

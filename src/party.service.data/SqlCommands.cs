@@ -23,7 +23,6 @@
                     "EXISTS Event (Id NVARCHAR(36) PRIMARY KEY, " +
                     "Title NVARCHAR(2048) NOT NULL," +
                     "Description NVARCHAR(2048) NULL," +
-                    "InvitadoId integer NOT NULL," +
                     "Start integer NOT NULL," +
                     "End integer NOT NULL," +
                     "CheckIn integer NOT NULL)";
@@ -33,5 +32,12 @@
                     "Name NVARCHAR(2048) NOT NULL," +
                     "Description NVARCHAR(2048) NULL," +
                     "Location NVARCHAR(2048) NULL)";
+        public const string GetFirstEventId = "SELECT Id FROM Event LIMIT 1";
+        public const string GetEventById = "SELECT a.Id, a.Title,a.Description, a.Start, a.End, a.CheckIn "
+            + " FROM Event a WHERE Id=@Id";
+        public const string GetAllRoutesOfEvent = "SELECT Id, EventId,Name,Description,Location FROM Route WHERE EventId = @EventId";
+        public const string ReplaceEvent = "REPLACE INTO Event(Id, Title, Description, Start, End, CheckIn) VALUES(@Id, @Title, @Description, @Start, @End, @CheckIn)";
+        public const string DeleteEventRoutes = "DELETE FROM Route WHERE EventId=@EventId";
+        public const string InsertEventRoute = "INSERT INTO Route VALUES (@Id, @EventId, @Name, @Description, @Location)";
     }
 }
