@@ -8,6 +8,7 @@
     using party.service;
     using party.service.data;
     using party.windows.forms;
+    using Serilog;
 
     public static class ConfigureStartup
 
@@ -15,7 +16,9 @@
         public static IHost Startup()
         {
             IConfiguration configuration = ConfigureSetup();
-
+            Log.Logger = new LoggerConfiguration()
+                            .ReadFrom.Configuration(configuration)
+                            .CreateLogger();
             IHost host = Host.CreateDefaultBuilder()
                  .ConfigureServices((context, services) =>
                  {

@@ -6,6 +6,7 @@ namespace party.windows
     using Microsoft.Extensions.Hosting;
     using party.windows.configuration.startup;
     using party.windows.forms;
+    using Serilog;
 
     static class Program
     {
@@ -20,9 +21,11 @@ namespace party.windows
             Application.SetCompatibleTextRenderingDefault(false);
 
             IHost host = ConfigureStartup.Startup();
+            Log.Logger.Information("Application Starting");
 
             var mainForm = ActivatorUtilities.CreateInstance<AttendanceForm>(host.Services);
             Application.Run(mainForm);
+            Log.Logger.Information("Application Ending");
 
         }
 
