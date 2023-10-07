@@ -113,41 +113,35 @@
         }
         public static void CreateTables(SqliteConnection db)
         {
-            CreateTableAsistencia(db);
-            CreateTableInvitados(db);
+            foreach (Tables table in Enum.GetValues<Tables>())
+            {
+                CreateTable(db, table);
+            }
         }
-        public static void CreateTableInvitados(SqliteConnection db)
+        public static void CreateTable(SqliteConnection db, Tables table)
         {
-            String tableCommand = "CREATE TABLE IF NOT " +
-                  "EXISTS Invitados (Id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                    "Codigo INTEGER NULL," +
-                    "Nombre NVARCHAR(2048) NULL," +
-                    "Evento NVARCHAR(2048) NULL," +
-                    "EventoLocal NVARCHAR(2048) NULL," +
-                    "Extra NVARCHAR(2048) NULL," +
-                    "DNI NVARCHAR(2048) NULL," +
-                    "Email NVARCHAR(2048) COLLATE NOCASE NULL," +
-                    "Oficina NVARCHAR(2048) NULL," +
-                    "Asistencia NVARCHAR(2048) NULL," +
-                    "Notas NVARCHAR(2048) NULL)";
-
-            SqliteCommand createTable = new(tableCommand, db);
-
-            createTable.ExecuteNonQuery();
+            string command = string.Empty;
+            switch (table)
+            {
+                case Tables.Invitados:
+                    command = SqlCommands.TableInvitadosCommand;
+                    break;
+                case Tables.Asistencia:
+                    command = SqlCommands.TableAsistenciaCommand;
+                    break;
+                case Tables.Event:
+                    command = SqlCommands.TableEventCommand;
+                    break;
+                case Tables.Route:
+                    command = SqlCommands.TableRouteCommand;
+                    break;
+            }
+            if (!string.IsNullOrEmpty(command))
+            {
+                SqliteCommand createTable = new(command, db);
+                createTable.ExecuteNonQuery();
+            }
         }
-        public static void CreateTableAsistencia(SqliteConnection db)
-        {
-            String tableCommand = "CREATE TABLE IF NOT " +
-                  "EXISTS Asistencia (Id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                  "QRLeido NVARCHAR(2048) NOT NULL," +
-                  "InvitadoId integer NOT NULL," +
-                  "Entrada integer NOT NULL)";
-
-            SqliteCommand createTable = new(tableCommand, db);
-
-            createTable.ExecuteNonQuery();
-        }
-
         public void LoadInvitados(IList<Invitado> invitadosLeidos, IProgress<int> updateProgress)
         {
             using (SqliteConnection db = CreateConnection())
@@ -171,13 +165,7 @@
         }
         protected static void InsertInvitado(SqliteConnection db, Invitado invitado)
         {
-            SqliteCommand insertCommand = new()
-            {
-                Connection = db,
-
-                // Use parameterized query to prevent SQL injection attacks
-                CommandText = "INSERT INTO Invitados VALUES (null,@Codigo, @Nombre, @Evento, @EventoLocal, @Extra, @DNI, @Email, @Oficina, @Asistencia, @Notas);"
-            };
+            SqliteCommand insertCommand = new(SqlCommands.InsertInvitados, db);
 
             insertCommand.Parameters.AddWithValue("@Codigo", invitado.Codigo);
             insertCommand.Parameters.AddWithValue("@Nombre", invitado.Nombre);
@@ -188,6 +176,8 @@
             insertCommand.Parameters.AddWithValue("@Email", invitado.Email);
             insertCommand.Parameters.AddWithValue("@Oficina", invitado.Oficina);
             insertCommand.Parameters.AddWithValue("@Asistencia", invitado.Asistencia);
+            insertCommand.Parameters.AddWithValue("@EventId", invitado.EventId);
+            insertCommand.Parameters.AddWithValue("@RouteId", invitado.RouteId);
             insertCommand.Parameters.AddWithValue("@Notas", invitado.Notas);
 
             insertCommand.ExecuteNonQuery();
@@ -256,9 +246,12 @@
                 bool existeFichero = File.Exists(DatabaseName);
                 if (existeFichero)
                 {
-                    bool existeTableInvitados = ExisteTable("Invitados");
-                    bool existeTableAsistente = ExisteTable("Asistencia");
-                    if (existeTableInvitados && existeTableAsistente)
+                    bool existeTable = true;
+                    foreach (string table in Enum.GetNames<Tables>())
+                    {
+                        existeTable &= ExisteTable(table);
+                    }
+                    if (existeTable)
                     {
                         databaseCheck = ResultValue<string>.NewOk(MessageDatabaseInitialized);
                     }
@@ -302,7 +295,7 @@
                 db.Open();
 
                 SqliteCommand selectCommand = new("SELECT Id," +
-                    "Codigo, Nombre, Evento, EventoLocal, Extra, DNI, Email, Oficina, Asistencia, Notas FROM Invitados where Email=@EmailParam", db);
+                    "Codigo, Nombre, Evento, EventoLocal, Extra, DNI, Email, Oficina, Asistencia, EventId, RouteId, Notas FROM Invitados where Email=@EmailParam", db);
                 selectCommand.Parameters.AddWithValue("@EmailParam", email);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
@@ -321,7 +314,9 @@
                         Email = query.GetString(7),
                         Oficina = query.GetString(8),
                         Asistencia = query.GetString(9),
-                        Notas = query.GetString(10)
+                        EventId = query.GetGuid(10),
+                        RouteId = query.GetGuid(11),
+                        Notas = query.GetString(12)
                     };
                 }
                 db.Close();
@@ -366,7 +361,7 @@
             {
                 db.Open();
                 SqliteCommand selectCommand = new("SELECT Id," +
-                 "Codigo, Nombre, Evento, EventoLocal, Extra, DNI, Email, Oficina, Asistencia, Notas FROM Invitados order by Email", db);
+                 "Codigo, Nombre, Evento, EventoLocal, Extra, DNI, Email, Oficina, Asistencia, EventId, RouteId, Notas FROM Invitados order by Email", db);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
 
@@ -384,7 +379,9 @@
                         Email = query.GetString(7),
                         Oficina = query.GetString(8),
                         Asistencia = query.GetString(9),
-                        Notas = query.GetString(10)
+                        EventId = query.GetGuid(10),
+                        RouteId = query.GetGuid(11),
+                        Notas = query.GetString(12)
                     };
                     invitados.Add(invitado);
                 }
@@ -399,7 +396,7 @@
             {
                 db.Open();
                 SqliteCommand selectCommand = new("SELECT i.Id," +
-                 "i.Codigo, i.Nombre, i.Evento, i.EventoLocal, i.Extra, i.DNI, i.Email, i.Oficina,i.Asistencia , a.entrada, i.Notas FROM Invitados i LEFT JOIN Asistencia a  on i.Id = a.InvitadoId order by i.Email", db);
+                 "i.Codigo, i.Nombre, i.Evento, i.EventoLocal, i.Extra, i.DNI, i.Email, i.Oficina,i.Asistencia ,i.EventId, i.RouteId, a.entrada, i.Notas FROM Invitados i LEFT JOIN Asistencia a  on i.Id = a.InvitadoId order by i.Email", db);
                 SqliteDataReader query = selectCommand.ExecuteReader();
                 while (query.Read())
                 {
@@ -415,10 +412,12 @@
                         Email = query.GetString(7),
                         Oficina = query.GetString(8),
                         Asistencia = query.GetString(9),
-                        Notas = query.GetString(11)
+                        EventId = query.GetGuid(10),
+                        RouteId = query.GetGuid(11),
+                        Notas = query.GetString(13)
 
                     };
-                    if (!query.IsDBNull(10))
+                    if (!query.IsDBNull(12))
                     {
                         invitado.Registrado = "Sí";
                     }
@@ -431,6 +430,127 @@
                 db.Close();
             }
             return invitados;
+        }
+        public Event GetCurrentEvent()
+        {
+            Guid? eventId = null;
+            using (SqliteConnection db = CreateConnection())
+            {
+                db.Open();
+                SqliteCommand selectCommand = new(SqlCommands.GetFirstEventId, db);
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    @eventId = query.GetGuid(0);
+                }
+                db.Close();
+            }
+            Event @event = Event.GenerateDefault();
+            if (eventId.HasValue)
+            {
+                @event = GetEvent(eventId.Value);
+            }
+            return @event;
+        }
+        public Event GetEvent(Guid id)
+        {
+            Event @event = null;
+            using (SqliteConnection db = CreateConnection())
+            {
+                db.Open();
+                SqliteCommand selectCommand = new(SqlCommands.GetEventById, db);
+                selectCommand.Parameters.AddWithValue("@Id", id);
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    @event = new Event
+                    {
+                        Id = query.GetGuid(0),
+                        Title = query.GetString(1),
+                        Description = query.GetString(2),
+                        Start = query.GetDateTime(3),
+                        End = query.GetDateTime(4),
+                        CheckIn = query.GetDateTime(5)
+                    };
+                }
+                db.Close();
+            }
+            if (@event != null)
+            {
+                @event.Routes = GetAllRoutesOfEvent(@event.Id);
+            }
+            else
+            {
+                @event = Event.GenerateDefault();
+            }
+            return @event;
+        }
+        public List<Route> GetAllRoutesOfEvent(Guid eventId)
+        {
+            List<Route> routes = new();
+            using (SqliteConnection db = CreateConnection())
+            {
+                db.Open();
+                SqliteCommand selectCommand = new(SqlCommands.GetAllRoutesOfEvent, db);
+                selectCommand.Parameters.AddWithValue("@EventId", eventId);
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    Route route = new()
+                    {
+                        Id = query.GetGuid(0),
+                        EventId = query.GetGuid(1),
+                        Name = query.GetString(2),
+                        Description = query.GetString(3),
+                        Location = query.GetString(4),
+                    };
+                    routes.Add(route);
+                }
+
+                db.Close();
+                if (routes.Count == 0)
+                {
+                    routes.Add(new Route { EventId = eventId });
+                }
+            }
+            return routes;
+        }
+
+        public void UpdateDataEvent(Event @event)
+        {
+            using SqliteConnection db = CreateConnection();
+            db.Open();
+            SqliteCommand updateEventCommand = new(SqlCommands.ReplaceEvent, db);
+
+
+            updateEventCommand.Parameters.AddWithValue("@Id", @event.Id);
+            updateEventCommand.Parameters.AddWithValue("@Title", @event.Title);
+            updateEventCommand.Parameters.AddWithValue("@Description", @event.Description);
+            updateEventCommand.Parameters.AddWithValue("@Start", @event.Start);
+            updateEventCommand.Parameters.AddWithValue("@End", @event.End);
+            updateEventCommand.Parameters.AddWithValue("@CheckIn", @event.CheckIn);
+            updateEventCommand.ExecuteNonQuery();
+            SqliteCommand deleteAllRoutesCommand = new(SqlCommands.DeleteEventRoutes, db);
+            deleteAllRoutesCommand.Parameters.AddWithValue("@EventId", @event.Id);
+
+            deleteAllRoutesCommand.ExecuteNonQuery();
+
+            foreach (var route in @event.Routes)
+            {
+                SqliteCommand updateRouteCommand = new(SqlCommands.InsertEventRoute, db);
+                updateRouteCommand.Parameters.AddWithValue("@Id", route.Id);
+                updateRouteCommand.Parameters.AddWithValue("@EventId", @event.Id);
+                updateRouteCommand.Parameters.AddWithValue("@Name", route.Name);
+                updateRouteCommand.Parameters.AddWithValue("@Description", route.Description);
+                updateRouteCommand.Parameters.AddWithValue("@Location", route.Location);
+                updateRouteCommand.ExecuteNonQuery();
+            }
+            db.Close();
         }
     }
 }

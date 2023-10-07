@@ -25,5 +25,9 @@
         void InsertAsistente(Asistente asistente);
         void InsertInvitadoManual(Invitado invitado);
         void LoadInvitados(IList<Invitado> invitadosLeidos, IProgress<int> updateProgress);
+        Event GetCurrentEvent();
+        void UpdateDataEvent(Event @event);
+        Event GetEvent(Guid id);
+        List<Route> GetAllRoutesOfEvent(Guid eventId);
     }
 }

@@ -29,399 +29,383 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AttendanceForm));
-            this.QRText = new System.Windows.Forms.TextBox();
-            this.CheckQR = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cargarFicheroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.descargarAsistenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.consultarInvitadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.consultarAsistentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configuraciónToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.textosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.barcodesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inicializarTodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Evento = new System.Windows.Forms.Label();
-            this.panelNoExiste = new System.Windows.Forms.Panel();
-            this.QRErrorLabel = new System.Windows.Forms.Label();
-            this.NoExisteInfoLabel = new System.Windows.Forms.Label();
-            this.panelConfirmacionEntrada = new System.Windows.Forms.Panel();
-            this.buttonNoVerificado = new System.Windows.Forms.Button();
-            this.buttonVerificado = new System.Windows.Forms.Button();
-            this.InvitadoDatosLabel = new System.Windows.Forms.Label();
-            this.LecturaCorrectaLabel = new System.Windows.Forms.Label();
-            this.labelAsistenteAceptado = new System.Windows.Forms.Label();
-            this.panelAsistenciaRegistrada = new System.Windows.Forms.Panel();
-            this.AsistenteDatosLabel = new System.Windows.Forms.Label();
-            this.AsistenteYaRegistradoLabel = new System.Windows.Forms.Label();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.statusDatabase = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusInvitados = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusAsistentes = new System.Windows.Forms.ToolStripStatusLabel();
-            this.processBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.menuStrip1.SuspendLayout();
-            this.panelNoExiste.SuspendLayout();
-            this.panelConfirmacionEntrada.SuspendLayout();
-            this.panelAsistenciaRegistrada.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
-            this.SuspendLayout();
+            QRText = new System.Windows.Forms.TextBox();
+            CheckQR = new System.Windows.Forms.Button();
+            menuStrip1 = new System.Windows.Forms.MenuStrip();
+            archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            cargarFicheroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            descargarAsistenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            consultarInvitadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            consultarAsistentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            configuraciónToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            textosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            barcodesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            inicializarTodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            Evento = new System.Windows.Forms.Label();
+            panelNoExiste = new System.Windows.Forms.Panel();
+            QRErrorLabel = new System.Windows.Forms.Label();
+            NoExisteInfoLabel = new System.Windows.Forms.Label();
+            panelConfirmacionEntrada = new System.Windows.Forms.Panel();
+            buttonNoVerificado = new System.Windows.Forms.Button();
+            buttonVerificado = new System.Windows.Forms.Button();
+            InvitadoDatosLabel = new System.Windows.Forms.Label();
+            LecturaCorrectaLabel = new System.Windows.Forms.Label();
+            labelAsistenteAceptado = new System.Windows.Forms.Label();
+            panelAsistenciaRegistrada = new System.Windows.Forms.Panel();
+            AsistenteDatosLabel = new System.Windows.Forms.Label();
+            AsistenteYaRegistradoLabel = new System.Windows.Forms.Label();
+            statusStrip1 = new System.Windows.Forms.StatusStrip();
+            statusDatabase = new System.Windows.Forms.ToolStripStatusLabel();
+            statusInvitados = new System.Windows.Forms.ToolStripStatusLabel();
+            statusAsistentes = new System.Windows.Forms.ToolStripStatusLabel();
+            processBar = new System.Windows.Forms.ToolStripProgressBar();
+            eventToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            menuStrip1.SuspendLayout();
+            panelNoExiste.SuspendLayout();
+            panelConfirmacionEntrada.SuspendLayout();
+            panelAsistenciaRegistrada.SuspendLayout();
+            statusStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // QRText
             // 
-            this.QRText.Location = new System.Drawing.Point(19, 88);
-            this.QRText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.QRText.Multiline = true;
-            this.QRText.Name = "QRText";
-            this.QRText.Size = new System.Drawing.Size(304, 20);
-            this.QRText.TabIndex = 0;
+            QRText.Location = new System.Drawing.Point(19, 88);
+            QRText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            QRText.Multiline = true;
+            QRText.Name = "QRText";
+            QRText.Size = new System.Drawing.Size(304, 20);
+            QRText.TabIndex = 0;
             // 
             // CheckQR
             // 
-            this.CheckQR.Location = new System.Drawing.Point(248, 116);
-            this.CheckQR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.CheckQR.Name = "CheckQR";
-            this.CheckQR.Size = new System.Drawing.Size(75, 28);
-            this.CheckQR.TabIndex = 1;
-            this.CheckQR.Text = "Validar";
-            this.CheckQR.UseVisualStyleBackColor = true;
-            this.CheckQR.Click += new System.EventHandler(this.CheckQR_Click);
+            CheckQR.Location = new System.Drawing.Point(248, 116);
+            CheckQR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            CheckQR.Name = "CheckQR";
+            CheckQR.Size = new System.Drawing.Size(75, 28);
+            CheckQR.TabIndex = 1;
+            CheckQR.Text = "Validar";
+            CheckQR.UseVisualStyleBackColor = true;
+            CheckQR.Click += CheckQR_Click;
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.archivoToolStripMenuItem,
-            this.configuraciónToolStripMenuItem1});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1374, 24);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { archivoToolStripMenuItem, configuraciónToolStripMenuItem1 });
+            menuStrip1.Location = new System.Drawing.Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new System.Drawing.Size(1374, 24);
+            menuStrip1.TabIndex = 2;
+            menuStrip1.Text = "menuStrip1";
             // 
             // archivoToolStripMenuItem
             // 
-            this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cargarFicheroToolStripMenuItem,
-            this.descargarAsistenciaToolStripMenuItem,
-            this.consultarInvitadosToolStripMenuItem,
-            this.consultarAsistentesToolStripMenuItem,
-            this.salirToolStripMenuItem});
-            this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.archivoToolStripMenuItem.Text = "Archivo";
+            archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { cargarFicheroToolStripMenuItem, descargarAsistenciaToolStripMenuItem, consultarInvitadosToolStripMenuItem, consultarAsistentesToolStripMenuItem, salirToolStripMenuItem });
+            archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
+            archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            archivoToolStripMenuItem.Text = "Archivo";
             // 
             // cargarFicheroToolStripMenuItem
             // 
-            this.cargarFicheroToolStripMenuItem.Name = "cargarFicheroToolStripMenuItem";
-            this.cargarFicheroToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.cargarFicheroToolStripMenuItem.Text = "&Cargar Fichero Invitados";
-            this.cargarFicheroToolStripMenuItem.Click += new System.EventHandler(this.CargarFicheroToolStripMenuItem_Click);
+            cargarFicheroToolStripMenuItem.Name = "cargarFicheroToolStripMenuItem";
+            cargarFicheroToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            cargarFicheroToolStripMenuItem.Text = "&Cargar Fichero Invitados";
+            cargarFicheroToolStripMenuItem.Click += CargarFicheroToolStripMenuItem_Click;
             // 
             // descargarAsistenciaToolStripMenuItem
             // 
-            this.descargarAsistenciaToolStripMenuItem.Name = "descargarAsistenciaToolStripMenuItem";
-            this.descargarAsistenciaToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.descargarAsistenciaToolStripMenuItem.Text = "&Descargar Asistencia";
-            this.descargarAsistenciaToolStripMenuItem.Click += new System.EventHandler(this.DescargarAsistenciaToolStripMenuItem_Click);
+            descargarAsistenciaToolStripMenuItem.Name = "descargarAsistenciaToolStripMenuItem";
+            descargarAsistenciaToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            descargarAsistenciaToolStripMenuItem.Text = "&Descargar Asistencia";
+            descargarAsistenciaToolStripMenuItem.Click += DescargarAsistenciaToolStripMenuItem_Click;
             // 
             // consultarInvitadosToolStripMenuItem
             // 
-            this.consultarInvitadosToolStripMenuItem.Name = "consultarInvitadosToolStripMenuItem";
-            this.consultarInvitadosToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.consultarInvitadosToolStripMenuItem.Text = "Consultar &Invitados";
-            this.consultarInvitadosToolStripMenuItem.Click += new System.EventHandler(this.ConsultarInvitadosToolStripMenuItem_Click);
+            consultarInvitadosToolStripMenuItem.Name = "consultarInvitadosToolStripMenuItem";
+            consultarInvitadosToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            consultarInvitadosToolStripMenuItem.Text = "Consultar &Invitados";
+            consultarInvitadosToolStripMenuItem.Click += ConsultarInvitadosToolStripMenuItem_Click;
             // 
             // consultarAsistentesToolStripMenuItem
             // 
-            this.consultarAsistentesToolStripMenuItem.Name = "consultarAsistentesToolStripMenuItem";
-            this.consultarAsistentesToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.consultarAsistentesToolStripMenuItem.Text = "Consultar &Asistentes";
-            this.consultarAsistentesToolStripMenuItem.Click += new System.EventHandler(this.ConsultarAsistentesToolStripMenuItem_Click);
+            consultarAsistentesToolStripMenuItem.Name = "consultarAsistentesToolStripMenuItem";
+            consultarAsistentesToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            consultarAsistentesToolStripMenuItem.Text = "Consultar &Asistentes";
+            consultarAsistentesToolStripMenuItem.Click += ConsultarAsistentesToolStripMenuItem_Click;
             // 
             // salirToolStripMenuItem
             // 
-            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.salirToolStripMenuItem.Text = "&Salir";
-            this.salirToolStripMenuItem.Click += new System.EventHandler(this.SalirToolStripMenuItem_Click);
+            salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            salirToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            salirToolStripMenuItem.Text = "&Salir";
+            salirToolStripMenuItem.Click += SalirToolStripMenuItem_Click;
             // 
             // configuraciónToolStripMenuItem1
             // 
-            this.configuraciónToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.textosToolStripMenuItem,
-            this.barcodesToolStripMenuItem,
-            this.inicializarTodoToolStripMenuItem});
-            this.configuraciónToolStripMenuItem1.Name = "configuraciónToolStripMenuItem1";
-            this.configuraciónToolStripMenuItem1.Size = new System.Drawing.Size(95, 20);
-            this.configuraciónToolStripMenuItem1.Text = "Configuración";
+            configuraciónToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { textosToolStripMenuItem, eventToolStripMenuItem, barcodesToolStripMenuItem, inicializarTodoToolStripMenuItem });
+            configuraciónToolStripMenuItem1.Name = "configuraciónToolStripMenuItem1";
+            configuraciónToolStripMenuItem1.Size = new System.Drawing.Size(95, 20);
+            configuraciónToolStripMenuItem1.Text = "Configuración";
             // 
             // textosToolStripMenuItem
             // 
-            this.textosToolStripMenuItem.Name = "textosToolStripMenuItem";
-            this.textosToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.textosToolStripMenuItem.Text = "Settings";
-            this.textosToolStripMenuItem.Click += new System.EventHandler(this.TextosToolStripMenuItem_Click);
+            textosToolStripMenuItem.Name = "textosToolStripMenuItem";
+            textosToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            textosToolStripMenuItem.Text = "Settings";
+            textosToolStripMenuItem.Click += TextosToolStripMenuItem_Click;
             // 
             // barcodesToolStripMenuItem
             // 
-            this.barcodesToolStripMenuItem.Name = "barcodesToolStripMenuItem";
-            this.barcodesToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.barcodesToolStripMenuItem.Text = "Lectora";
-            this.barcodesToolStripMenuItem.Click += new System.EventHandler(this.BarcodesToolStripMenuItem_Click);
+            barcodesToolStripMenuItem.Name = "barcodesToolStripMenuItem";
+            barcodesToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            barcodesToolStripMenuItem.Text = "Lectora";
+            barcodesToolStripMenuItem.Click += BarcodesToolStripMenuItem_Click;
             // 
             // inicializarTodoToolStripMenuItem
             // 
-            this.inicializarTodoToolStripMenuItem.Name = "inicializarTodoToolStripMenuItem";
-            this.inicializarTodoToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.inicializarTodoToolStripMenuItem.Text = "Inicializar base datos";
-            this.inicializarTodoToolStripMenuItem.Click += new System.EventHandler(this.InicializarTodoToolStripMenuItem_Click);
+            inicializarTodoToolStripMenuItem.Name = "inicializarTodoToolStripMenuItem";
+            inicializarTodoToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            inicializarTodoToolStripMenuItem.Text = "Inicializar base datos";
+            inicializarTodoToolStripMenuItem.Click += InicializarTodoToolStripMenuItem_Click;
             // 
             // Evento
             // 
-            this.Evento.AutoSize = true;
-            this.Evento.BackColor = System.Drawing.Color.Transparent;
-            this.Evento.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Evento.ForeColor = System.Drawing.SystemColors.Window;
-            this.Evento.Location = new System.Drawing.Point(13, 34);
-            this.Evento.Name = "Evento";
-            this.Evento.Size = new System.Drawing.Size(0, 29);
-            this.Evento.TabIndex = 4;
+            Evento.AutoSize = true;
+            Evento.BackColor = System.Drawing.Color.Transparent;
+            Evento.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            Evento.ForeColor = System.Drawing.SystemColors.Window;
+            Evento.Location = new System.Drawing.Point(13, 34);
+            Evento.Name = "Evento";
+            Evento.Size = new System.Drawing.Size(0, 29);
+            Evento.TabIndex = 4;
             // 
             // panelNoExiste
             // 
-            this.panelNoExiste.BackColor = System.Drawing.Color.DarkRed;
-            this.panelNoExiste.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelNoExiste.Controls.Add(this.QRErrorLabel);
-            this.panelNoExiste.Controls.Add(this.NoExisteInfoLabel);
-            this.panelNoExiste.ForeColor = System.Drawing.SystemColors.Info;
-            this.panelNoExiste.Location = new System.Drawing.Point(487, 50);
-            this.panelNoExiste.Name = "panelNoExiste";
-            this.panelNoExiste.Size = new System.Drawing.Size(700, 400);
-            this.panelNoExiste.TabIndex = 6;
-            this.panelNoExiste.Visible = false;
+            panelNoExiste.BackColor = System.Drawing.Color.DarkRed;
+            panelNoExiste.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            panelNoExiste.Controls.Add(QRErrorLabel);
+            panelNoExiste.Controls.Add(NoExisteInfoLabel);
+            panelNoExiste.ForeColor = System.Drawing.SystemColors.Info;
+            panelNoExiste.Location = new System.Drawing.Point(487, 50);
+            panelNoExiste.Name = "panelNoExiste";
+            panelNoExiste.Size = new System.Drawing.Size(700, 400);
+            panelNoExiste.TabIndex = 6;
+            panelNoExiste.Visible = false;
             // 
             // QRErrorLabel
             // 
-            this.QRErrorLabel.AutoSize = true;
-            this.QRErrorLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.QRErrorLabel.Location = new System.Drawing.Point(22, 59);
-            this.QRErrorLabel.Name = "QRErrorLabel";
-            this.QRErrorLabel.Size = new System.Drawing.Size(132, 24);
-            this.QRErrorLabel.TabIndex = 4;
-            this.QRErrorLabel.Text = "QR COMPLETO";
-            this.QRErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            QRErrorLabel.AutoSize = true;
+            QRErrorLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            QRErrorLabel.Location = new System.Drawing.Point(22, 59);
+            QRErrorLabel.Name = "QRErrorLabel";
+            QRErrorLabel.Size = new System.Drawing.Size(132, 24);
+            QRErrorLabel.TabIndex = 4;
+            QRErrorLabel.Text = "QR COMPLETO";
+            QRErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // NoExisteInfoLabel
             // 
-            this.NoExisteInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.NoExisteInfoLabel.AutoSize = true;
-            this.NoExisteInfoLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NoExisteInfoLabel.Location = new System.Drawing.Point(30, 17);
-            this.NoExisteInfoLabel.Name = "NoExisteInfoLabel";
-            this.NoExisteInfoLabel.Size = new System.Drawing.Size(490, 29);
-            this.NoExisteInfoLabel.TabIndex = 1;
-            this.NoExisteInfoLabel.Text = "El QR no se reconoce en la lista de invitados";
+            NoExisteInfoLabel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            NoExisteInfoLabel.AutoSize = true;
+            NoExisteInfoLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            NoExisteInfoLabel.Location = new System.Drawing.Point(30, 17);
+            NoExisteInfoLabel.Name = "NoExisteInfoLabel";
+            NoExisteInfoLabel.Size = new System.Drawing.Size(490, 29);
+            NoExisteInfoLabel.TabIndex = 1;
+            NoExisteInfoLabel.Text = "El QR no se reconoce en la lista de invitados";
             // 
             // panelConfirmacionEntrada
             // 
-            this.panelConfirmacionEntrada.BackColor = System.Drawing.Color.OliveDrab;
-            this.panelConfirmacionEntrada.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelConfirmacionEntrada.Controls.Add(this.buttonNoVerificado);
-            this.panelConfirmacionEntrada.Controls.Add(this.buttonVerificado);
-            this.panelConfirmacionEntrada.Controls.Add(this.InvitadoDatosLabel);
-            this.panelConfirmacionEntrada.Controls.Add(this.LecturaCorrectaLabel);
-            this.panelConfirmacionEntrada.Controls.Add(this.labelAsistenteAceptado);
-            this.panelConfirmacionEntrada.ForeColor = System.Drawing.SystemColors.Info;
-            this.panelConfirmacionEntrada.Location = new System.Drawing.Point(487, 50);
-            this.panelConfirmacionEntrada.Name = "panelConfirmacionEntrada";
-            this.panelConfirmacionEntrada.Size = new System.Drawing.Size(700, 400);
-            this.panelConfirmacionEntrada.TabIndex = 7;
-            this.panelConfirmacionEntrada.Visible = false;
+            panelConfirmacionEntrada.BackColor = System.Drawing.Color.OliveDrab;
+            panelConfirmacionEntrada.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            panelConfirmacionEntrada.Controls.Add(buttonNoVerificado);
+            panelConfirmacionEntrada.Controls.Add(buttonVerificado);
+            panelConfirmacionEntrada.Controls.Add(InvitadoDatosLabel);
+            panelConfirmacionEntrada.Controls.Add(LecturaCorrectaLabel);
+            panelConfirmacionEntrada.Controls.Add(labelAsistenteAceptado);
+            panelConfirmacionEntrada.ForeColor = System.Drawing.SystemColors.Info;
+            panelConfirmacionEntrada.Location = new System.Drawing.Point(487, 50);
+            panelConfirmacionEntrada.Name = "panelConfirmacionEntrada";
+            panelConfirmacionEntrada.Size = new System.Drawing.Size(700, 400);
+            panelConfirmacionEntrada.TabIndex = 7;
+            panelConfirmacionEntrada.Visible = false;
             // 
             // buttonNoVerificado
             // 
-            this.buttonNoVerificado.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.buttonNoVerificado.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonNoVerificado.Location = new System.Drawing.Point(170, 345);
-            this.buttonNoVerificado.Name = "buttonNoVerificado";
-            this.buttonNoVerificado.Size = new System.Drawing.Size(209, 39);
-            this.buttonNoVerificado.TabIndex = 6;
-            this.buttonNoVerificado.Text = "Datos incorrectos (N)";
-            this.buttonNoVerificado.UseVisualStyleBackColor = false;
-            this.buttonNoVerificado.Click += new System.EventHandler(this.ButtonNoVerificado_Click);
+            buttonNoVerificado.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            buttonNoVerificado.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonNoVerificado.Location = new System.Drawing.Point(170, 345);
+            buttonNoVerificado.Name = "buttonNoVerificado";
+            buttonNoVerificado.Size = new System.Drawing.Size(209, 39);
+            buttonNoVerificado.TabIndex = 6;
+            buttonNoVerificado.Text = "Datos incorrectos (N)";
+            buttonNoVerificado.UseVisualStyleBackColor = false;
+            buttonNoVerificado.Click += ButtonNoVerificado_Click;
             // 
             // buttonVerificado
             // 
-            this.buttonVerificado.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.buttonVerificado.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonVerificado.Location = new System.Drawing.Point(15, 345);
-            this.buttonVerificado.Name = "buttonVerificado";
-            this.buttonVerificado.Size = new System.Drawing.Size(139, 39);
-            this.buttonVerificado.TabIndex = 5;
-            this.buttonVerificado.Text = "Verificado (S)";
-            this.buttonVerificado.UseVisualStyleBackColor = false;
-            this.buttonVerificado.Click += new System.EventHandler(this.ButtonVerificado_Click);
+            buttonVerificado.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            buttonVerificado.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonVerificado.Location = new System.Drawing.Point(15, 345);
+            buttonVerificado.Name = "buttonVerificado";
+            buttonVerificado.Size = new System.Drawing.Size(139, 39);
+            buttonVerificado.TabIndex = 5;
+            buttonVerificado.Text = "Verificado (S)";
+            buttonVerificado.UseVisualStyleBackColor = false;
+            buttonVerificado.Click += ButtonVerificado_Click;
             // 
             // InvitadoDatosLabel
             // 
-            this.InvitadoDatosLabel.AutoSize = true;
-            this.InvitadoDatosLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.InvitadoDatosLabel.Location = new System.Drawing.Point(22, 59);
-            this.InvitadoDatosLabel.Name = "InvitadoDatosLabel";
-            this.InvitadoDatosLabel.Size = new System.Drawing.Size(141, 24);
-            this.InvitadoDatosLabel.TabIndex = 4;
-            this.InvitadoDatosLabel.Text = "Datos asistente";
-            this.InvitadoDatosLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            InvitadoDatosLabel.AutoSize = true;
+            InvitadoDatosLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            InvitadoDatosLabel.Location = new System.Drawing.Point(22, 59);
+            InvitadoDatosLabel.Name = "InvitadoDatosLabel";
+            InvitadoDatosLabel.Size = new System.Drawing.Size(141, 24);
+            InvitadoDatosLabel.TabIndex = 4;
+            InvitadoDatosLabel.Text = "Datos asistente";
+            InvitadoDatosLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // LecturaCorrectaLabel
             // 
-            this.LecturaCorrectaLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LecturaCorrectaLabel.AutoSize = true;
-            this.LecturaCorrectaLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LecturaCorrectaLabel.Location = new System.Drawing.Point(30, 17);
-            this.LecturaCorrectaLabel.Name = "LecturaCorrectaLabel";
-            this.LecturaCorrectaLabel.Size = new System.Drawing.Size(193, 29);
-            this.LecturaCorrectaLabel.TabIndex = 1;
-            this.LecturaCorrectaLabel.Text = "Lectura correcta";
+            LecturaCorrectaLabel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            LecturaCorrectaLabel.AutoSize = true;
+            LecturaCorrectaLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            LecturaCorrectaLabel.Location = new System.Drawing.Point(30, 17);
+            LecturaCorrectaLabel.Name = "LecturaCorrectaLabel";
+            LecturaCorrectaLabel.Size = new System.Drawing.Size(193, 29);
+            LecturaCorrectaLabel.TabIndex = 1;
+            LecturaCorrectaLabel.Text = "Lectura correcta";
             // 
             // labelAsistenteAceptado
             // 
-            this.labelAsistenteAceptado.AutoSize = true;
-            this.labelAsistenteAceptado.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelAsistenteAceptado.Location = new System.Drawing.Point(13, 352);
-            this.labelAsistenteAceptado.Name = "labelAsistenteAceptado";
-            this.labelAsistenteAceptado.Size = new System.Drawing.Size(173, 24);
-            this.labelAsistenteAceptado.TabIndex = 7;
-            this.labelAsistenteAceptado.Text = "Asistente aceptado";
-            this.labelAsistenteAceptado.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelAsistenteAceptado.AutoSize = true;
+            labelAsistenteAceptado.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelAsistenteAceptado.Location = new System.Drawing.Point(13, 352);
+            labelAsistenteAceptado.Name = "labelAsistenteAceptado";
+            labelAsistenteAceptado.Size = new System.Drawing.Size(173, 24);
+            labelAsistenteAceptado.TabIndex = 7;
+            labelAsistenteAceptado.Text = "Asistente aceptado";
+            labelAsistenteAceptado.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panelAsistenciaRegistrada
             // 
-            this.panelAsistenciaRegistrada.BackColor = System.Drawing.Color.Coral;
-            this.panelAsistenciaRegistrada.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelAsistenciaRegistrada.Controls.Add(this.AsistenteDatosLabel);
-            this.panelAsistenciaRegistrada.Controls.Add(this.AsistenteYaRegistradoLabel);
-            this.panelAsistenciaRegistrada.ForeColor = System.Drawing.SystemColors.Info;
-            this.panelAsistenciaRegistrada.Location = new System.Drawing.Point(487, 50);
-            this.panelAsistenciaRegistrada.Name = "panelAsistenciaRegistrada";
-            this.panelAsistenciaRegistrada.Size = new System.Drawing.Size(700, 400);
-            this.panelAsistenciaRegistrada.TabIndex = 8;
-            this.panelAsistenciaRegistrada.Visible = false;
+            panelAsistenciaRegistrada.BackColor = System.Drawing.Color.Coral;
+            panelAsistenciaRegistrada.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            panelAsistenciaRegistrada.Controls.Add(AsistenteDatosLabel);
+            panelAsistenciaRegistrada.Controls.Add(AsistenteYaRegistradoLabel);
+            panelAsistenciaRegistrada.ForeColor = System.Drawing.SystemColors.Info;
+            panelAsistenciaRegistrada.Location = new System.Drawing.Point(487, 50);
+            panelAsistenciaRegistrada.Name = "panelAsistenciaRegistrada";
+            panelAsistenciaRegistrada.Size = new System.Drawing.Size(700, 400);
+            panelAsistenciaRegistrada.TabIndex = 8;
+            panelAsistenciaRegistrada.Visible = false;
             // 
             // AsistenteDatosLabel
             // 
-            this.AsistenteDatosLabel.AutoSize = true;
-            this.AsistenteDatosLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.AsistenteDatosLabel.Location = new System.Drawing.Point(22, 59);
-            this.AsistenteDatosLabel.Name = "AsistenteDatosLabel";
-            this.AsistenteDatosLabel.Size = new System.Drawing.Size(132, 24);
-            this.AsistenteDatosLabel.TabIndex = 4;
-            this.AsistenteDatosLabel.Text = "QR COMPLETO";
-            this.AsistenteDatosLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            AsistenteDatosLabel.AutoSize = true;
+            AsistenteDatosLabel.Font = new System.Drawing.Font("Trebuchet MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            AsistenteDatosLabel.Location = new System.Drawing.Point(22, 59);
+            AsistenteDatosLabel.Name = "AsistenteDatosLabel";
+            AsistenteDatosLabel.Size = new System.Drawing.Size(132, 24);
+            AsistenteDatosLabel.TabIndex = 4;
+            AsistenteDatosLabel.Text = "QR COMPLETO";
+            AsistenteDatosLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // AsistenteYaRegistradoLabel
             // 
-            this.AsistenteYaRegistradoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AsistenteYaRegistradoLabel.AutoSize = true;
-            this.AsistenteYaRegistradoLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.AsistenteYaRegistradoLabel.Location = new System.Drawing.Point(30, 17);
-            this.AsistenteYaRegistradoLabel.Name = "AsistenteYaRegistradoLabel";
-            this.AsistenteYaRegistradoLabel.Size = new System.Drawing.Size(513, 29);
-            this.AsistenteYaRegistradoLabel.TabIndex = 1;
-            this.AsistenteYaRegistradoLabel.Text = "El asistente ya ha sido registrado previamente";
+            AsistenteYaRegistradoLabel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            AsistenteYaRegistradoLabel.AutoSize = true;
+            AsistenteYaRegistradoLabel.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            AsistenteYaRegistradoLabel.Location = new System.Drawing.Point(30, 17);
+            AsistenteYaRegistradoLabel.Name = "AsistenteYaRegistradoLabel";
+            AsistenteYaRegistradoLabel.Size = new System.Drawing.Size(513, 29);
+            AsistenteYaRegistradoLabel.TabIndex = 1;
+            AsistenteYaRegistradoLabel.Text = "El asistente ya ha sido registrado previamente";
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusDatabase,
-            this.statusInvitados,
-            this.statusAsistentes,
-            this.processBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 546);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1374, 22);
-            this.statusStrip1.TabIndex = 9;
-            this.statusStrip1.Text = "statusStrip1";
+            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { statusDatabase, statusInvitados, statusAsistentes, processBar });
+            statusStrip1.Location = new System.Drawing.Point(0, 546);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new System.Drawing.Size(1374, 22);
+            statusStrip1.TabIndex = 9;
+            statusStrip1.Text = "statusStrip1";
             // 
             // statusDatabase
             // 
-            this.statusDatabase.AutoSize = false;
-            this.statusDatabase.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.statusDatabase.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
-            this.statusDatabase.Name = "statusDatabase";
-            this.statusDatabase.Size = new System.Drawing.Size(350, 17);
-            this.statusDatabase.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            statusDatabase.AutoSize = false;
+            statusDatabase.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom;
+            statusDatabase.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
+            statusDatabase.Name = "statusDatabase";
+            statusDatabase.Size = new System.Drawing.Size(350, 17);
+            statusDatabase.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // statusInvitados
             // 
-            this.statusInvitados.AutoSize = false;
-            this.statusInvitados.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.statusInvitados.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
-            this.statusInvitados.Name = "statusInvitados";
-            this.statusInvitados.Size = new System.Drawing.Size(200, 17);
-            this.statusInvitados.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            statusInvitados.AutoSize = false;
+            statusInvitados.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom;
+            statusInvitados.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
+            statusInvitados.Name = "statusInvitados";
+            statusInvitados.Size = new System.Drawing.Size(200, 17);
+            statusInvitados.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // statusAsistentes
             // 
-            this.statusAsistentes.AutoSize = false;
-            this.statusAsistentes.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.statusAsistentes.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
-            this.statusAsistentes.Name = "statusAsistentes";
-            this.statusAsistentes.Size = new System.Drawing.Size(200, 17);
-            this.statusAsistentes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            statusAsistentes.AutoSize = false;
+            statusAsistentes.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom;
+            statusAsistentes.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
+            statusAsistentes.Name = "statusAsistentes";
+            statusAsistentes.Size = new System.Drawing.Size(200, 17);
+            statusAsistentes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // processBar
             // 
-            this.processBar.Name = "processBar";
-            this.processBar.Size = new System.Drawing.Size(200, 16);
-            this.processBar.Step = 1;
+            processBar.Name = "processBar";
+            processBar.Size = new System.Drawing.Size(200, 16);
+            processBar.Step = 1;
+            // 
+            // eventToolStripMenuItem
+            // 
+            eventToolStripMenuItem.Name = "eventToolStripMenuItem";
+            eventToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            eventToolStripMenuItem.Text = "Event";
+            eventToolStripMenuItem.Click += EventToolStripMenuItem_Click;
             // 
             // AttendanceForm
             // 
-            this.AcceptButton = this.CheckQR;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1374, 568);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.Evento);
-            this.Controls.Add(this.CheckQR);
-            this.Controls.Add(this.QRText);
-            this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.panelConfirmacionEntrada);
-            this.Controls.Add(this.panelNoExiste);
-            this.Controls.Add(this.panelAsistenciaRegistrada);
-            this.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "AttendanceForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Party";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.AttendanceForm_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.panelNoExiste.ResumeLayout(false);
-            this.panelNoExiste.PerformLayout();
-            this.panelConfirmacionEntrada.ResumeLayout(false);
-            this.panelConfirmacionEntrada.PerformLayout();
-            this.panelAsistenciaRegistrada.ResumeLayout(false);
-            this.panelAsistenciaRegistrada.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AcceptButton = CheckQR;
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            ClientSize = new System.Drawing.Size(1374, 568);
+            Controls.Add(statusStrip1);
+            Controls.Add(Evento);
+            Controls.Add(CheckQR);
+            Controls.Add(QRText);
+            Controls.Add(menuStrip1);
+            Controls.Add(panelConfirmacionEntrada);
+            Controls.Add(panelNoExiste);
+            Controls.Add(panelAsistenciaRegistrada);
+            Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = menuStrip1;
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            Name = "AttendanceForm";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Party";
+            WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            Load += AttendanceForm_Load;
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            panelNoExiste.ResumeLayout(false);
+            panelNoExiste.PerformLayout();
+            panelConfirmacionEntrada.ResumeLayout(false);
+            panelConfirmacionEntrada.PerformLayout();
+            panelAsistenciaRegistrada.ResumeLayout(false);
+            panelAsistenciaRegistrada.PerformLayout();
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -457,6 +441,7 @@
         private System.Windows.Forms.Label labelAsistenteAceptado;
         private System.Windows.Forms.ToolStripMenuItem consultarInvitadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consultarAsistentesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eventToolStripMenuItem;
     }
 }
 

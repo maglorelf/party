@@ -357,7 +357,30 @@
             }
             settingsForm.Dispose();
         }
+        private void EventToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditEvent();
+        }
 
-
+        protected void EditEvent()
+        {
+            Event @event = dataService.GetCurrentEvent();
+            if (string.IsNullOrEmpty(@event.Title))
+            {
+                @event.Title = Configuracion.CurrentValue.Title;
+            }
+            EventForm eventForm = new(@event);
+            DialogResult dialogResult = eventForm.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                dataService.UpdateDataEvent(@event);
+                if (Configuracion.CurrentValue.Title != eventForm.Event.Title)
+                {
+                    Configuracion.CurrentValue.Title = eventForm.Event.Title;
+                    Initialize();
+                }
+            }
+            eventForm.Dispose();
+        }
     }
 }
