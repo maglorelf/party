@@ -11,6 +11,7 @@
     using party.service;
     using party.service.data;
     using party.windows.infrastructure.extensions;
+    using Serilog;
 
     public partial class AttendanceForm : Form
     {
@@ -98,18 +99,24 @@
             {
                 case ResultadoCheck.NoExiste:
                     CambiarBackground(Color.Red);
+                    Log.Logger.Information($"Guest not exists {qr}");
                     MostrarNoExisteInvitado(qr);
                     break;
                 case ResultadoCheck.PuedeEntrar:
                     CambiarBackground(Color.Green);
+                    Log.Logger.Information($"Entry Guest: {resultado.Item2}");
+
                     MostrarInvitado(resultado.Item2);
                     break;
                 case ResultadoCheck.Registrado:
                     CambiarBackground(Color.Orange);
+                    Log.Logger.Information($"Guest yet used {resultado.Item3}");
+
                     MostrarAsistente(resultado.Item3);
                     break;
                 case ResultadoCheck.DatosIncorrectos:
                     CambiarBackground(Color.Orange);
+                    Log.Logger.Information($"Incorrect data of Guest: {resultado.Item2}");
                     MostrarInvitadoDatosIncorrectos(resultado.Item2);
                     break;
                 case ResultadoCheck.NoValue:

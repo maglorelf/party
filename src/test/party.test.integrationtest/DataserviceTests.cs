@@ -2,7 +2,9 @@ namespace party.test.integrationtest
 {
     using System.IO;
     using Microsoft.Data.Sqlite;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
+    using Moq;
     using party.core.infrastructure;
     using party.core.model;
     using party.service.data;
@@ -12,6 +14,7 @@ namespace party.test.integrationtest
 
     public class DataserviceTests
     {
+        private readonly Mock<ILogger<IDataService>> mockLogger = new();
         [Fact]
         public void CreateConnectionAndOpenConnection_CheckDatabaseCreation()
         {
@@ -22,7 +25,8 @@ namespace party.test.integrationtest
                 DatabaseName = defaultDatabaseName,
                 EventPath = currentDirectory
             });
-            IDataService dataService = new DataService(options);
+            IDataService dataService = new DataService(options, mockLogger.Object);
+
             using SqliteConnection connection = dataService.CreateConnection();
             connection.Open();
             Assert.NotNull(connection);
@@ -38,7 +42,7 @@ namespace party.test.integrationtest
                 DatabaseName = Path.GetFileName(testFile),
                 EventPath = Path.GetDirectoryName(testFile)
             }); ;
-            IDataService dataService = new DataService(options);
+            IDataService dataService = new DataService(options, mockLogger.Object);
             ResultValue<string> checkMessage = dataService.CheckDatabase();
 
             Assert.False(checkMessage.Success);
@@ -54,7 +58,7 @@ namespace party.test.integrationtest
                 DatabaseName = Path.GetFileName(testFile),
                 EventPath = Path.GetDirectoryName(testFile)
             }); ;
-            IDataService dataService = new DataService(options);
+            IDataService dataService = new DataService(options, mockLogger.Object);
             using SqliteConnection connection = dataService.CreateConnection();
             connection.Open();
             ResultValue<string> checkMessage = dataService.CheckDatabase();
@@ -72,7 +76,7 @@ namespace party.test.integrationtest
                 DatabaseName = Path.GetFileName(testFile),
                 EventPath = Path.GetDirectoryName(testFile)
             }); ;
-            IDataService dataService = new DataService(options);
+            IDataService dataService = new DataService(options, mockLogger.Object);
             dataService.InitializeDatabase();
             ResultValue<string> checkMessage = dataService.CheckDatabase();
 
@@ -89,7 +93,7 @@ namespace party.test.integrationtest
                 DatabaseName = Path.GetFileName(testFile),
                 EventPath = Path.GetDirectoryName(testFile)
             }); ;
-            IDataService dataService = new DataService(options);
+            IDataService dataService = new DataService(options, mockLogger.Object);
             dataService.InitializeDatabase();
             ResultValue<string> checkMessageFirstTime = dataService.CheckDatabase();
 

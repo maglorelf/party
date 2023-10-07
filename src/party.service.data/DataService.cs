@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using Microsoft.Data.Sqlite;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using party.core.infrastructure;
     using party.core.model;
@@ -14,10 +15,12 @@
         public const string MessageDatabaseInitialized = "Inicializada";
         public bool DatabaseReady { get; set; }
         private readonly IOptionsMonitor<Configuracion> configuracion;
+        private readonly ILogger<IDataService> logger;
         protected string DatabaseName => Path.Combine(configuracion.CurrentValue.EventPath, configuracion.CurrentValue.DatabaseName);
-        public DataService(IOptionsMonitor<Configuracion> configuracion)
+        public DataService(IOptionsMonitor<Configuracion> configuracion, ILogger<IDataService> logger)
         {
             this.configuracion = configuracion;
+            this.logger = logger;
             DatabaseReady = false;
         }
 
@@ -80,10 +83,13 @@
 
         public void InitializeDatabase()
         {
+            logger.LogInformation("Start Inicialization Database");
             DeleteDatabase(DatabaseName);
             using SqliteConnection db = CreateConnection();
             db.Open();
             CreateTables(db);
+            logger.LogInformation("End Inicialization Database");
+
         }
 
         public void BorrarAsistente(int id)
@@ -144,6 +150,7 @@
         }
         public void LoadInvitados(IList<Invitado> invitadosLeidos, IProgress<int> updateProgress)
         {
+            logger.LogInformation("Start loading Invitados");
             using (SqliteConnection db = CreateConnection())
             {
                 db.Open();

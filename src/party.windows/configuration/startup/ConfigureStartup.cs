@@ -20,6 +20,7 @@
                             .ReadFrom.Configuration(configuration)
                             .CreateLogger();
             IHost host = Host.CreateDefaultBuilder()
+                 .UseSerilog()
                  .ConfigureServices((context, services) =>
                  {
                      services.ConfigureServices(configuration);

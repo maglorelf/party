@@ -26,7 +26,6 @@ namespace party.windows
             var mainForm = ActivatorUtilities.CreateInstance<AttendanceForm>(host.Services);
             Application.Run(mainForm);
             Log.Logger.Information("Application Ending");
-
         }
 
 
