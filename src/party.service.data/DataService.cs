@@ -142,27 +142,6 @@
                 createTable.ExecuteNonQuery();
             }
         }
-        public static void CreateTableInvitados(SqliteConnection db)
-        {
-            SqliteCommand createTable = new(SqlCommands.TableInvitadosCommand, db);
-            createTable.ExecuteNonQuery();
-        }
-        public static void CreateTableAsistencia(SqliteConnection db)
-        {
-            SqliteCommand createTable = new(SqlCommands.TableAsistenciaCommand, db);
-            createTable.ExecuteNonQuery();
-        }
-        public static void CreateTableEvent(SqliteConnection db)
-        {
-            SqliteCommand createTable = new(SqlCommands.TableEventCommand, db);
-            createTable.ExecuteNonQuery();
-        }
-        public static void CreateTableRoute(SqliteConnection db)
-        {
-            SqliteCommand createTable = new(SqlCommands.TableRouteCommand, db);
-            createTable.ExecuteNonQuery();
-        }
-
         public void LoadInvitados(IList<Invitado> invitadosLeidos, IProgress<int> updateProgress)
         {
             using (SqliteConnection db = CreateConnection())
@@ -186,13 +165,7 @@
         }
         protected static void InsertInvitado(SqliteConnection db, Invitado invitado)
         {
-            SqliteCommand insertCommand = new()
-            {
-                Connection = db,
-
-                // Use parameterized query to prevent SQL injection attacks
-                CommandText = "INSERT INTO Invitados VALUES (null,@Codigo, @Nombre, @Evento, @EventoLocal, @Extra, @DNI, @Email, @Oficina, @Asistencia, @Notas);"
-            };
+            SqliteCommand insertCommand = new(SqlCommands.InsertInvitados, db);
 
             insertCommand.Parameters.AddWithValue("@Codigo", invitado.Codigo);
             insertCommand.Parameters.AddWithValue("@Nombre", invitado.Nombre);
@@ -203,6 +176,8 @@
             insertCommand.Parameters.AddWithValue("@Email", invitado.Email);
             insertCommand.Parameters.AddWithValue("@Oficina", invitado.Oficina);
             insertCommand.Parameters.AddWithValue("@Asistencia", invitado.Asistencia);
+            insertCommand.Parameters.AddWithValue("@EventId", invitado.EventId);
+            insertCommand.Parameters.AddWithValue("@RouteId", invitado.RouteId);
             insertCommand.Parameters.AddWithValue("@Notas", invitado.Notas);
 
             insertCommand.ExecuteNonQuery();
@@ -320,7 +295,7 @@
                 db.Open();
 
                 SqliteCommand selectCommand = new("SELECT Id," +
-                    "Codigo, Nombre, Evento, EventoLocal, Extra, DNI, Email, Oficina, Asistencia, Notas FROM Invitados where Email=@EmailParam", db);
+                    "Codigo, Nombre, Evento, EventoLocal, Extra, DNI, Email, Oficina, Asistencia, EventId, RouteId, Notas FROM Invitados where Email=@EmailParam", db);
                 selectCommand.Parameters.AddWithValue("@EmailParam", email);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
@@ -339,7 +314,9 @@
                         Email = query.GetString(7),
                         Oficina = query.GetString(8),
                         Asistencia = query.GetString(9),
-                        Notas = query.GetString(10)
+                        EventId = query.GetGuid(10),
+                        RouteId = query.GetGuid(11),
+                        Notas = query.GetString(12)
                     };
                 }
                 db.Close();
@@ -384,7 +361,7 @@
             {
                 db.Open();
                 SqliteCommand selectCommand = new("SELECT Id," +
-                 "Codigo, Nombre, Evento, EventoLocal, Extra, DNI, Email, Oficina, Asistencia, Notas FROM Invitados order by Email", db);
+                 "Codigo, Nombre, Evento, EventoLocal, Extra, DNI, Email, Oficina, Asistencia, EventId, RouteId, Notas FROM Invitados order by Email", db);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
 
@@ -402,7 +379,9 @@
                         Email = query.GetString(7),
                         Oficina = query.GetString(8),
                         Asistencia = query.GetString(9),
-                        Notas = query.GetString(10)
+                        EventId = query.GetGuid(10),
+                        RouteId = query.GetGuid(11),
+                        Notas = query.GetString(12)
                     };
                     invitados.Add(invitado);
                 }
@@ -417,7 +396,7 @@
             {
                 db.Open();
                 SqliteCommand selectCommand = new("SELECT i.Id," +
-                 "i.Codigo, i.Nombre, i.Evento, i.EventoLocal, i.Extra, i.DNI, i.Email, i.Oficina,i.Asistencia , a.entrada, i.Notas FROM Invitados i LEFT JOIN Asistencia a  on i.Id = a.InvitadoId order by i.Email", db);
+                 "i.Codigo, i.Nombre, i.Evento, i.EventoLocal, i.Extra, i.DNI, i.Email, i.Oficina,i.Asistencia ,i.EventId, i.RouteId, a.entrada, i.Notas FROM Invitados i LEFT JOIN Asistencia a  on i.Id = a.InvitadoId order by i.Email", db);
                 SqliteDataReader query = selectCommand.ExecuteReader();
                 while (query.Read())
                 {
@@ -433,10 +412,12 @@
                         Email = query.GetString(7),
                         Oficina = query.GetString(8),
                         Asistencia = query.GetString(9),
-                        Notas = query.GetString(11)
+                        EventId = query.GetGuid(10),
+                        RouteId = query.GetGuid(11),
+                        Notas = query.GetString(13)
 
                     };
-                    if (!query.IsDBNull(10))
+                    if (!query.IsDBNull(12))
                     {
                         invitado.Registrado = "Sí";
                     }

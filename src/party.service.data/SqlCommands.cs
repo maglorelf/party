@@ -13,6 +13,8 @@
                     "Email NVARCHAR(2048) COLLATE NOCASE NULL," +
                     "Oficina NVARCHAR(2048) NULL," +
                     "Asistencia NVARCHAR(2048) NULL," +
+                    "EventId NVARCHAR(36) NULL," +
+                    "RouteId NVARCHAR(36) NULL," +
                     "Notas NVARCHAR(2048) NULL)";
         public const string TableAsistenciaCommand = "CREATE TABLE IF NOT " +
                     "EXISTS Asistencia (Id INTEGER PRIMARY KEY AUTOINCREMENT , " +
@@ -39,5 +41,7 @@
         public const string ReplaceEvent = "REPLACE INTO Event(Id, Title, Description, Start, End, CheckIn) VALUES(@Id, @Title, @Description, @Start, @End, @CheckIn)";
         public const string DeleteEventRoutes = "DELETE FROM Route WHERE EventId=@EventId";
         public const string InsertEventRoute = "INSERT INTO Route VALUES (@Id, @EventId, @Name, @Description, @Location)";
+        public const string InsertInvitados = "INSERT INTO Invitados VALUES (null,@Codigo, @Nombre, @Evento, @EventoLocal, @Extra, @DNI, @Email, @Oficina, @Asistencia, @EventId, @RouteId, @Notas);";
+
     }
 }

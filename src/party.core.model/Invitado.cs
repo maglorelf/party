@@ -1,5 +1,6 @@
 ﻿namespace party.core.model
 {
+    using System;
     using party.core.attributes;
     public class Invitado
     {
@@ -46,6 +47,8 @@
         public string Notas { get; set; }
         public bool IsRegistrado => Registrado == "Sí";
         public bool IsConfirmado => Asistencia == "Sí";
+        public Guid EventId { get; set; }
+        public Guid RouteId { get; set; }
 
         public bool HasValuesMinimos()
         {
