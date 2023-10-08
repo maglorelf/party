@@ -8,6 +8,7 @@
     using System.Windows.Forms;
     using party.core.attributes;
     using party.core.model;
+    using party.core.settings;
     using party.core.sorting;
     using party.service;
     using party.service.data;
@@ -15,14 +16,14 @@
 
     public partial class ListaInvitadosForm : Form
     {
-        protected Configuracion Configuracion { get; set; }
+        protected SettingsAppData Configuracion { get; set; }
         private SortableBindingList<Invitado> invitadosBinding;
         protected IDataService DataService { get; set; }
         protected IList<Tuple<string, string, int>> CamposVisibles { get; set; }
 
         protected IProceso Proceso { get; set; }
         protected Filtro FiltroSeleccionado { get; set; }
-        public ListaInvitadosForm(IDataService dataService, IProceso proceso, Configuracion configuracion)
+        public ListaInvitadosForm(IDataService dataService, IProceso proceso, SettingsAppData configuracion)
         {
             invitadosBinding = new SortableBindingList<Invitado>();
             FiltroSeleccionado = null;

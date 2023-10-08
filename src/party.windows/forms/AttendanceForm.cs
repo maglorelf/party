@@ -8,6 +8,7 @@
     using party.core.enums;
     using party.core.infrastructure;
     using party.core.model;
+    using party.core.settings;
     using party.service;
     using party.service.data;
     using party.windows.infrastructure.extensions;
@@ -15,12 +16,12 @@
 
     public partial class AttendanceForm : Form
     {
-        protected IOptionsMonitor<Configuracion> Configuracion { get; set; }
+        protected IOptionsMonitor<SettingsAppData> Configuracion { get; set; }
         private readonly IProceso proceso;
         private readonly IDataService dataService;
         private readonly ICSVService csvService;
         public Invitado InvitadoTemporal { get; private set; }
-        public AttendanceForm(IOptionsMonitor<Configuracion> configuracion, IProceso proceso, ICSVService csvService, IDataService dataService)
+        public AttendanceForm(IOptionsMonitor<SettingsAppData> configuracion, IProceso proceso, ICSVService csvService, IDataService dataService)
         {
             Configuracion = configuracion;
             Configuracion.OnChange(conf => Initialize());
@@ -45,7 +46,7 @@
         }
         private void UpdateConfiguracion()
         {
-            Configuracion existingConfiguration = Configuracion.CurrentValue;
+            SettingsAppData existingConfiguration = Configuracion.CurrentValue;
             if (existingConfiguration.ExistsConfiguration())
             {
                 existingConfiguration.RefreshFromInfo();
@@ -55,7 +56,7 @@
                 ActualizarSettings();
             }
         }
-        private void SetScreenSettings(Configuracion configuracion)
+        private void SetScreenSettings(SettingsAppData configuracion)
         {
             BackgroundImage = LoadImage(configuracion.BackgroundImage);
             Invoke(new Action(() => Text = configuracion.Title));

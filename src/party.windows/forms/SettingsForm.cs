@@ -3,14 +3,14 @@
     using System;
     using System.Windows.Forms;
     using party.core.constants;
-    using party.core.model;
-    using party.windows.configuration;
+    using party.core.settings;
+    using party.windows.configuration.settings;
 
     public partial class SettingsForm : Form
     {
-        public Configuracion Configuration { get; protected set; }
+        public SettingsAppData Configuration { get; protected set; }
 
-        public SettingsForm(Configuracion configuracion)
+        public SettingsForm(SettingsAppData configuracion)
         {
             this.Configuration = configuracion;
             InitializeComponent();

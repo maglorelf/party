@@ -1,34 +1,29 @@
 ﻿namespace party.windows.domain
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows.Forms;
-    using party.core.model;
-    using party.windows.configuration;
+    using party.core.settings;
+    using party.windows.configuration.settings;
 
     public class EventRepository
     {
-        public Configuracion Configuration { get; protected set; }
+        public SettingsAppData Configuration { get; protected set; }
         public void Initialize(string path)
         {
             CreateFolder(path);
             Configuration = GenerateConfigurationFile(path);
         }
 
-        private static Configuracion GenerateConfigurationFile(string path)
+        private static SettingsAppData GenerateConfigurationFile(string path)
         {
-            Configuracion configuration = GenerateDefaultConfiguration(path);
+            SettingsAppData configuration = GenerateDefaultConfiguration(path);
             SettingsManager.SaveConfiguration(configuration);
             return configuration;
 
         }
-        private static Configuracion GenerateDefaultConfiguration(string path)
+        private static SettingsAppData GenerateDefaultConfiguration(string path)
         {
-            Configuracion configuracion = new()
+            SettingsAppData configuracion = new()
             {
                 EventPath = path,
                 Title = "Party Events",

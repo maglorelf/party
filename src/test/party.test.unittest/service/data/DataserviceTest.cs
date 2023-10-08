@@ -4,7 +4,7 @@
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Moq;
-    using party.core.model;
+    using party.core.settings;
     using party.service.data;
     using Xunit;
 
@@ -18,12 +18,12 @@
             string filePath = Path.GetTempFileName();
             File.Delete(filePath);
 
-            var options = new Configuracion()
+            var options = new SettingsAppData()
             {
                 EventPath = Path.GetDirectoryName(filePath),
                 DatabaseName = Path.GetFileName(filePath)
             };
-            Mock<IOptionsMonitor<Configuracion>> configurationMock = new(MockBehavior.Strict);
+            Mock<IOptionsMonitor<SettingsAppData>> configurationMock = new(MockBehavior.Strict);
             configurationMock.Setup(m => m.CurrentValue).Returns(options);
             IDataService dataService = new DataService(configurationMock.Object, mockLogger.Object);
             bool actual = dataService.ExistDatabaseFile();
@@ -34,12 +34,12 @@
         public void ExistDatabaseFile_SuccessCheckCreatedFile()
         {
             string filePath = Path.GetTempFileName();
-            var options = new Configuracion()
+            var options = new SettingsAppData()
             {
                 EventPath = Path.GetDirectoryName(filePath),
                 DatabaseName = Path.GetFileName(filePath)
             };
-            Mock<IOptionsMonitor<Configuracion>> configurationMock = new(MockBehavior.Strict);
+            Mock<IOptionsMonitor<SettingsAppData>> configurationMock = new(MockBehavior.Strict);
             configurationMock.Setup(m => m.CurrentValue).Returns(options);
             IDataService dataService = new DataService(configurationMock.Object, mockLogger.Object);
             bool actual = dataService.ExistDatabaseFile();

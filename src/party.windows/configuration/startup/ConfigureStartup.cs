@@ -4,7 +4,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using party.core.model;
+    using party.core.settings;
     using party.service;
     using party.service.data;
     using party.windows.forms;
@@ -31,7 +31,7 @@
         }
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<Configuracion>(configuration.GetSection("SettingsApp"));
+            services.Configure<SettingsAppData>(configuration.GetSection("SettingsApp"));
             services.AddScoped<AttendanceForm>();
 
             services.AddScoped<IProceso, Proceso>();

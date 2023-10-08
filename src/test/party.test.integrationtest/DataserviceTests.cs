@@ -6,7 +6,7 @@ namespace party.test.integrationtest
     using Microsoft.Extensions.Options;
     using Moq;
     using party.core.infrastructure;
-    using party.core.model;
+    using party.core.settings;
     using party.service.data;
     using party.test.integrationtest.setup;
     using party.test.tools.Extensions;
@@ -20,7 +20,7 @@ namespace party.test.integrationtest
         {
             string defaultDatabaseName = "databaseName.db";
             string currentDirectory = System.AppContext.BaseDirectory;
-            IOptionsMonitor<Configuracion> options = new TestOptionsMonitor<Configuracion>(new Configuracion
+            IOptionsMonitor<SettingsAppData> options = new TestOptionsMonitor<SettingsAppData>(new SettingsAppData
             {
                 DatabaseName = defaultDatabaseName,
                 EventPath = currentDirectory
@@ -37,11 +37,11 @@ namespace party.test.integrationtest
         {
             string testFile = "testdata.db".ShallowFileInUniqueFolder();
 
-            IOptionsMonitor<Configuracion> options = new TestOptionsMonitor<Configuracion>(new Configuracion
+            IOptionsMonitor<SettingsAppData> options = new TestOptionsMonitor<SettingsAppData>(new SettingsAppData
             {
                 DatabaseName = Path.GetFileName(testFile),
                 EventPath = Path.GetDirectoryName(testFile)
-            }); ;
+            });
             IDataService dataService = new DataService(options, mockLogger.Object);
             ResultValue<string> checkMessage = dataService.CheckDatabase();
 
@@ -53,11 +53,11 @@ namespace party.test.integrationtest
         {
             string testFile = "testdata.db".ShallowFileInUniqueFolder();
 
-            IOptionsMonitor<Configuracion> options = new TestOptionsMonitor<Configuracion>(new Configuracion
+            IOptionsMonitor<SettingsAppData> options = new TestOptionsMonitor<SettingsAppData>(new SettingsAppData
             {
                 DatabaseName = Path.GetFileName(testFile),
                 EventPath = Path.GetDirectoryName(testFile)
-            }); ;
+            });
             IDataService dataService = new DataService(options, mockLogger.Object);
             using SqliteConnection connection = dataService.CreateConnection();
             connection.Open();
@@ -71,11 +71,11 @@ namespace party.test.integrationtest
         {
             string testFile = "testdata.db".ShallowFileInUniqueFolder();
 
-            IOptionsMonitor<Configuracion> options = new TestOptionsMonitor<Configuracion>(new Configuracion
+            IOptionsMonitor<SettingsAppData> options = new TestOptionsMonitor<SettingsAppData>(new SettingsAppData
             {
                 DatabaseName = Path.GetFileName(testFile),
                 EventPath = Path.GetDirectoryName(testFile)
-            }); ;
+            });
             IDataService dataService = new DataService(options, mockLogger.Object);
             dataService.InitializeDatabase();
             ResultValue<string> checkMessage = dataService.CheckDatabase();
@@ -88,11 +88,11 @@ namespace party.test.integrationtest
         {
             string testFile = "testdata.db".ShallowFileInUniqueFolder();
 
-            IOptionsMonitor<Configuracion> options = new TestOptionsMonitor<Configuracion>(new Configuracion
+            IOptionsMonitor<SettingsAppData> options = new TestOptionsMonitor<SettingsAppData>(new SettingsAppData
             {
                 DatabaseName = Path.GetFileName(testFile),
                 EventPath = Path.GetDirectoryName(testFile)
-            }); ;
+            });
             IDataService dataService = new DataService(options, mockLogger.Object);
             dataService.InitializeDatabase();
             ResultValue<string> checkMessageFirstTime = dataService.CheckDatabase();

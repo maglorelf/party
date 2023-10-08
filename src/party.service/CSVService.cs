@@ -9,12 +9,14 @@
     using System.Threading.Tasks;
     using Microsoft.Extensions.Options;
     using party.core.model;
+    using party.core.settings;
+
     public class CSVService : ICSVService
     {
-        private readonly IOptionsMonitor<Configuracion> configuracion;
+        private readonly IOptionsMonitor<SettingsAppData> configuracion;
         protected string CSVSeparationLetter => configuracion.CurrentValue.CSVSeparationLetter;
 
-        public CSVService(IOptionsMonitor<Configuracion> configuracion)
+        public CSVService(IOptionsMonitor<SettingsAppData> configuracion)
         {
             this.configuracion = configuracion;
         }

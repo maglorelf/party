@@ -5,12 +5,13 @@
     using Microsoft.Extensions.Options;
     using party.core.enums;
     using party.core.model;
+    using party.core.settings;
     using party.service.data;
     public class Proceso : IProceso
     {
-        protected Configuracion Configuracion { get; set; }
+        protected SettingsAppData Configuracion { get; set; }
         protected IDataService DataService { get; set; }
-        public Proceso(IOptionsSnapshot<Configuracion> configuracion, IDataService dataService)
+        public Proceso(IOptionsSnapshot<SettingsAppData> configuracion, IDataService dataService)
         {
             this.Configuracion = configuracion.Value;
             this.DataService = dataService;

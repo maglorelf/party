@@ -8,16 +8,18 @@
     using Microsoft.Extensions.Options;
     using party.core.infrastructure;
     using party.core.model;
+    using party.core.settings;
+
     public class DataService : IDataService
     {
         public const string MessageFileNotExists = "No existe fichero";
         public const string MessageDatabaseNotInitialized = "No está inicializada";
         public const string MessageDatabaseInitialized = "Inicializada";
         public bool DatabaseReady { get; set; }
-        private readonly IOptionsMonitor<Configuracion> configuracion;
+        private readonly IOptionsMonitor<SettingsAppData> configuracion;
         private readonly ILogger<IDataService> logger;
         protected string DatabaseName => Path.Combine(configuracion.CurrentValue.EventPath, configuracion.CurrentValue.DatabaseName);
-        public DataService(IOptionsMonitor<Configuracion> configuracion, ILogger<IDataService> logger)
+        public DataService(IOptionsMonitor<SettingsAppData> configuracion, ILogger<IDataService> logger)
         {
             this.configuracion = configuracion;
             this.logger = logger;
