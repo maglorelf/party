@@ -89,7 +89,6 @@
             db.Open();
             CreateTables(db);
             logger.LogInformation("End Inicialization Database");
-
         }
 
         public void BorrarAsistente(int id)
