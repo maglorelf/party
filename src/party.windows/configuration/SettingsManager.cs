@@ -16,7 +16,6 @@
             {
                 var appSettings = ConfigurationManager.AppSettings;
                 result = appSettings[key] ?? "Not Found";
-
             }
             catch (ConfigurationErrorsException)
             {
@@ -33,7 +32,6 @@
             //}
             SetAppSettingConfiguracionValues(configuration, configuration.ConfigurationFilename);
         }
-
         private static Dictionary<string, object> DictionaryFromType(object atype)
         {
             if (atype == null)
@@ -74,7 +72,6 @@
             var json = System.IO.File.ReadAllText(appSettingsJsonFilePath);
             AppSettings jsonObj = JsonSerializer.Deserialize<AppSettings>(json);
             return jsonObj.SettingsApp;
-
         }
         public static void SetAppSettingValue(string key, string value, string appSettingsJsonFilePath)
         {

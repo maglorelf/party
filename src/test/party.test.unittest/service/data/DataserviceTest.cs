@@ -1,6 +1,7 @@
 ﻿namespace party.test.unittest.service.data
 {
     using System.IO;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Moq;
     using party.core.model;
@@ -9,6 +10,8 @@
 
     public class DataserviceTest
     {
+        private readonly Mock<ILogger<IDataService>> mockLogger = new();
+
         [Fact]
         public void ExistDatabaseFile_FailCheckMissingDatabase()
         {
@@ -22,7 +25,7 @@
             };
             Mock<IOptionsMonitor<Configuracion>> configurationMock = new(MockBehavior.Strict);
             configurationMock.Setup(m => m.CurrentValue).Returns(options);
-            IDataService dataService = new DataService(configurationMock.Object);
+            IDataService dataService = new DataService(configurationMock.Object, mockLogger.Object);
             bool actual = dataService.ExistDatabaseFile();
 
             Assert.False(actual);
@@ -38,7 +41,7 @@
             };
             Mock<IOptionsMonitor<Configuracion>> configurationMock = new(MockBehavior.Strict);
             configurationMock.Setup(m => m.CurrentValue).Returns(options);
-            IDataService dataService = new DataService(configurationMock.Object);
+            IDataService dataService = new DataService(configurationMock.Object, mockLogger.Object);
             bool actual = dataService.ExistDatabaseFile();
 
             Assert.True(actual);
