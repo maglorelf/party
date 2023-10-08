@@ -99,24 +99,24 @@
             {
                 case ResultadoCheck.NoExiste:
                     CambiarBackground(Color.Red);
-                    Log.Logger.Information($"Guest not exists {qr}");
+                    Log.Logger.Information("Guest not exists");
                     MostrarNoExisteInvitado(qr);
                     break;
                 case ResultadoCheck.PuedeEntrar:
                     CambiarBackground(Color.Green);
-                    Log.Logger.Information($"Entry Guest: {resultado.Item2}");
+                    Log.Logger.Information("Entry Guest");
 
                     MostrarInvitado(resultado.Item2);
                     break;
                 case ResultadoCheck.Registrado:
                     CambiarBackground(Color.Orange);
-                    Log.Logger.Information($"Guest yet used {resultado.Item3}");
+                    Log.Logger.Information("Guest yet used");
 
                     MostrarAsistente(resultado.Item3);
                     break;
                 case ResultadoCheck.DatosIncorrectos:
                     CambiarBackground(Color.Orange);
-                    Log.Logger.Information($"Incorrect data of Guest: {resultado.Item2}");
+                    Log.Logger.Information("Incorrect data of Guest");
                     MostrarInvitadoDatosIncorrectos(resultado.Item2);
                     break;
                 case ResultadoCheck.NoValue:
