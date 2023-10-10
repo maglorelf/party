@@ -11,9 +11,7 @@
         public string CSVSeparationLetter { get; set; }
         public string BackgroundImage { get; set; }
         public string Event { get; set; }
-        public string Title { get; set; }
         public Guid EventId { get; set; }
-        public string EventTitle { get; set; }
         public Guid RouteId { get; set; }
         public string RouteName { get; set; }
     }

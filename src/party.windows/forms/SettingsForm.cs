@@ -5,11 +5,9 @@
     using party.core.constants;
     using party.core.settings;
     using party.windows.configuration.settings;
-
     public partial class SettingsForm : Form
     {
         public SettingsAppData Configuration { get; protected set; }
-
         public SettingsForm(SettingsAppData configuracion)
         {
             this.Configuration = configuracion;
@@ -17,26 +15,25 @@
 
             UpdateFields();
         }
-
         private void UpdateFields()
         {
-            TituloText.Text = Configuration.Title;
             PathText.Text = Configuration.EventPath;
             DatabaseText.Text = Configuration.DatabaseName;
             EventoText.Text = Configuration.Event;
+            RouteCombo.Text = Configuration.RouteName;
             SeparadorCSVText.Text = Configuration.CSVSeparationLetter;
             BackgroundText.Text = Configuration.BackgroundImage;
         }
-
         private void ButtonGuardar_Click(object sender, EventArgs e)
         {
             (bool validForm, string messageInvalidation) = ValidateForm();
             if (validForm)
             {
-                Configuration.EventPath = PathText.Text;
-                Configuration.Title = TituloText.Text;
-                Configuration.DatabaseName = DatabaseText.Text;
                 Configuration.Event = EventoText.Text;
+                Configuration.RouteName = RouteCombo.Text;
+                //Configuration.RouteId = RouteCombo.SelectedItem.Text;
+                Configuration.EventPath = PathText.Text;
+                Configuration.DatabaseName = DatabaseText.Text;
                 Configuration.CSVSeparationLetter = SeparadorCSVText.Text;
                 Configuration.BackgroundImage = BackgroundText.Text;
 
@@ -51,7 +48,6 @@
                 this.DialogResult = DialogResult.None;
             }
         }
-
         private (bool validForm, string messageInvalidation) ValidateForm()
         {
             bool valid = true;
@@ -63,7 +59,6 @@
             }
             return (valid, message);
         }
-
         private void SelectDatabaseButton_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new()
@@ -76,7 +71,6 @@
                 DatabaseText.Text = saveFileDialog.FileName;
             }
         }
-
         private void SelectBackgroundButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new()
@@ -89,7 +83,6 @@
                 BackgroundText.Text = openFileDialog.FileName;
             }
         }
-
         private void SelectEventPathButton_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrowserDialog = new();
@@ -99,7 +92,6 @@
                 PathText.Text = folderBrowserDialog.SelectedPath;
             }
         }
-
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (this.DialogResult == DialogResult.None)

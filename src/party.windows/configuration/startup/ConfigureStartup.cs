@@ -11,7 +11,6 @@
     using Serilog;
 
     public static class ConfigureStartup
-
     {
         public static IHost Startup()
         {
@@ -33,7 +32,6 @@
         {
             services.Configure<SettingsAppData>(configuration.GetSection("SettingsApp"));
             services.AddScoped<AttendanceForm>();
-
             services.AddScoped<IProceso, Proceso>();
             services.AddScoped<IDataService, DataService>();
             services.AddScoped<ICSVService, CSVService>();

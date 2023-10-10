@@ -59,8 +59,8 @@
         private void SetScreenSettings(SettingsAppData configuracion)
         {
             BackgroundImage = LoadImage(configuracion.BackgroundImage);
-            Invoke(new Action(() => Text = configuracion.Title));
-            Evento.Invoke(new Action(() => Evento.Text = configuracion.Event));
+            Invoke(new Action(() => Text = configuracion.Event));
+            Evento.Invoke(new Action(() => Evento.Text = configuracion.RouteName));
         }
 
         private static Image LoadImage(string imagePath)
@@ -356,9 +356,11 @@
             if (dialogResult == DialogResult.OK)
             {
                 Configuracion.CurrentValue.EventPath = settingsForm.Configuration.EventPath;
-                Configuracion.CurrentValue.Title = settingsForm.Configuration.Title;
                 Configuracion.CurrentValue.DatabaseName = settingsForm.Configuration.DatabaseName;
                 Configuracion.CurrentValue.Event = settingsForm.Configuration.Event;
+                Configuracion.CurrentValue.EventId = settingsForm.Configuration.EventId;
+                Configuracion.CurrentValue.RouteId = settingsForm.Configuration.RouteId;
+                Configuracion.CurrentValue.RouteName = settingsForm.Configuration.RouteName;
                 Configuracion.CurrentValue.CSVSeparationLetter = settingsForm.Configuration.CSVSeparationLetter;
                 Configuracion.CurrentValue.BackgroundImage = settingsForm.Configuration.BackgroundImage;
                 Initialize();
@@ -375,16 +377,16 @@
             Event @event = dataService.GetCurrentEvent();
             if (string.IsNullOrEmpty(@event.Title))
             {
-                @event.Title = Configuracion.CurrentValue.Title;
+                @event.Title = Configuracion.CurrentValue.Event;
             }
             EventForm eventForm = new(@event);
             DialogResult dialogResult = eventForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
                 dataService.UpdateDataEvent(@event);
-                if (Configuracion.CurrentValue.Title != eventForm.Event.Title)
+                if (Configuracion.CurrentValue.Event != eventForm.Event.Title)
                 {
-                    Configuracion.CurrentValue.Title = eventForm.Event.Title;
+                    Configuracion.CurrentValue.Event = eventForm.Event.Title;
                     Initialize();
                 }
             }

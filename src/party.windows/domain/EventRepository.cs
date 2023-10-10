@@ -26,9 +26,10 @@
             SettingsAppData configuracion = new()
             {
                 EventPath = path,
-                Title = "Party Events",
+                Event = "Party Events",
+                EventId = Guid.NewGuid(),
                 DatabaseName = System.IO.Path.Combine(path, "eventDatabase.db"),
-                Event = "Event Local 1",
+                RouteName = "Event Local 1",
                 CSVSeparationLetter = ";",
                 BackgroundImage = System.IO.Path.Combine(AppContext.BaseDirectory, "images\\Background.jpg")
             };

@@ -12,7 +12,8 @@
         }
         public static bool HasBasicValues(this SettingsAppData configuracion)
         {
-            bool hasBasicValues = configuracion.ExistsConfiguration() && configuracion.DatabaseName.EndsWith(SQLiteConstants.DefaultExtension);
+            bool hasBasicValues = configuracion.ExistsConfiguration() &&
+                                  configuracion.DatabaseName.EndsWith(SQLiteConstants.DefaultExtension);
             return hasBasicValues;
         }
         public static void RefreshFromInfo(this SettingsAppData configuracion)
