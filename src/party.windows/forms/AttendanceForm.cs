@@ -351,7 +351,7 @@
         }
         protected void ActualizarSettings()
         {
-            SettingsForm settingsForm = new(Configuracion.CurrentValue);
+            SettingsForm settingsForm = new(Configuracion.CurrentValue, dataService);
             DialogResult dialogResult = settingsForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {

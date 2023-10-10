@@ -248,6 +248,7 @@
             // 
             // RouteCombo
             // 
+            RouteCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             RouteCombo.Enabled = false;
             RouteCombo.FormattingEnabled = true;
             RouteCombo.Location = new System.Drawing.Point(206, 98);
