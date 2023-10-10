@@ -389,6 +389,7 @@
                     Configuracion.CurrentValue.Event = eventForm.Event.Title;
                     Initialize();
                 }
+                Configuracion.CurrentValue.EventId = eventForm.Event.Id;
             }
             eventForm.Dispose();
         }
