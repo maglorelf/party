@@ -8,6 +8,7 @@
     using party.core.enums;
     using party.core.infrastructure;
     using party.core.model;
+    using party.core.settings;
     using party.service;
     using party.service.data;
     using party.windows.infrastructure.extensions;
@@ -15,12 +16,12 @@
 
     public partial class AttendanceForm : Form
     {
-        protected IOptionsMonitor<Configuracion> Configuracion { get; set; }
+        protected IOptionsMonitor<SettingsAppData> Configuracion { get; set; }
         private readonly IProceso proceso;
         private readonly IDataService dataService;
         private readonly ICSVService csvService;
         public Invitado InvitadoTemporal { get; private set; }
-        public AttendanceForm(IOptionsMonitor<Configuracion> configuracion, IProceso proceso, ICSVService csvService, IDataService dataService)
+        public AttendanceForm(IOptionsMonitor<SettingsAppData> configuracion, IProceso proceso, ICSVService csvService, IDataService dataService)
         {
             Configuracion = configuracion;
             Configuracion.OnChange(conf => Initialize());
@@ -45,7 +46,7 @@
         }
         private void UpdateConfiguracion()
         {
-            Configuracion existingConfiguration = Configuracion.CurrentValue;
+            SettingsAppData existingConfiguration = Configuracion.CurrentValue;
             if (existingConfiguration.ExistsConfiguration())
             {
                 existingConfiguration.RefreshFromInfo();
@@ -55,11 +56,11 @@
                 ActualizarSettings();
             }
         }
-        private void SetScreenSettings(Configuracion configuracion)
+        private void SetScreenSettings(SettingsAppData configuracion)
         {
             BackgroundImage = LoadImage(configuracion.BackgroundImage);
-            Invoke(new Action(() => Text = configuracion.Title));
-            Evento.Invoke(new Action(() => Evento.Text = configuracion.Event));
+            Invoke(new Action(() => Text = configuracion.Event));
+            Evento.Invoke(new Action(() => Evento.Text = configuracion.RouteName));
         }
 
         private static Image LoadImage(string imagePath)
@@ -350,14 +351,16 @@
         }
         protected void ActualizarSettings()
         {
-            SettingsForm settingsForm = new(Configuracion.CurrentValue);
+            SettingsForm settingsForm = new(Configuracion.CurrentValue, dataService);
             DialogResult dialogResult = settingsForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
                 Configuracion.CurrentValue.EventPath = settingsForm.Configuration.EventPath;
-                Configuracion.CurrentValue.Title = settingsForm.Configuration.Title;
                 Configuracion.CurrentValue.DatabaseName = settingsForm.Configuration.DatabaseName;
                 Configuracion.CurrentValue.Event = settingsForm.Configuration.Event;
+                Configuracion.CurrentValue.EventId = settingsForm.Configuration.EventId;
+                Configuracion.CurrentValue.RouteId = settingsForm.Configuration.RouteId;
+                Configuracion.CurrentValue.RouteName = settingsForm.Configuration.RouteName;
                 Configuracion.CurrentValue.CSVSeparationLetter = settingsForm.Configuration.CSVSeparationLetter;
                 Configuracion.CurrentValue.BackgroundImage = settingsForm.Configuration.BackgroundImage;
                 Initialize();
@@ -374,18 +377,19 @@
             Event @event = dataService.GetCurrentEvent();
             if (string.IsNullOrEmpty(@event.Title))
             {
-                @event.Title = Configuracion.CurrentValue.Title;
+                @event.Title = Configuracion.CurrentValue.Event;
             }
             EventForm eventForm = new(@event);
             DialogResult dialogResult = eventForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
                 dataService.UpdateDataEvent(@event);
-                if (Configuracion.CurrentValue.Title != eventForm.Event.Title)
+                if (Configuracion.CurrentValue.Event != eventForm.Event.Title)
                 {
-                    Configuracion.CurrentValue.Title = eventForm.Event.Title;
+                    Configuracion.CurrentValue.Event = eventForm.Event.Title;
                     Initialize();
                 }
+                Configuracion.CurrentValue.EventId = eventForm.Event.Id;
             }
             eventForm.Dispose();
         }

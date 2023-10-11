@@ -1,42 +1,73 @@
 ﻿namespace party.windows.forms
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Windows.Forms;
     using party.core.constants;
     using party.core.model;
-    using party.windows.configuration;
-
+    using party.core.settings;
+    using party.service.data;
+    using party.windows.configuration.settings;
     public partial class SettingsForm : Form
     {
-        public Configuracion Configuration { get; protected set; }
-
-        public SettingsForm(Configuracion configuracion)
+        public SettingsAppData Configuration { get; protected set; }
+        private readonly IDataService dataService;
+        public SettingsForm(SettingsAppData configuracion, IDataService dataService)
         {
             this.Configuration = configuracion;
+            this.dataService = dataService;
             InitializeComponent();
 
             UpdateFields();
         }
-
         private void UpdateFields()
         {
-            TituloText.Text = Configuration.Title;
+
             PathText.Text = Configuration.EventPath;
             DatabaseText.Text = Configuration.DatabaseName;
             EventoText.Text = Configuration.Event;
             SeparadorCSVText.Text = Configuration.CSVSeparationLetter;
             BackgroundText.Text = Configuration.BackgroundImage;
+            FillRouteCombo();
         }
-
+        private void FillRouteCombo()
+        {
+            RouteCombo.Enabled = false;
+            if (dataService.ExistDatabaseFile() && dataService.CheckDatabase().Success)
+            {
+                List<Route> routes = dataService.GetAllRoutesOfEvent(Configuration.EventId);
+                if (routes != null && routes.Count > 0)
+                {
+                    RouteCombo.Enabled = true;
+                    RouteCombo.Items.Clear();
+                    RouteCombo.DataSource = new BindingSource(routes, null);
+                    RouteCombo.DisplayMember = nameof(Route.Name);
+                    RouteCombo.ValueMember = nameof(Route.Id);
+                    if (routes.Any(route => route.Id == Configuration.RouteId))
+                    {
+                        RouteCombo.SelectedValue = Configuration.RouteId;
+                    }
+                    else
+                    {
+                        RouteCombo.SelectedItem = routes.First();
+                    }
+                }
+            }
+        }
         private void ButtonGuardar_Click(object sender, EventArgs e)
         {
             (bool validForm, string messageInvalidation) = ValidateForm();
             if (validForm)
             {
-                Configuration.EventPath = PathText.Text;
-                Configuration.Title = TituloText.Text;
-                Configuration.DatabaseName = DatabaseText.Text;
                 Configuration.Event = EventoText.Text;
+                if (RouteCombo.SelectedItem != null)
+                {
+                    Configuration.RouteName = ((Route)RouteCombo.SelectedItem).Name;
+                    Configuration.RouteId = ((Route)RouteCombo.SelectedItem).Id;
+                }
+                Configuration.EventPath = PathText.Text;
+                Configuration.DatabaseName = DatabaseText.Text;
                 Configuration.CSVSeparationLetter = SeparadorCSVText.Text;
                 Configuration.BackgroundImage = BackgroundText.Text;
 
@@ -51,7 +82,6 @@
                 this.DialogResult = DialogResult.None;
             }
         }
-
         private (bool validForm, string messageInvalidation) ValidateForm()
         {
             bool valid = true;
@@ -63,7 +93,6 @@
             }
             return (valid, message);
         }
-
         private void SelectDatabaseButton_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new()
@@ -76,7 +105,6 @@
                 DatabaseText.Text = saveFileDialog.FileName;
             }
         }
-
         private void SelectBackgroundButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new()
@@ -89,7 +117,6 @@
                 BackgroundText.Text = openFileDialog.FileName;
             }
         }
-
         private void SelectEventPathButton_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrowserDialog = new();
@@ -99,7 +126,6 @@
                 PathText.Text = folderBrowserDialog.SelectedPath;
             }
         }
-
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (this.DialogResult == DialogResult.None)

@@ -3,13 +3,14 @@
     using System;
     using System.Windows.Forms;
     using party.core.model;
+    using party.core.settings;
     using party.service.data;
 
     public partial class NuevoInvitadoForm : Form
     {
         protected IDataService DataService { get; set; }
-        protected Configuracion Configuracion { get; set; }
-        public NuevoInvitadoForm(IDataService dataService, Configuracion configuracion)
+        protected SettingsAppData Configuracion { get; set; }
+        public NuevoInvitadoForm(IDataService dataService, SettingsAppData configuracion)
         {
             InitializeComponent();
             this.DataService = dataService;
